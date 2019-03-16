@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="testdbModelStoreContainer" CdmEntityContainer="testdbEntiies">
+    <EntitySetMapping Name="creators">
+      <EntityTypeMapping TypeName="testdbModel.creator">
+        <MappingFragment StoreEntitySet="creator">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="c_password" ColumnName="c_password" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="accfuctionals">
+      <EntityTypeMapping TypeName="testdbModel.accfuctional">
+        <MappingFragment StoreEntitySet="accfuctional">
+          <ScalarProperty Name="AccF_password" ColumnName="AccF_password" />
+          <ScalarProperty Name="AccF_userNumber" ColumnName="AccF_userNumber" />
+          <ScalarProperty Name="AccF_Qualification" ColumnName="AccF_Qualification" />
+          <ScalarProperty Name="AccF_PasswordName" ColumnName="AccF_PasswordName" />
+          <ScalarProperty Name="AccF_Gender" ColumnName="AccF_Gender" />
+          <ScalarProperty Name="AccF_Email" ColumnName="AccF_Email" />
+          <ScalarProperty Name="AccF_Pic" ColumnName="AccF_Pic" />
+          <ScalarProperty Name="AccF_Address" ColumnName="AccF_Address" />
+          <ScalarProperty Name="AccF_Phone" ColumnName="AccF_Phone" />
+          <ScalarProperty Name="AccF_CNIC" ColumnName="AccF_CNIC" />
+          <ScalarProperty Name="AccF_DOB" ColumnName="AccF_DOB" />
+          <ScalarProperty Name="AccF_LName" ColumnName="AccF_LName" />
+          <ScalarProperty Name="AccF_FName" ColumnName="AccF_FName" />
+          <ScalarProperty Name="AccF_MsID" ColumnName="AccF_MsID" />
+          <ScalarProperty Name="AccF_ID" ColumnName="AccF_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="classes">
+      <EntityTypeMapping TypeName="testdbModel.class">
+        <MappingFragment StoreEntitySet="classes">
+          <ScalarProperty Name="MS_id" ColumnName="MS_id" />
+          <ScalarProperty Name="Class_Name" ColumnName="Class_Name" />
+          <ScalarProperty Name="Class_Fee" ColumnName="Class_Fee" />
+          <ScalarProperty Name="Class_ID" ColumnName="Class_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hrfuctionals">
+      <EntityTypeMapping TypeName="testdbModel.hrfuctional">
+        <MappingFragment StoreEntitySet="hrfuctional">
+          <ScalarProperty Name="HrF_password" ColumnName="HrF_password" />
+          <ScalarProperty Name="HrF_userNumber" ColumnName="HrF_userNumber" />
+          <ScalarProperty Name="HrF_Qualification" ColumnName="HrF_Qualification" />
+          <ScalarProperty Name="HrF_PasswordName" ColumnName="HrF_PasswordName" />
+          <ScalarProperty Name="HrF_Gender" ColumnName="HrF_Gender" />
+          <ScalarProperty Name="HrF_Email" ColumnName="HrF_Email" />
+          <ScalarProperty Name="HrF_Pic" ColumnName="HrF_Pic" />
+          <ScalarProperty Name="HrF_Address" ColumnName="HrF_Address" />
+          <ScalarProperty Name="HrF_Phone" ColumnName="HrF_Phone" />
+          <ScalarProperty Name="HrF_CNIC" ColumnName="HrF_CNIC" />
+          <ScalarProperty Name="HrF_DOB" ColumnName="HrF_DOB" />
+          <ScalarProperty Name="HrF_LName" ColumnName="HrF_LName" />
+          <ScalarProperty Name="HrF_FName" ColumnName="HrF_FName" />
+          <ScalarProperty Name="HrF_MsID" ColumnName="HrF_MsID" />
+          <ScalarProperty Name="HrF_ID" ColumnName="HrF_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ms">
+      <EntityTypeMapping TypeName="testdbModel.m">
+        <MappingFragment StoreEntitySet="ms">
+          <ScalarProperty Name="MS_InstBranch" ColumnName="MS_InstBranch" />
+          <ScalarProperty Name="MS_logo" ColumnName="MS_logo" />
+          <ScalarProperty Name="MS_InstPhone" ColumnName="MS_InstPhone" />
+          <ScalarProperty Name="MS_InstAddress" ColumnName="MS_InstAddress" />
+          <ScalarProperty Name="MS_InstName" ColumnName="MS_InstName" />
+          <ScalarProperty Name="C_ID" ColumnName="C_ID" />
+          <ScalarProperty Name="MS_ID" ColumnName="MS_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="roledatas">
+      <EntityTypeMapping TypeName="testdbModel.roledata">
+        <MappingFragment StoreEntitySet="roledata">
+          <ScalarProperty Name="MS_iid" ColumnName="MS_iid" />
+          <ScalarProperty Name="Role_PendingFee" ColumnName="Role_PendingFee" />
+          <ScalarProperty Name="Role_FthrPhone" ColumnName="Role_FthrPhone" />
+          <ScalarProperty Name="Role_FthrCNIC" ColumnName="Role_FthrCNIC" />
+          <ScalarProperty Name="Role_FthrName" ColumnName="Role_FthrName" />
+          <ScalarProperty Name="Role_pay" ColumnName="Role_pay" />
+          <ScalarProperty Name="Role_Address" ColumnName="Role_Address" />
+          <ScalarProperty Name="Role_Phone" ColumnName="Role_Phone" />
+          <ScalarProperty Name="Role_FmailyID" ColumnName="Role_FmailyID" />
+          <ScalarProperty Name="Role_CNIC" ColumnName="Role_CNIC" />
+          <ScalarProperty Name="Role_Email" ColumnName="Role_Email" />
+          <ScalarProperty Name="Role_Qualif" ColumnName="Role_Qualif" />
+          <ScalarProperty Name="Role_Pic" ColumnName="Role_Pic" />
+          <ScalarProperty Name="Role_Gender" ColumnName="Role_Gender" />
+          <ScalarProperty Name="Role_Dob" ColumnName="Role_Dob" />
+          <ScalarProperty Name="Role_Lname" ColumnName="Role_Lname" />
+          <ScalarProperty Name="Role_Fname" ColumnName="Role_Fname" />
+          <ScalarProperty Name="Role_Portal" ColumnName="Role_Portal" />
+          <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
+          <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="subjects">
+      <EntityTypeMapping TypeName="testdbModel.subject">
+        <MappingFragment StoreEntitySet="subjects">
+          <ScalarProperty Name="Cls_id" ColumnName="Cls_id" />
+          <ScalarProperty Name="Subj_name" ColumnName="Subj_name" />
+          <ScalarProperty Name="Subj_ID" ColumnName="Subj_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="role_funcdata">
+      <EntityTypeMapping TypeName="testdbModel.role_funcdata">
+        <MappingFragment StoreEntitySet="role_funcdata">
+          <ScalarProperty Name="updateHRpay" ColumnName="updateHRpay" />
+          <ScalarProperty Name="updateclassfee" ColumnName="updateclassfee" />
+          <ScalarProperty Name="TrackAccProgress" ColumnName="TrackAccProgress" />
+          <ScalarProperty Name="addHR" ColumnName="addHR" />
+          <ScalarProperty Name="updateHR" ColumnName="updateHR" />
+          <ScalarProperty Name="UpdateStudent" ColumnName="UpdateStudent" />
+          <ScalarProperty Name="DeleteStudent" ColumnName="DeleteStudent" />
+          <ScalarProperty Name="AddStudent" ColumnName="AddStudent" />
+          <ScalarProperty Name="GiveNotification" ColumnName="GiveNotification" />
+          <ScalarProperty Name="ViewChallan" ColumnName="ViewChallan" />
+          <ScalarProperty Name="ViewNotification" ColumnName="ViewNotification" />
+          <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+          <ScalarProperty Name="fun_id" ColumnName="fun_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="studfuctionals">
+      <EntityTypeMapping TypeName="testdbModel.studfuctional">
+        <MappingFragment StoreEntitySet="studfuctional">
+          <ScalarProperty Name="studF_password" ColumnName="studF_password" />
+          <ScalarProperty Name="studF_RollNO" ColumnName="studF_RollNO" />
+          <ScalarProperty Name="studF_PendingFee" ColumnName="studF_PendingFee" />
+          <ScalarProperty Name="studF_GuardContact" ColumnName="studF_GuardContact" />
+          <ScalarProperty Name="studF_GuardCNIC" ColumnName="studF_GuardCNIC" />
+          <ScalarProperty Name="studF_GuardName" ColumnName="studF_GuardName" />
+          <ScalarProperty Name="studF_Gender" ColumnName="studF_Gender" />
+          <ScalarProperty Name="studF_Email" ColumnName="studF_Email" />
+          <ScalarProperty Name="studF_Pic" ColumnName="studF_Pic" />
+          <ScalarProperty Name="studF_Address" ColumnName="studF_Address" />
+          <ScalarProperty Name="studF_Phone" ColumnName="studF_Phone" />
+          <ScalarProperty Name="studF_CNIC" ColumnName="studF_CNIC" />
+          <ScalarProperty Name="studF_DOB" ColumnName="studF_DOB" />
+          <ScalarProperty Name="studF_LName" ColumnName="studF_LName" />
+          <ScalarProperty Name="studF_FName" ColumnName="studF_FName" />
+          <ScalarProperty Name="studF_SectionName" ColumnName="studF_SectionName" />
+          <ScalarProperty Name="studF_ClassName" ColumnName="studF_ClassName" />
+          <ScalarProperty Name="studF_MSID" ColumnName="studF_MSID" />
+          <ScalarProperty Name="studF_FamilyID" ColumnName="studF_FamilyID" />
+          <ScalarProperty Name="studF_ID" ColumnName="studF_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

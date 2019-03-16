@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Elisyam - Confirm Email</title>
+    <meta name="description" content="Elisyam is a Web App and Admin Dashboard Template built with Bootstrap 4">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Google Fonts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Montserrat:400,500,600,700", "Noto+Sans:400,700"] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Content/assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/img/favicon-16x16.png">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="~/Content/assets/vendors/css/base/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/assets/vendors/css/base/elisyam-1.2.min.css">
+    <!-- Tweaks for older IEs-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<body class="bg-fixed-07">
+    <!-- Begin Preloader -->
+    <div id="preloader">
+        <div class="canvas">
+            <img src="~/Content/assets/img/logo.png" alt="logo" class="loader-logo">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid h-100 overflow-y">
+        <div class="row flex-row h-100">
+            <div class="col-12 my-auto">
+                <!-- Form -->
+                @using (Html.BeginForm("HRAttributes", "Creator"))
+                {
+
+                    <div class="widget has-shadow mx-auto" style="width: 900px;">
+                        <div class="widget-header bordered no-actions d-flex align-items-center justify-content-md-center">
+                            <h4>Verify the HR Attributes of  of your System</h4>
+                        </div>
+                        <div class="widget-body ">
+                            <form class="form-horizontal ">
+
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="Admin" id="firstnamee" checked="checked" class="form-control" readonly>
+                                    <label for="remeber">First Name </label>
+                                </div>
+
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="Student" id="lastnamee" checked="checked" class="form-control" readonly>
+                                    <label for="remeber">Last Name </label>
+                                </div>
+
+
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="Student" id="fathrnamee" checked="checked" class="form-control" readonly>
+                                    <label for="remeber">Father Name</label>
+                                </div>
+
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="Student" id="phonneno" checked="checked" class="form-control" readonly>
+                                    <label for="remeber">Phone Number</label>
+                                </div>
+
+
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="DOB" value="true" id="DOB_ID" class="form-control">
+                                    <label for="DOB_ID">Date of Birth</label>
+                                </div>
+
+
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="Address" value="true" id="Address_ID" class="form-control">
+                                    <label for="Address_ID">Address</label>
+                                </div>
+
+
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="CNIC" value="true" id="CNIC_ID" class="form-control">
+                                    <label for="CNIC_ID">CNIC</label>
+                                </div>
+
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="Gender" value="true" id="Gender_ID" class="form-control">
+                                    <label for="Gender_ID">Gender</label>
+                                </div>
+
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="pic" value="true" id="pic_ID" class="form-control">
+                                    <label for="pic_ID">Picture</label>
+                                </div>
+
+
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="Qualification" value="true" id="Qualification_ID" class="form-control">
+                                    <label for="Qualification_ID">Qualification</label>
+                                </div>
+
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="Portal" value="true" id="Portal_ID" class="form-control">
+                                    <label for="Portal_ID">Portal</label>
+                                </div>
+
+                              
+
+                                <div class="sign-btn text-center">
+                                    <br>
+                                    <br>
+
+                                    <input type="submit" value="Next" class="btn" />
+
+
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+                <!-- End Form -->
+                }
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <script src="~/Content/assets/vendors/js/base/jquery.min.js"></script>
+    <script src="~/Content/assets/vendors/js/base/core.min.js"></script>
+    <!-- End Vendor Js -->
+    <!-- Begin Page Vendor Js -->
+    <script src="~/Content/assets/vendors/js/app/app.min.js"></script>
+</body>
+
+</html>

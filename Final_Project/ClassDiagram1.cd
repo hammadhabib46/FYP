@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Final_Project.RouteConfig">
+    <Position X="0.5" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\RouteConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.MvcApplication">
+    <Position X="12.5" Y="8" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Global.asax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Controllers.AdminController">
+    <Position X="0.5" Y="0.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAQAAAAQAAAQMAAAAAAAA=</HashCode>
+      <FileName>Controllers\AdminController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Controllers.CreatorController">
+    <Position X="18.25" Y="0.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>ACAACAAAQCAAAAAAQAAAAOAQAgBAAAAAAgAUAAAAAAE=</HashCode>
+      <FileName>Controllers\CreatorController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Controllers.HomeController">
+    <Position X="3.75" Y="7.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAACAAAAAAAAABAAAAAAQAAAAEAAAAABAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Controllers.StudentController">
+    <Position X="9.75" Y="9" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\StudentController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Models.CreatorLogin">
+    <Position X="15.5" Y="9.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAEAAAA=</HashCode>
+      <FileName>Models\CreatorLogin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Models.CreatorSignUp">
+    <Position X="19.75" Y="5.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAgAEAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAg=</HashCode>
+      <FileName>Models\CreatorSignUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Models.testdbEntiies">
+    <Position X="6.5" Y="3.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAgAQARAIAEAAAAECAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Models\Modellogin.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Models.accfuctional">
+    <Position X="15.25" Y="2.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAADAAAAAiAAIACAIAABAAAAAAAiAAIAAAEAA=</HashCode>
+      <FileName>Models\accfuctional.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Models.@class">
+    <Position X="15.25" Y="6.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAIAEAAAABAAAAAAAAAIgAAAAAAAAA=</HashCode>
+      <FileName>Models\class.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Models.creator">
+    <Position X="4.25" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAhAAAAgAAAAAAAAAAAAAAAAAAQAAAAAAgA=</HashCode>
+      <FileName>Models\creator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Models.hrfuctional">
+    <Position X="0.5" Y="5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAFAAAAAAAAAAAAAAAAEABCAAQAAgACAACRBAE=</HashCode>
+      <FileName>Models\hrfuctional.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Models.m">
+    <Position X="3.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQABAIAEEAAAACAQAgAAAAAABCEAAAE=</HashCode>
+      <FileName>Models\m.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Models.role_funcdata">
+    <Position X="0.5" Y="9.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAlAACAAAAAEAAAIAIAAAgAAAAAACAAAAwIAAAAAAAA=</HashCode>
+      <FileName>Models\role_funcdata.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Models.roledata">
+    <Position X="12.5" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAgEAAAAQAACAABIJAAAAAAgqAgIBIQIBAAA=</HashCode>
+      <FileName>Models\roledata.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Models.studfuctional">
+    <Position X="9.25" Y="3.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AQAAAEIQAAAAAAQAAYEAABAEAgAIAAAEEhgEGEAAAAA=</HashCode>
+      <FileName>Models\studfuctional.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Models.subject">
+    <Position X="7.25" Y="9" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAIAggAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\subject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Models.Rolevalues">
+    <Position X="7" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABQAAgAAAAAAAAAQABAQABAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Models\Rolevalues.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Final_Project.Controllers.CopyOfHomeController" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAACAAAAAAAAABAAAAAAQAAAAEAAAAABAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

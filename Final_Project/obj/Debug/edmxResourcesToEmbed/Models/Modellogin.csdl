@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="testdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="creator">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lastname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="c_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ms" Relationship="testdbModel.fkid" FromRole="creator" ToRole="m" />
+  </EntityType>
+  <EntityContainer Name="testdbEntiies" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="creators" EntityType="Self.creator" />
+    <EntitySet Name="accfuctionals" EntityType="testdbModel.accfuctional" />
+    <EntitySet Name="classes" EntityType="testdbModel.class" />
+    <EntitySet Name="hrfuctionals" EntityType="testdbModel.hrfuctional" />
+    <EntitySet Name="ms" EntityType="testdbModel.m" />
+    <EntitySet Name="roledatas" EntityType="testdbModel.roledata" />
+    <EntitySet Name="subjects" EntityType="testdbModel.subject" />
+    <AssociationSet Name="foAccS" Association="testdbModel.foAccS">
+      <End Role="m" EntitySet="ms" />
+      <End Role="accfuctional" EntitySet="accfuctionals" />
+    </AssociationSet>
+    <AssociationSet Name="fk" Association="testdbModel.fk">
+      <End Role="m" EntitySet="ms" />
+      <End Role="class" EntitySet="classes" />
+    </AssociationSet>
+    <AssociationSet Name="fkm" Association="testdbModel.fkm">
+      <End Role="class" EntitySet="classes" />
+      <End Role="subject" EntitySet="subjects" />
+    </AssociationSet>
+    <AssociationSet Name="fkid" Association="testdbModel.fkid">
+      <End Role="creator" EntitySet="creators" />
+      <End Role="m" EntitySet="ms" />
+    </AssociationSet>
+    <AssociationSet Name="foHrS" Association="testdbModel.foHrS">
+      <End Role="m" EntitySet="ms" />
+      <End Role="hrfuctional" EntitySet="hrfuctionals" />
+    </AssociationSet>
+    <AssociationSet Name="fik" Association="testdbModel.fik">
+      <End Role="m" EntitySet="ms" />
+      <End Role="roledata" EntitySet="roledatas" />
+    </AssociationSet>
+    <EntitySet Name="role_funcdata" EntityType="testdbModel.role_funcdata" />
+    <AssociationSet Name="fooik" Association="testdbModel.fooik">
+      <End Role="roledata" EntitySet="roledatas" />
+      <End Role="role_funcdata" EntitySet="role_funcdata" />
+    </AssociationSet>
+    <EntitySet Name="studfuctionals" EntityType="testdbModel.studfuctional" />
+    <AssociationSet Name="foMS" Association="testdbModel.foMS">
+      <End Role="m" EntitySet="ms" />
+      <End Role="studfuctional" EntitySet="studfuctionals" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="accfuctional">
+    <Key>
+      <PropertyRef Name="AccF_ID" />
+    </Key>
+    <Property Name="AccF_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AccF_MsID" Type="Int32" Nullable="false" />
+    <Property Name="AccF_FName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="AccF_LName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="AccF_DOB" Type="DateTime" />
+    <Property Name="AccF_CNIC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="AccF_Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="AccF_Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="AccF_Pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="AccF_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="AccF_Gender" Type="Boolean" />
+    <Property Name="AccF_PasswordName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="AccF_Qualification" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="AccF_userNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="AccF_password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="m" Relationship="testdbModel.foAccS" FromRole="accfuctional" ToRole="m" />
+  </EntityType>
+  <EntityType Name="class">
+    <Key>
+      <PropertyRef Name="Class_ID" />
+    </Key>
+    <Property Name="Class_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Class_Fee" Type="Double" />
+    <Property Name="Class_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="MS_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="m" Relationship="testdbModel.fk" FromRole="class" ToRole="m" />
+    <NavigationProperty Name="subjects" Relationship="testdbModel.fkm" FromRole="class" ToRole="subject" />
+  </EntityType>
+  <EntityType Name="hrfuctional">
+    <Key>
+      <PropertyRef Name="HrF_ID" />
+    </Key>
+    <Property Name="HrF_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HrF_MsID" Type="Int32" Nullable="false" />
+    <Property Name="HrF_FName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="HrF_LName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="HrF_DOB" Type="DateTime" />
+    <Property Name="HrF_CNIC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="HrF_Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="HrF_Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="HrF_Pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="HrF_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="HrF_Gender" Type="Boolean" />
+    <Property Name="HrF_PasswordName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="HrF_Qualification" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="HrF_userNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="HrF_password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="m" Relationship="testdbModel.foHrS" FromRole="hrfuctional" ToRole="m" />
+  </EntityType>
+  <EntityType Name="m">
+    <Key>
+      <PropertyRef Name="MS_ID" />
+    </Key>
+    <Property Name="MS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="C_ID" Type="Int64" Nullable="false" />
+    <Property Name="MS_InstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="MS_InstAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="MS_InstPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="MS_logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="MS_InstBranch" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="accfuctionals" Relationship="testdbModel.foAccS" FromRole="m" ToRole="accfuctional" />
+    <NavigationProperty Name="classes" Relationship="testdbModel.fk" FromRole="m" ToRole="class" />
+    <NavigationProperty Name="creator" Relationship="testdbModel.fkid" FromRole="m" ToRole="creator" />
+    <NavigationProperty Name="hrfuctionals" Relationship="testdbModel.foHrS" FromRole="m" ToRole="hrfuctional" />
+    <NavigationProperty Name="roledatas" Relationship="testdbModel.fik" FromRole="m" ToRole="roledata" />
+    <NavigationProperty Name="studfuctionals" Relationship="testdbModel.foMS" FromRole="m" ToRole="studfuctional" />
+  </EntityType>
+  <EntityType Name="roledata">
+    <Key>
+      <PropertyRef Name="Role_ID" />
+    </Key>
+    <Property Name="Role_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Role_Portal" Type="Boolean" />
+    <Property Name="Role_Fname" Type="Boolean" />
+    <Property Name="Role_Lname" Type="Boolean" />
+    <Property Name="Role_Dob" Type="Boolean" />
+    <Property Name="Role_Gender" Type="Boolean" />
+    <Property Name="Role_Pic" Type="Boolean" />
+    <Property Name="Role_Qualif" Type="Boolean" />
+    <Property Name="Role_Email" Type="Boolean" />
+    <Property Name="Role_CNIC" Type="Boolean" />
+    <Property Name="Role_FmailyID" Type="Boolean" />
+    <Property Name="Role_Phone" Type="Boolean" />
+    <Property Name="Role_Address" Type="Boolean" />
+    <Property Name="Role_pay" Type="Boolean" />
+    <Property Name="Role_FthrName" Type="Boolean" />
+    <Property Name="Role_FthrCNIC" Type="Boolean" />
+    <Property Name="Role_FthrPhone" Type="Boolean" />
+    <Property Name="Role_PendingFee" Type="Boolean" />
+    <Property Name="MS_iid" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="m" Relationship="testdbModel.fik" FromRole="roledata" ToRole="m" />
+    <NavigationProperty Name="role_funcdata" Relationship="testdbModel.fooik" FromRole="roledata" ToRole="role_funcdata" />
+  </EntityType>
+  <EntityType Name="subject">
+    <Key>
+      <PropertyRef Name="Subj_ID" />
+    </Key>
+    <Property Name="Subj_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subj_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Cls_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="class" Relationship="testdbModel.fkm" FromRole="subject" ToRole="class" />
+  </EntityType>
+  <Association Name="foAccS">
+    <End Type="testdbModel.m" Role="m" Multiplicity="1" />
+    <End Type="testdbModel.accfuctional" Role="accfuctional" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="m">
+        <PropertyRef Name="MS_ID" />
+      </Principal>
+      <Dependent Role="accfuctional">
+        <PropertyRef Name="AccF_MsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk">
+    <End Type="testdbModel.m" Role="m" Multiplicity="1" />
+    <End Type="testdbModel.class" Role="class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="m">
+        <PropertyRef Name="MS_ID" />
+      </Principal>
+      <Dependent Role="class">
+        <PropertyRef Name="MS_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkm">
+    <End Type="testdbModel.class" Role="class" Multiplicity="1" />
+    <End Type="testdbModel.subject" Role="subject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="class">
+        <PropertyRef Name="Class_ID" />
+      </Principal>
+      <Dependent Role="subject">
+        <PropertyRef Name="Cls_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkid">
+    <End Type="testdbModel.creator" Role="creator" Multiplicity="1" />
+    <End Type="testdbModel.m" Role="m" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="creator">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="m">
+        <PropertyRef Name="C_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="foHrS">
+    <End Type="testdbModel.m" Role="m" Multiplicity="1" />
+    <End Type="testdbModel.hrfuctional" Role="hrfuctional" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="m">
+        <PropertyRef Name="MS_ID" />
+      </Principal>
+      <Dependent Role="hrfuctional">
+        <PropertyRef Name="HrF_MsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fik">
+    <End Type="testdbModel.m" Role="m" Multiplicity="1" />
+    <End Type="testdbModel.roledata" Role="roledata" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="m">
+        <PropertyRef Name="MS_ID" />
+      </Principal>
+      <Dependent Role="roledata">
+        <PropertyRef Name="MS_iid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="role_funcdata">
+    <Key>
+      <PropertyRef Name="fun_id" />
+    </Key>
+    <Property Name="fun_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role_ID" Type="Int32" Nullable="false" />
+    <Property Name="ViewNotification" Type="Boolean" />
+    <Property Name="ViewChallan" Type="Boolean" />
+    <Property Name="GiveNotification" Type="Boolean" />
+    <Property Name="AddStudent" Type="Boolean" />
+    <Property Name="DeleteStudent" Type="Boolean" />
+    <Property Name="UpdateStudent" Type="Boolean" />
+    <Property Name="updateHR" Type="Boolean" />
+    <Property Name="addHR" Type="Boolean" />
+    <Property Name="TrackAccProgress" Type="Boolean" />
+    <Property Name="updateclassfee" Type="Boolean" />
+    <Property Name="updateHRpay" Type="Boolean" />
+    <NavigationProperty Name="roledata" Relationship="testdbModel.fooik" FromRole="role_funcdata" ToRole="roledata" />
+  </EntityType>
+  <Association Name="fooik">
+    <End Type="testdbModel.roledata" Role="roledata" Multiplicity="1" />
+    <End Type="testdbModel.role_funcdata" Role="role_funcdata" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="roledata">
+        <PropertyRef Name="Role_ID" />
+      </Principal>
+      <Dependent Role="role_funcdata">
+        <PropertyRef Name="Role_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="studfuctional">
+    <Key>
+      <PropertyRef Name="studF_ID" />
+    </Key>
+    <Property Name="studF_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="studF_FamilyID" Type="Int32" />
+    <Property Name="studF_MSID" Type="Int32" Nullable="false" />
+    <Property Name="studF_ClassName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="studF_SectionName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="studF_FName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="studF_LName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="studF_DOB" Type="DateTime" />
+    <Property Name="studF_CNIC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="studF_Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="studF_Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="studF_Pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="studF_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="studF_Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="studF_GuardName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="studF_GuardCNIC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="studF_GuardContact" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="studF_PendingFee" Type="Double" />
+    <Property Name="studF_RollNO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="studF_password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="m" Relationship="testdbModel.foMS" FromRole="studfuctional" ToRole="m" />
+  </EntityType>
+  <Association Name="foMS">
+    <End Type="testdbModel.m" Role="m" Multiplicity="1" />
+    <End Type="testdbModel.studfuctional" Role="studfuctional" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="m">
+        <PropertyRef Name="MS_ID" />
+      </Principal>
+      <Dependent Role="studfuctional">
+        <PropertyRef Name="studF_MSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

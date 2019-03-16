@@ -1,0 +1,577 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{540E9899-0063-4823-AC03-60E677B0A375}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Final_Project</RootNamespace>
+    <AssemblyName>Final_Project</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=6.10.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 6.10.7\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.10.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 6.10.7\Assemblies\v4.5.2\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Web, Version=6.10.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 6.10.7\Assemblies\v4.5.2\MySql.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\assets\css\animate\animate.css" />
+    <Content Include="Content\assets\css\animate\animate.min.css" />
+    <Content Include="Content\assets\css\bootstrap-select\bootstrap-select.css" />
+    <Content Include="Content\assets\css\bootstrap-select\bootstrap-select.min.css" />
+    <Content Include="Content\assets\css\datatables\datatables.css" />
+    <Content Include="Content\assets\css\datatables\datatables.min.css" />
+    <Content Include="Content\assets\css\leaflet\leaflet.css" />
+    <Content Include="Content\assets\css\leaflet\leaflet.min.css" />
+    <Content Include="Content\assets\css\lity\lity.css" />
+    <Content Include="Content\assets\css\lity\lity.min.css" />
+    <Content Include="Content\assets\css\owl-carousel\ajax-loader.gif" />
+    <Content Include="Content\assets\css\owl-carousel\owl.carousel.css" />
+    <Content Include="Content\assets\css\owl-carousel\owl.carousel.min.css" />
+    <Content Include="Content\assets\css\owl-carousel\owl.theme.css" />
+    <Content Include="Content\assets\css\owl-carousel\owl.theme.min.css" />
+    <Content Include="Content\assets\css\owl-carousel\owl.video.play.png" />
+    <Content Include="Content\assets\css\photoswipe\default-skin\default-skin.css" />
+    <Content Include="Content\assets\css\photoswipe\default-skin\default-skin.min.css" />
+    <Content Include="Content\assets\css\photoswipe\default-skin\default-skin.png" />
+    <Content Include="Content\assets\css\photoswipe\default-skin\default-skin.svg" />
+    <Content Include="Content\assets\css\photoswipe\default-skin\preloader.gif" />
+    <Content Include="Content\assets\css\photoswipe\photoswipe.css" />
+    <Content Include="Content\assets\css\photoswipe\photoswipe.min.css" />
+    <Content Include="Content\assets\icons\ionicons\css\ionicons.css" />
+    <Content Include="Content\assets\icons\ionicons\css\ionicons.min.css" />
+    <Content Include="Content\assets\icons\ionicons\fonts\ionicons.svg" />
+    <Content Include="Content\assets\icons\lineawesome\css\line-awesome-font-awesome.css" />
+    <Content Include="Content\assets\icons\lineawesome\css\line-awesome-font-awesome.min.css" />
+    <Content Include="Content\assets\icons\lineawesome\css\line-awesome.css" />
+    <Content Include="Content\assets\icons\lineawesome\css\line-awesome.min.css" />
+    <Content Include="Content\assets\icons\lineawesome\fonts\line-awesome.svg" />
+    <Content Include="Content\assets\icons\meteocons\css\meteocons.css" />
+    <Content Include="Content\assets\icons\meteocons\css\meteocons.min.css" />
+    <Content Include="Content\assets\icons\meteocons\fonts\Meteocons.svg" />
+    <Content Include="Content\assets\icons\themify\css\themify-icons.css" />
+    <Content Include="Content\assets\icons\themify\css\themify-icons.min.css" />
+    <Content Include="Content\assets\icons\themify\fonts\themify.svg" />
+    <Content Include="Content\assets\img\albums\01.jpg" />
+    <Content Include="Content\assets\img\albums\02.jpg" />
+    <Content Include="Content\assets\img\albums\03.jpg" />
+    <Content Include="Content\assets\img\albums\04.jpg" />
+    <Content Include="Content\assets\img\albums\05.jpg" />
+    <Content Include="Content\assets\img\albums\06.jpg" />
+    <Content Include="Content\assets\img\albums\07.jpg" />
+    <Content Include="Content\assets\img\albums\08.jpg" />
+    <Content Include="Content\assets\img\apple-touch-icon.png" />
+    <Content Include="Content\assets\img\avatar\avatar-01-big.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-01.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-02-big.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-02.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-03-big.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-03.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-04-big.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-04.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-05-big.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-05.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-06-big.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-06.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-07-big.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-07.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-08-big.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-08.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-09-big.jpg" />
+    <Content Include="Content\assets\img\avatar\avatar-09.jpg" />
+    <Content Include="Content\assets\img\back.jpg" />
+    <Content Include="Content\assets\img\background\01.jpg" />
+    <Content Include="Content\assets\img\background\02.jpg" />
+    <Content Include="Content\assets\img\background\03.jpg" />
+    <Content Include="Content\assets\img\background\04.jpg" />
+    <Content Include="Content\assets\img\background\05.jpg" />
+    <Content Include="Content\assets\img\background\06.jpg" />
+    <Content Include="Content\assets\img\background\07.jpg" />
+    <Content Include="Content\assets\img\background\08.jpg" />
+    <Content Include="Content\assets\img\background\db-smarthome-dark.jpg" />
+    <Content Include="Content\assets\img\background\db-smarthome.jpg" />
+    <Content Include="Content\assets\img\blog\blog-01.jpg" />
+    <Content Include="Content\assets\img\clouds.png" />
+    <Content Include="Content\assets\img\cover\01.jpg" />
+    <Content Include="Content\assets\img\cover\02.jpg" />
+    <Content Include="Content\assets\img\cover\03.jpg" />
+    <Content Include="Content\assets\img\cover\04.jpg" />
+    <Content Include="Content\assets\img\cover\05.jpg" />
+    <Content Include="Content\assets\img\cover\06.jpg" />
+    <Content Include="Content\assets\img\cover\07.jpg" />
+    <Content Include="Content\assets\img\cover\08.jpg" />
+    <Content Include="Content\assets\img\dashboards\db-compact-dark.jpg" />
+    <Content Include="Content\assets\img\dashboards\db-compact.jpg" />
+    <Content Include="Content\assets\img\dashboards\db-default-dark.jpg" />
+    <Content Include="Content\assets\img\dashboards\db-default.jpg" />
+    <Content Include="Content\assets\img\dashboards\db-modern-dark.jpg" />
+    <Content Include="Content\assets\img\dashboards\db-modern.jpg" />
+    <Content Include="Content\assets\img\dashboards\db-smarthome-dark.jpg" />
+    <Content Include="Content\assets\img\dashboards\db-smarthome.jpg" />
+    <Content Include="Content\assets\img\dashboards\db-social-dark.jpg" />
+    <Content Include="Content\assets\img\dashboards\db-social.jpg" />
+    <Content Include="Content\assets\img\email\01.jpg" />
+    <Content Include="Content\assets\img\email\02.jpg" />
+    <Content Include="Content\assets\img\email\03.png" />
+    <Content Include="Content\assets\img\email\04.png" />
+    <Content Include="Content\assets\img\email\05.png" />
+    <Content Include="Content\assets\img\email\06.png" />
+    <Content Include="Content\assets\img\email\ico-facebook.png" />
+    <Content Include="Content\assets\img\email\ico-linkedin.png" />
+    <Content Include="Content\assets\img\email\ico-twitter.png" />
+    <Content Include="Content\assets\img\favicon-16x16.png" />
+    <Content Include="Content\assets\img\favicon-32x32.png" />
+    <Content Include="Content\assets\img\favicon.ico" />
+    <Content Include="Content\assets\img\group\01.jpg" />
+    <Content Include="Content\assets\img\group\02.jpg" />
+    <Content Include="Content\assets\img\group\03.jpg" />
+    <Content Include="Content\assets\img\group\04.jpg" />
+    <Content Include="Content\assets\img\group\05.jpg" />
+    <Content Include="Content\assets\img\group\06.jpg" />
+    <Content Include="Content\assets\img\icone-01-white.png" />
+    <Content Include="Content\assets\img\icone-01.png" />
+    <Content Include="Content\assets\img\icone-02-white.png" />
+    <Content Include="Content\assets\img\icone-02.png" />
+    <Content Include="Content\assets\img\icone-03-white.png" />
+    <Content Include="Content\assets\img\icone-03.png" />
+    <Content Include="Content\assets\img\icone-04-white.png" />
+    <Content Include="Content\assets\img\icone-04.png" />
+    <Content Include="Content\assets\img\logo-2.png" />
+    <Content Include="Content\assets\img\logo-big-2.png" />
+    <Content Include="Content\assets\img\logo-big.png" />
+    <Content Include="Content\assets\img\logo.png" />
+    <Content Include="Content\assets\img\music\01.jpg" />
+    <Content Include="Content\assets\img\music\02.jpg" />
+    <Content Include="Content\assets\img\music\03.jpg" />
+    <Content Include="Content\assets\img\notifications\01.jpg" />
+    <Content Include="Content\assets\img\plugins\leaflet\custom-marker-shadow.png" />
+    <Content Include="Content\assets\img\plugins\leaflet\custom-marker.png" />
+    <Content Include="Content\assets\img\plugins\leaflet\layers-2x.png" />
+    <Content Include="Content\assets\img\plugins\leaflet\layers.png" />
+    <Content Include="Content\assets\img\plugins\leaflet\marker-icon-2x.png" />
+    <Content Include="Content\assets\img\plugins\leaflet\marker-icon.png" />
+    <Content Include="Content\assets\img\plugins\leaflet\marker-shadow.png" />
+    <Content Include="Content\assets\img\smarthome\01.jpg" />
+    <Content Include="Content\assets\img\smarthome\02.jpg" />
+    <Content Include="Content\assets\img\smarthome\03.jpg" />
+    <Content Include="Content\assets\img\smarthome\04.jpg" />
+    <Content Include="Content\assets\img\smarthome\05.jpg" />
+    <Content Include="Content\assets\img\smarthome\06.jpg" />
+    <Content Include="Content\assets\img\smarthome\07.jpg" />
+    <Content Include="Content\assets\img\smarthome\08.jpg" />
+    <Content Include="Content\assets\img\smarthome\09.jpg" />
+    <Content Include="Content\assets\img\smarthome\10.jpg" />
+    <Content Include="Content\assets\img\smarthome\11.jpg" />
+    <Content Include="Content\assets\img\smarthome\12.jpg" />
+    <Content Include="Content\assets\img\smarthome\13.jpg" />
+    <Content Include="Content\assets\img\smarthome\14.jpg" />
+    <Content Include="Content\assets\img\smarthome\15.jpg" />
+    <Content Include="Content\assets\img\smarthome\16.jpg" />
+    <Content Include="Content\assets\img\smarthome\17.jpg" />
+    <Content Include="Content\assets\img\smarthome\18.jpg" />
+    <Content Include="Content\assets\img\smarthome\19.jpg" />
+    <Content Include="Content\assets\img\videos\01.jpg" />
+    <Content Include="Content\assets\img\videos\02.jpg" />
+    <Content Include="Content\assets\img\videos\03.jpg" />
+    <Content Include="Content\assets\img\videos\04.jpg" />
+    <Content Include="Content\assets\img\videos\05.jpg" />
+    <Content Include="Content\assets\img\videos\06.jpg" />
+    <Content Include="Content\assets\img\videos\07.jpg" />
+    <Content Include="Content\assets\img\videos\08.jpg" />
+    <Content Include="Content\assets\img\videos\09.jpg" />
+    <Content Include="Content\assets\js\app\calendar\basic-calendar.js" />
+    <Content Include="Content\assets\js\app\calendar\basic-calendar.min.js" />
+    <Content Include="Content\assets\js\app\calendar\event-calendar.js" />
+    <Content Include="Content\assets\js\app\calendar\event-calendar.min.js" />
+    <Content Include="Content\assets\js\app\calendar\list-calendar.js" />
+    <Content Include="Content\assets\js\app\calendar\list-calendar.min.js" />
+    <Content Include="Content\assets\js\app\chat\chat.js" />
+    <Content Include="Content\assets\js\app\chat\chat.min.js" />
+    <Content Include="Content\assets\js\app\contact\contact.js" />
+    <Content Include="Content\assets\js\app\contact\contact.min.js" />
+    <Content Include="Content\assets\js\app\mail\mail.js" />
+    <Content Include="Content\assets\js\app\mail\mail.min.js" />
+    <Content Include="Content\assets\js\components\chartjs\chartjs.js" />
+    <Content Include="Content\assets\js\components\chartjs\chartjs.min.js" />
+    <Content Include="Content\assets\js\components\datepicker\datepicker.js" />
+    <Content Include="Content\assets\js\components\leaflet\maps-leaflet.js" />
+    <Content Include="Content\assets\js\components\leaflet\maps-leaflet.min.js" />
+    <Content Include="Content\assets\js\components\music\music-player.js" />
+    <Content Include="Content\assets\js\components\music\music-player.min.js" />
+    <Content Include="Content\assets\js\components\notifications\notifications.js" />
+    <Content Include="Content\assets\js\components\notifications\notifications.min.js" />
+    <Content Include="Content\assets\js\components\scrollable\scrollable.js" />
+    <Content Include="Content\assets\js\components\scrollable\scrollable.min.js" />
+    <Content Include="Content\assets\js\components\tables\tables.js" />
+    <Content Include="Content\assets\js\components\tabs\animated-tabs.js" />
+    <Content Include="Content\assets\js\components\tabs\animated-tabs.min.js" />
+    <Content Include="Content\assets\js\components\validation\validation.js" />
+    <Content Include="Content\assets\js\components\validation\validation.min.js" />
+    <Content Include="Content\assets\js\components\widgets\widgets-dark.js" />
+    <Content Include="Content\assets\js\components\widgets\widgets-dark.min.js" />
+    <Content Include="Content\assets\js\components\widgets\widgets.js" />
+    <Content Include="Content\assets\js\components\widgets\widgets.min.js" />
+    <Content Include="Content\assets\js\components\wizard\form-wizard.js" />
+    <Content Include="Content\assets\js\components\wizard\form-wizard.min.js" />
+    <Content Include="Content\assets\js\dashboard\db-compact-dark.js" />
+    <Content Include="Content\assets\js\dashboard\db-compact-dark.min.js" />
+    <Content Include="Content\assets\js\dashboard\db-compact.js" />
+    <Content Include="Content\assets\js\dashboard\db-compact.min.js" />
+    <Content Include="Content\assets\js\dashboard\db-default-dark.js" />
+    <Content Include="Content\assets\js\dashboard\db-default-dark.min.js" />
+    <Content Include="Content\assets\js\dashboard\db-default.js" />
+    <Content Include="Content\assets\js\dashboard\db-default.min.js" />
+    <Content Include="Content\assets\js\dashboard\db-modern-dark.js" />
+    <Content Include="Content\assets\js\dashboard\db-modern-dark.min.js" />
+    <Content Include="Content\assets\js\dashboard\db-modern.js" />
+    <Content Include="Content\assets\js\dashboard\db-modern.min.js" />
+    <Content Include="Content\assets\js\dashboard\db-smarthome-dark.js" />
+    <Content Include="Content\assets\js\dashboard\db-smarthome-dark.min.js" />
+    <Content Include="Content\assets\js\dashboard\db-smarthome.js" />
+    <Content Include="Content\assets\js\dashboard\db-smarthome.min.js" />
+    <Content Include="Content\assets\js\pages\coming-soon.js" />
+    <Content Include="Content\assets\js\pages\coming-soon.min.js" />
+    <Content Include="Content\assets\js\pages\events.js" />
+    <Content Include="Content\assets\js\pages\events.min.js" />
+    <Content Include="Content\assets\js\pages\friends.js" />
+    <Content Include="Content\assets\js\pages\friends.min.js" />
+    <Content Include="Content\assets\js\pages\newsfeed.js" />
+    <Content Include="Content\assets\js\pages\newsfeed.min.js" />
+    <Content Include="Content\assets\vendors\css\base\bootstrap.css" />
+    <Content Include="Content\assets\vendors\css\base\bootstrap.min.css" />
+    <Content Include="Content\assets\vendors\css\base\elisyam-1.2-dark.css" />
+    <Content Include="Content\assets\vendors\css\base\elisyam-1.2-dark.min.css" />
+    <Content Include="Content\assets\vendors\css\base\elisyam-1.2.css" />
+    <Content Include="Content\assets\vendors\css\base\elisyam-1.2.min.css" />
+    <Content Include="Content\assets\vendors\js\app\app.js" />
+    <Content Include="Content\assets\vendors\js\app\app.min.js" />
+    <Content Include="Content\assets\vendors\js\base\core.js" />
+    <Content Include="Content\assets\vendors\js\base\core.min.js" />
+    <Content Include="Content\assets\vendors\js\base\jquery.min.js" />
+    <Content Include="Content\assets\vendors\js\base\jquery.ui.min.js" />
+    <Content Include="Content\assets\vendors\js\bootstrap-select\bootstrap-select.js" />
+    <Content Include="Content\assets\vendors\js\bootstrap-select\bootstrap-select.min.js" />
+    <Content Include="Content\assets\vendors\js\bootstrap-wizard\bootstrap.wizard.js" />
+    <Content Include="Content\assets\vendors\js\bootstrap-wizard\bootstrap.wizard.min.js" />
+    <Content Include="Content\assets\vendors\js\calendar\fullcalendar.js" />
+    <Content Include="Content\assets\vendors\js\calendar\fullcalendar.min.js" />
+    <Content Include="Content\assets\vendors\js\calendar\moment.min.js" />
+    <Content Include="Content\assets\vendors\js\chart\chart.js" />
+    <Content Include="Content\assets\vendors\js\chart\chart.min.js" />
+    <Content Include="Content\assets\vendors\js\countdown\countdown.js" />
+    <Content Include="Content\assets\vendors\js\countdown\countdown.min.js" />
+    <Content Include="Content\assets\vendors\js\datatables\buttons.bootstrap4.js" />
+    <Content Include="Content\assets\vendors\js\datatables\buttons.bootstrap4.min.js" />
+    <Content Include="Content\assets\vendors\js\datatables\buttons.colVis.js" />
+    <Content Include="Content\assets\vendors\js\datatables\buttons.colVis.min.js" />
+    <Content Include="Content\assets\vendors\js\datatables\buttons.flash.js" />
+    <Content Include="Content\assets\vendors\js\datatables\buttons.flash.min.js" />
+    <Content Include="Content\assets\vendors\js\datatables\buttons.html5.js" />
+    <Content Include="Content\assets\vendors\js\datatables\buttons.html5.min.js" />
+    <Content Include="Content\assets\vendors\js\datatables\buttons.print.js" />
+    <Content Include="Content\assets\vendors\js\datatables\buttons.print.min.js" />
+    <Content Include="Content\assets\vendors\js\datatables\dataTables.buttons.js" />
+    <Content Include="Content\assets\vendors\js\datatables\dataTables.buttons.min.js" />
+    <Content Include="Content\assets\vendors\js\datatables\datatables.js" />
+    <Content Include="Content\assets\vendors\js\datatables\datatables.min.js" />
+    <Content Include="Content\assets\vendors\js\datatables\jszip.js" />
+    <Content Include="Content\assets\vendors\js\datatables\jszip.min.js" />
+    <Content Include="Content\assets\vendors\js\datatables\pdfmake.js" />
+    <Content Include="Content\assets\vendors\js\datatables\pdfmake.min.js" />
+    <Content Include="Content\assets\vendors\js\datatables\vfs_fonts.js" />
+    <Content Include="Content\assets\vendors\js\datepicker\daterangepicker.js" />
+    <Content Include="Content\assets\vendors\js\datepicker\moment.min.js" />
+    <Content Include="Content\assets\vendors\js\leaflet\leaflet.js" />
+    <Content Include="Content\assets\vendors\js\leaflet\leaflet.min.js" />
+    <Content Include="Content\assets\vendors\js\lity\lity.js" />
+    <Content Include="Content\assets\vendors\js\lity\lity.min.js" />
+    <Content Include="Content\assets\vendors\js\nicescroll\nicescroll.js" />
+    <Content Include="Content\assets\vendors\js\nicescroll\nicescroll.min.js" />
+    <Content Include="Content\assets\vendors\js\noty\noty.js" />
+    <Content Include="Content\assets\vendors\js\noty\noty.min.js" />
+    <Content Include="Content\assets\vendors\js\owl-carousel\owl.carousel.js" />
+    <Content Include="Content\assets\vendors\js\owl-carousel\owl.carousel.min.js" />
+    <Content Include="Content\assets\vendors\js\photoswipe\photoswipe-ui-default.js" />
+    <Content Include="Content\assets\vendors\js\photoswipe\photoswipe-ui-default.min.js" />
+    <Content Include="Content\assets\vendors\js\photoswipe\photoswipe.js" />
+    <Content Include="Content\assets\vendors\js\photoswipe\photoswipe.min.js" />
+    <Content Include="Content\assets\vendors\js\progress\circle-progress.js" />
+    <Content Include="Content\assets\vendors\js\progress\circle-progress.min.js" />
+    <Content Include="Content\documentation\css\elisyam-bundle.css" />
+    <Content Include="Content\documentation\css\prism.css" />
+    <Content Include="Content\documentation\documentation.html" />
+    <Content Include="Content\documentation\img\j-documentation.jpg" />
+    <Content Include="Content\documentation\img\logo.png" />
+    <Content Include="Content\documentation\js\elisyam.js" />
+    <Content Include="Content\documentation\js\prism.js" />
+    <Content Include="Content\solo images\NXM_logo.png" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\assets\icons\ionicons\fonts\ionicons.eot" />
+    <Content Include="Content\assets\icons\ionicons\fonts\ionicons.ttf" />
+    <Content Include="Content\assets\icons\ionicons\fonts\ionicons.woff" />
+    <Content Include="Content\assets\icons\lineawesome\fonts\line-awesome.eot" />
+    <Content Include="Content\assets\icons\lineawesome\fonts\line-awesome.ttf" />
+    <Content Include="Content\assets\icons\lineawesome\fonts\line-awesome.woff" />
+    <Content Include="Content\assets\icons\lineawesome\fonts\line-awesome.woff2" />
+    <Content Include="Content\assets\icons\meteocons\fonts\Meteocons.ttf" />
+    <Content Include="Content\assets\icons\meteocons\fonts\Meteocons.woff" />
+    <Content Include="Content\assets\icons\themify\fonts\themify.eot" />
+    <Content Include="Content\assets\icons\themify\fonts\themify.ttf" />
+    <Content Include="Content\assets\icons\themify\fonts\themify.woff" />
+    <Content Include="Content\psd\app-calendar.psd" />
+    <Content Include="Content\psd\app-chat.psd" />
+    <Content Include="Content\psd\app-contact.psd" />
+    <Content Include="Content\psd\app-mail.psd" />
+    <Content Include="Content\psd\db-default.psd" />
+    <Content Include="Content\psd\email-welcome.psd" />
+    <Content Include="Content\psd\pages-404.psd" />
+    <Content Include="Content\psd\pages-invoice.psd" />
+    <Content Include="Content\psd\pages-login.psd" />
+    <Content Include="Content\psd\pages-profile.psd" />
+    <Content Include="Content\psd\UI-Kit.psd" />
+    <EntityDeploy Include="Models\Modellogin.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Modellogin.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Modellogin.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Modellogin.edmx</DependentUpon>
+      <LastGenOutput>Modellogin.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Modellogin.edmx.diagram">
+      <DependentUpon>Modellogin.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Modellogin.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Modellogin.edmx</DependentUpon>
+      <LastGenOutput>Modellogin.cs</LastGenOutput>
+    </Content>
+    <Content Include="ClassDiagram1.cd" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\CreatorMode.cshtml" />
+    <Content Include="Views\Home\SignUp.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CreatorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\accfuctional.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\class.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\creator.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CreatorLogin.cs" />
+    <Compile Include="Models\CreatorSignUp.cs" />
+    <Compile Include="Models\hrfuctional.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\m.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Modellogin.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Modellogin.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Modellogin.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Modellogin.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Modellogin.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\roledata.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Rolevalues.cs" />
+    <Compile Include="Models\role_funcdata.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\studfuctional.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\subject.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="packages.config" />
+    <Content Include="Views\Shared\_headerCreator.cshtml" />
+    <Content Include="Views\Creator\MainMenu.cshtml" />
+    <Content Include="Views\Creator\DefineMS.cshtml" />
+    <Content Include="Views\Creator\ManageClass.cshtml" />
+    <Content Include="Views\Creator\ManageRoles.cshtml" />
+    <Content Include="Views\Creator\StudentAttributes.cshtml" />
+    <Content Include="Views\Creator\HRAttributes.cshtml" />
+    <Content Include="Views\Creator\AccountantAttributes.cshtml" />
+    <Content Include="Views\Home\UserLogin.cshtml" />
+    <Content Include="Views\Shared\_studentLayout.cshtml" />
+    <Content Include="Views\Shared\_adminLayout.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\AddStudent.cshtml" />
+    <Content Include="Views\Admin\DeleteStudent.cshtml" />
+    <Content Include="Views\Admin\UpdateHR.cshtml" />
+    <Content Include="Views\Admin\UpdateStudent.cshtml" />
+    <Content Include="Views\Creator\adminFunctionlities.cshtml" />
+    <Content Include="Views\Creator\HrFunctionlities.cshtml" />
+    <Content Include="Views\Creator\StudFunctionlities.cshtml" />
+    <Content Include="Views\Creator\Continue.cshtml" />
+    <Content Include="Views\Home\SelectMS.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\assets\songs\" />
+    <Folder Include="Views\Student\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>59439</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:59439/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

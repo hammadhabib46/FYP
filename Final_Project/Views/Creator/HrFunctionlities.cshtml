@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Elisyam - Confirm Email</title>
+    <meta name="description" content="Elisyam is a Web App and Admin Dashboard Template built with Bootstrap 4">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Google Fonts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Montserrat:400,500,600,700", "Noto+Sans:400,700"] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Content/assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/img/favicon-16x16.png">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="~/Content/assets/vendors/css/base/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/assets/vendors/css/base/elisyam-1.2.min.css">
+    <!-- Tweaks for older IEs-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<body class="bg-fixed-07">
+    <!-- Begin Preloader -->
+    <div id="preloader">
+        <div class="canvas">
+            <img src="~/Content/assets/img/logo.png" alt="logo" class="loader-logo">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid h-100 overflow-y">
+        <div class="row flex-row h-100">
+            <div class="col-12 my-auto">
+                <!-- Form -->
+                @using (Html.BeginForm("HrFunctionlities", "Creator"))
+                {
+
+                    <div class="widget has-shadow mx-auto" style="width: 900px;">
+                        <div class="widget-header bordered no-actions d-flex align-items-center justify-content-md-center">
+                            <h4>Verify the Functionalities of HR</h4>
+                        </div>
+                        <div class="widget-body ">
+                            <form class="form-horizontal ">
+
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="Admin" id="addstudenttid" checked="checked" class="form-control" readonly>
+                                    <label for="remeber">Add Student </label>
+                                </div>
+
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="Student" id="deletestudenttid" checked="checked" class="form-control" readonly>
+                                    <label for="remeber">Delete Student </label>
+                                </div>
+
+
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="Student" id="updatestudentid" checked="checked" class="form-control" readonly>
+                                    <label for="remeber">Update Student</label>
+                                </div>
+
+@{
+
+                                  if ((bool)TempData["adminNoti2"] == true)
+                                      {
+                                    <div class="styled-checkbox">
+                                    <input type="checkbox" name="Nofi" value="true" id="Nofi_ID" class="form-control">
+                                    <label for="Nofi_ID">Activate Notifications</label>
+                                    </div>
+                                      }
+                }
+                                <div class="sign-btn text-center">
+                                    <br>
+                                    <br>
+                                    <input type="submit" value="Next" class="btn" />
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                <!-- End Form -->
+                }
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <script src="~/Content/assets/vendors/js/base/jquery.min.js"></script>
+    <script src="~/Content/assets/vendors/js/base/core.min.js"></script>
+    <!-- End Vendor Js -->
+    <!-- Begin Page Vendor Js -->
+    <script src="~/Content/assets/vendors/js/app/app.min.js"></script>
+</body>
+
+</html>

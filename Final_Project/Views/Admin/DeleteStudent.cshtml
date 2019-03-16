@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "DeleteStudent";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+
+<h2>Delete Student</h2>
+
+<div class="container-fluid h-100 overflow-y">
+    <div class="row flex-row h-100">
+        <div class="col-12 my-auto">
+            <!-- Form -->
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(false)
+
+            <div class="widget has-shadow mx-auto" style="width: 900px;">
+                <div class="widget-header bordered no-actions d-flex align-items-center justify-content-md-center">
+                    <h4>Delete student information</h4>
+                </div>
+                <div class="widget-body ">
+                    <form class="form-horizontal ">
+                        <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
+                            <label class="col-lg-2 form-control-label">Roll Number</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" name="Roll_number">
+                            </div>
+                        </div>
+                        
+                        <div class="sign-btn text-center ">
+                            <input type="submit" value="Delete Student" class="btn btn-lg btn-gradient-01" />
+                        </div>
+                        <label class="col-lg-2 form-control-label">@ViewBag.delete</label>
+
+                    </form>
+                </div>
+            </div>
+    
+}
+
+            <!-- End Form -->
+        </div>
+    </div>
+
+
+
+
+</div>
