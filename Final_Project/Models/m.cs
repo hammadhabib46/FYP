@@ -11,7 +11,9 @@ namespace Final_Project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
+    using System.ComponentModel.DataAnnotations;
+
     public partial class m
     {
         public m()
@@ -27,8 +29,13 @@ namespace Final_Project.Models
         public long C_ID { get; set; }
         public string MS_InstName { get; set; }
         public string MS_InstAddress { get; set; }
+
+        [Required(ErrorMessage = "Incorrent Phone Number")]
+        [RegularExpression(@"^\(?([0-9]{4})\)?[-. ]?([0-9]{7})$", ErrorMessage = "Not a valid phone number")]
         public string MS_InstPhone { get; set; }
+        
         public byte[] MS_logo { get; set; }
+
         public string MS_InstBranch { get; set; }
     
         public virtual ICollection<accfuctional> accfuctionals { get; set; }

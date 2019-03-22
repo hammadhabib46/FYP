@@ -21,12 +21,16 @@ namespace Final_Project.Models
         }
     
         public long id { get; set; }
+
         public string firstname { get; set; }
+
         public string lastname { get; set; }
+
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         public string c_password { get; set; }
-        [Required(ErrorMessage = "Incorrent email F")]
+
+        [Required(ErrorMessage = "Incorrent email")]
         [DataType(DataType.EmailAddress)]
         public string email { get; set; }
     

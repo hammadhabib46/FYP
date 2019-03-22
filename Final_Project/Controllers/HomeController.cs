@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Final_Project.Models;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace Final_Project.Controllers
 {
@@ -40,10 +43,60 @@ namespace Final_Project.Controllers
 			return View();
 		}
 
+        
+
+        private string Encrypt(string clearText)
+        {
+            string EncryptionKey = "MAKV2SPBNI99212";
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    clearText = Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            return clearText;
+        }
+
+        private string Decrypt(string cipherText)
+        {
+            string EncryptionKey = "MAKV2SPBNI99212";
+
+            int len = cipherText.Length;
+            
+  //          cipherText = cipherText.Replace(" ", "+");
+            byte[] cipherBytes = Convert.FromBase64String(cipherText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(cipherBytes, 0, cipherBytes.Length);
+                        cs.Close();
+                    }
+                    cipherText = Encoding.Unicode.GetString(ms.ToArray());
+                }
+            }
+            return cipherText;
+        }
 
 
-		//sign up creator mode
-		[HttpPost]
+
+        //sign up creator mode
+        [HttpPost]
 		public ActionResult SignUp(creator signup, string ConfirmPassword)
 		{
 
@@ -65,7 +118,10 @@ namespace Final_Project.Controllers
 					}
 					else
 					{
-						if (ModelState.IsValid)
+                        string passEncrypt = Encrypt(signup.c_password);
+                        signup.c_password = passEncrypt;
+                        
+                        if (ModelState.IsValid)
 						{
 							using (testdbEntiies obj = new testdbEntiies())
 							{
@@ -87,14 +143,14 @@ namespace Final_Project.Controllers
 		[HttpPost]
 		public ActionResult CreatorMode(CreatorLogin user)
 		{
-		
-			string x = user.Password;
-			x = user.CreatorName;
-			using (testdbEntiies objj = new testdbEntiies())
+        
+            String passDecrypt = Encrypt(user.Password);
+
+            using (testdbEntiies objj = new testdbEntiies())
 			{
 				try
 				{
-					var usr = objj.creators.Single(u => u.email == user.CreatorName && u.c_password == user.Password);
+					var usr = objj.creators.Single(u => u.email == user.CreatorName && u.c_password == passDecrypt);
 					if (usr != null)
 					{
 						var userId = objj.creators.Where(u => u.email == user.CreatorName).Select(u => u.id).FirstOrDefault();
@@ -114,19 +170,18 @@ namespace Final_Project.Controllers
 		}
 
 
-		//sign in user
+		//sign in user mode
 		[HttpPost]
 		public ActionResult UserLogin(CreatorLogin user)
 		{
-		
-			string x = user.Password;
-			x = user.CreatorName;// ............ ?
+         
+            string passDecrypt =Encrypt(user.Password);
 
-			using (testdbEntiies objj = new testdbEntiies())
+            using (testdbEntiies objj = new testdbEntiies())
 			{
 				try
 				{
-					var usr = objj.creators.Single(u => u.email == user.CreatorName && u.c_password == user.Password);
+					var usr = objj.creators.Single(u => u.email == user.CreatorName && u.c_password == passDecrypt);  
 					if (usr != null)
 					{
 

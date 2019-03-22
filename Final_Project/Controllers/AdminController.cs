@@ -45,9 +45,8 @@ namespace Final_Project.Controllers
 				TempData["Role_ID"] = r_id;
 
 
-				var  noti_role = objj.role_funcdata.Where((u => u.Role_ID == r_id)).Select(u => u.GiveNotification).FirstOrDefault();   
-
-				TempData["NotiRole"] = (bool)noti_role;
+				var  noti_role = objj.role_funcdata.Where((u => u.Role_ID == r_id)).Select(u => u.GiveNotification).FirstOrDefault();
+                TempData["NotiRole"] = (bool)noti_role;
 
 
 				var Data= objj.creators.SqlQuery("Select * from creator where id = '" + creatorid + "' ").FirstOrDefault<creator>();
