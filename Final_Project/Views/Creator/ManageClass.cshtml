@@ -46,55 +46,55 @@
         <div class="row flex-row h-100">
             <div class="col-12 my-auto">
                 <!-- Form -->
-@using (Html.BeginForm())
-{
-
-                <div class="widget has-shadow mx-auto" style="width: 900px;">
-                    <div class="widget-header bordered no-actions d-flex align-items-center justify-content-md-center">
-                        <h4>Class </h4>
-                    </div>
-                    <div class="widget-body ">
-                        <form class="form-horizontal ">
-                            <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
-                                <label class="col-lg-2 form-control-label">Class Name</label>
-                                <div class="col-lg-8">
-                                    <div>
-                                        @Html.TextBoxFor(model => model.Class_Name, new { @class = "form-control", @required="required"})
+                @using (Html.BeginForm("ManageClass", "Creator", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="widget has-shadow mx-auto" style="width: 900px;">
+                        <div class="widget-header bordered no-actions d-flex align-items-center justify-content-md-center">
+                            <h4>Class </h4>
+                        </div>
+                        <div class="widget-body ">
+                            <form class="form-horizontal ">
+                                <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
+                                    <label class="col-lg-2 form-control-label">Class Name</label>
+                                    <div class="col-lg-8">
+                                        <div>
+                                            <input type="text" class="form-control" name="ClassName" required>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Class_Name)
                                     </div>
-                                    @Html.ValidationMessageFor(model => model.Class_Name)
                                 </div>
-                            </div>
-                            <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
-                                <label class="col-lg-2 form-control-label">Class Fee</label>
-                                <div class="col-lg-8">
-                                    <div>
-                                        @Html.TextBoxFor(model => model.Class_Fee, new { @class = "form-control", @required = "required" })
+                                <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
+                                    <label class="col-lg-2 form-control-label">Class Fee</label>
+                                    <div class="col-lg-8">
+                                        <div>
+                                            <input type="number" min="20" max="99999"  class="form-control" name="Fee" required >
+                                        </div>
+                                       
                                     </div>
-                                    @Html.ValidationMessageFor(model => model.Class_Fee)
                                 </div>
-                            </div>
-                            <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
-                                <label class="col-lg-2 form-control-label">Subjects</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control" name="Subjects">
+                                <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
+                                    <label class="col-lg-2 form-control-label">Subjects</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control" name="Subjects">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row d-flex align-items-center mb-12 justify-content-md-center">
+                                <div class="form-group row d-flex align-items-center mb-12 justify-content-md-center">
 
-                                <div class="col-sm-2">
-                                    <input type="submit" value="+ Add" class="btn btn-lg btn-gradient-03" />
-                                   
+                                    <div class="col-sm-2">
+                                        <input type="submit" value="+ Add" class="btn btn-lg btn-gradient-03" />
+
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <p class="btn btn-sm btn-gradient-03">@Html.ActionLink("Next", "ManageRoles", "Creator")</p>
+                                    </div>
                                 </div>
-                                <div class="col-sm-2">
-                                    <p class="btn btn-sm btn-gradient-03">@Html.ActionLink("Next", "ManageRoles", "Creator")</p>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
+
                     </div>
-
-                </div>
-                <!-- End Form -->
-}
+                    <!-- End Form -->
+                }
             </div>
         </div>
 

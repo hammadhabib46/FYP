@@ -55,8 +55,6 @@ namespace Final_Project.Controllers
 				TempData["P_Name"] = Data.firstname + Data.lastname;
 				TempData["E_Mail"] = Data.email;
 				TempData["Post"] = "Admin";
-
-				
 			}
 
 			return View();
@@ -66,7 +64,7 @@ namespace Final_Project.Controllers
 		{
 			int MS_d = (int)TempData["M_ID"];
 			TempData.Keep();
-				int creatorid = (int)TempData["Cr_ID"];
+			int creatorid = (int)TempData["Cr_ID"];
 			TempData.Keep();
 		//	int MS_d = 21;
 			int roll_id=(int)TempData["Role_ID"];
@@ -82,9 +80,7 @@ namespace Final_Project.Controllers
                     var clz = objj.classes.SqlQuery("Select * from classes where MS_id ='" + MS_d + "'").ToList<@class>();
 
                     TempData["clz"] = clz;
-
-
-
+                    
                     List<string> classList = new List<string>();
 
                     foreach (var x in clz)
@@ -102,10 +98,7 @@ namespace Final_Project.Controllers
                  
                 
                 }
-
-				
-				
-
+                
 				var Data = objj.roledatas.SqlQuery("Select * from roledata where MS_iid = '" + MS_d + "' AND Role_Name = '"+st+"' ").FirstOrDefault<roledata>();
 
 				TempData["Sphone"] = Data.Role_Phone;
@@ -118,7 +111,7 @@ namespace Final_Project.Controllers
 				TempData["SfatherContact"] = Data.Role_FthrPhone;
 				TempData["SEmail"] = Data.Role_Email;
 				TempData["Sportal"] = Data.Role_Portal;
-
+                TempData.Keep();
 
 			}
 
@@ -147,11 +140,13 @@ namespace Final_Project.Controllers
 		[HttpPost]
 		public ActionResult AddStudent(studfuctional stu_add)
 		{
-			 int MS_d = (int)TempData["M_ID"];
+			int MS_d = (int)TempData["M_ID"];
 			TempData.Keep();
 
-		  //  int MS_d = 21;
-			int random;
+
+            object portal_check=TempData["Sportal"];
+          //  int MS_d = 21;
+            int random;
 
 			string rol;
 			//////////// random generation of student id
@@ -174,8 +169,7 @@ namespace Final_Project.Controllers
 					}
 					   
 				}
-
-
+                
 			} while (num == false);
 
 			///////////////////////////random generation of student id
@@ -211,8 +205,7 @@ namespace Final_Project.Controllers
 
             using (testdbEntiies objj = new testdbEntiies())
             {
-
-
+                
                 try
                 {
                     var usr = objj.studfuctionals.Single(u => u.studF_RollNO == Roll_number && u.studF_MSID == MS_id);

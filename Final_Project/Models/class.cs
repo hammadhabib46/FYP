@@ -22,9 +22,7 @@ namespace Final_Project.Models
     
         public int Class_ID { get; set; }
 
-        [Required(ErrorMessage = "Fee Amount is not Valid")]
-        [DataType(DataType.PhoneNumber)]
-        [Range(20, 50000, ErrorMessage = "Please enter a value bigger than {1}")]
+        
         public Nullable<double> Class_Fee { get; set; }
         public string Class_Name { get; set; }
         public int MS_id { get; set; }
