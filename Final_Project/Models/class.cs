@@ -11,8 +11,7 @@ namespace Final_Project.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class @class
     {
         public @class()
@@ -21,8 +20,6 @@ namespace Final_Project.Models
         }
     
         public int Class_ID { get; set; }
-
-        
         public Nullable<double> Class_Fee { get; set; }
         public string Class_Name { get; set; }
         public int MS_id { get; set; }

@@ -20,20 +20,29 @@
                 <div class="widget-header bordered no-actions d-flex align-items-center justify-content-md-center">
                     <h4>Delete student information</h4>
                 </div>
-                <div class="widget-body ">
-                    <form class="form-horizontal ">
+                <div class="widget-body">
+                    <form class="form-horizontal">
                         <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
                             <label class="col-lg-2 form-control-label">Roll Number</label>
                             <div class="col-lg-8">
-                                <input type="text" class="form-control" name="Roll_number">
+                                <input type="text" class="form-control" name="Teacher Userid">
                             </div>
                         </div>
-                        
+
                         <div class="sign-btn text-center ">
                             <input type="submit" value="Delete Student" class="btn btn-lg btn-gradient-01" />
                         </div>
-                        <label class="col-lg-2 form-control-label">@ViewBag.delete</label>
-
+                       @{ if (@ViewBag.deleteStudent == null)
+                           {
+                        <p></p>
+                           }
+                           else
+                           {
+                        <div class="alert alert-success">
+                            <strong>Failed! @ViewBag.deleteStudent</strong>.
+                        </div>
+                               }
+                           }
                     </form>
                 </div>
             </div>

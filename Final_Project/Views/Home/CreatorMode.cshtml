@@ -77,14 +77,14 @@
                         <h3>Sign In As Creator</h3>
                         <form>
                             <div class="group material-input">
-                                @Html.EditorFor(Model => Model.CreatorName)
-
+                                @Html.EditorFor(Model => Model.CreatorName, new { @class = "form-control", @required = "required" })
+                                @Html.ValidationMessageFor(Model => Model.CreatorName)
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Email</label>
                             </div>
                             <div class="group material-input">
-                                @Html.EditorFor(Model => Model.Password)
+                                @Html.EditorFor(Model => Model.Password, new { @class = "form-control", @required = "required" })
                                 @Html.ValidationMessageFor(Model => Model.Password)
                                 <span class="highlight"></span>
                                 <span class="bar"></span>

@@ -31,8 +31,9 @@ namespace Final_Project.Models
         public virtual DbSet<hrfuctional> hrfuctionals { get; set; }
         public virtual DbSet<m> ms { get; set; }
         public virtual DbSet<roledata> roledatas { get; set; }
-        public virtual DbSet<subject> subjects { get; set; }
-        public virtual DbSet<role_funcdata> role_funcdata { get; set; }
         public virtual DbSet<studfuctional> studfuctionals { get; set; }
+        public virtual DbSet<role_funcdata> role_funcdata { get; set; }
+        public virtual DbSet<subject> subjects { get; set; }
+        public virtual DbSet<tchrfunctional> tchrfunctionals { get; set; }
     }
 }

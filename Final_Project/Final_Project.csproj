@@ -19,6 +19,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -501,6 +503,9 @@
     <Compile Include="Models\subject.cs">
       <DependentUpon>Modellogin.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tchrfunctional.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -527,6 +532,10 @@
     <Content Include="Views\Creator\StudFunctionlities.cshtml" />
     <Content Include="Views\Creator\Continue.cshtml" />
     <Content Include="Views\Home\SelectMS.cshtml" />
+    <Content Include="Views\Creator\TeacherAttributes.cshtml" />
+    <Content Include="Views\Creator\TeacherFucntionalities.cshtml" />
+    <Content Include="Views\Admin\AddTeacher.cshtml" />
+    <Content Include="Views\Admin\DeleteTeacher.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -174,7 +174,7 @@ namespace Final_Project.Controllers
 		[HttpPost]
 		public ActionResult UserLogin(CreatorLogin user)
 		{
-         
+             
             string passDecrypt =Encrypt(user.Password);
 
             using (testdbEntiies objj = new testdbEntiies())
@@ -194,8 +194,6 @@ namespace Final_Project.Controllers
 						else {
 							ModelState.AddModelError("Password", "Doesnt Match Any System");
 						}
-					   
-
 					}
 				}
 				catch (Exception ex)

@@ -11,9 +11,7 @@ namespace Final_Project.Models
 {
     using System;
     using System.Collections.Generic;
-
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class m
     {
         public m()
@@ -23,19 +21,15 @@ namespace Final_Project.Models
             this.hrfuctionals = new HashSet<hrfuctional>();
             this.roledatas = new HashSet<roledata>();
             this.studfuctionals = new HashSet<studfuctional>();
+            this.tchrfunctionals = new HashSet<tchrfunctional>();
         }
     
         public int MS_ID { get; set; }
         public long C_ID { get; set; }
         public string MS_InstName { get; set; }
         public string MS_InstAddress { get; set; }
-
-        [Required(ErrorMessage = "Incorrent Phone Number")]
-        [RegularExpression(@"^\(?([0-9]{4})\)?[-. ]?([0-9]{7})$", ErrorMessage = "Not a valid phone number")]
         public string MS_InstPhone { get; set; }
-        
         public byte[] MS_logo { get; set; }
-
         public string MS_InstBranch { get; set; }
     
         public virtual ICollection<accfuctional> accfuctionals { get; set; }
@@ -44,5 +38,6 @@ namespace Final_Project.Models
         public virtual ICollection<hrfuctional> hrfuctionals { get; set; }
         public virtual ICollection<roledata> roledatas { get; set; }
         public virtual ICollection<studfuctional> studfuctionals { get; set; }
+        public virtual ICollection<tchrfunctional> tchrfunctionals { get; set; }
     }
 }

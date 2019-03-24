@@ -3,8 +3,10 @@
 
     bool Notif = false;
     bool HR_A = false;
-//    Notif = (bool)TempData["NotiRole"];
+    //    Notif = (bool)TempData["NotiRole"];
     TempData.Keep();
+
+    bool addteacher = true;
 }
 
 <!DOCTYPE html>
@@ -103,17 +105,25 @@ Author: SAEROX
                         <li>@Html.ActionLink("Update Student", "UpdateStudent", "Admin")</li>
 
 
-@{
-    if (HR_A == true) { 
 
-                        <li>@Html.ActionLink("Update HR", "UpdateHr", "Admin")</li>
-     <li><a href="components-widgets.html"><i class="la la-spinner"></i><span>Update Hr Pay</span></a></li>
-}
-if (Notif == true) { 
-                        <li><a href="components-widgets.html"><i class="la la-spinner"></i><span>Send Notifications</span></a></li>
+                        @{
+                            if (addteacher == true)
+                            {
+                                <li>@Html.ActionLink("Add Teacher", "AddTeacher", "Admin")</li>
+
+                            }
+                            if (HR_A == true)
+                            {
+
+                                <li>@Html.ActionLink("Update HR", "UpdateHr", "Admin")</li>
+                                <li><a href="components-widgets.html"><i class="la la-spinner"></i><span>Update Hr Pay</span></a></li>
+                            }
+                            if (Notif == true)
+                            {
+                                <li><a href="components-widgets.html"><i class="la la-spinner"></i><span>Send Notifications</span></a></li>
+                            }
                         }
-                             }
-                        
+
                         <li><a href="components-widgets.html"><i class="la la-spinner"></i><span>Update accountant</span></a></li>
                         <li><a href="components-widgets.html"><i class="la la-spinner"></i><span>Track Revenue</span></a></li>
 

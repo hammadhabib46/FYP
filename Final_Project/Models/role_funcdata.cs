@@ -27,6 +27,11 @@ namespace Final_Project.Models
         public Nullable<bool> TrackAccProgress { get; set; }
         public Nullable<bool> updateclassfee { get; set; }
         public Nullable<bool> updateHRpay { get; set; }
+        public Nullable<bool> updateAccountant { get; set; }
+        public Nullable<bool> Marks { get; set; }
+        public Nullable<bool> Attendance { get; set; }
+        public Nullable<bool> UpdateTeacherPay { get; set; }
+        public Nullable<bool> UpdateTeacher { get; set; }
     
         public virtual roledata roledata { get; set; }
     }

@@ -29,11 +29,10 @@ namespace Final_Project.Controllers
 		{
 
 			string name = "Admin";
-			int MS_id = (int)TempData["M_ID"];
-			TempData.Keep();
-		//	int MS_id = 21;
-			int creatorid = (int)TempData["Cr_ID"]; 
-			TempData.Keep();
+          	int MS_id = (int)TempData["M_ID"];
+            TempData.Keep("M_ID");
+            int creatorid = (int)TempData["Cr_ID"]; 
+			TempData.Keep("Cr_ID");
 		//	int creatorid = 9;
 
 			using (testdbEntiies objj = new testdbEntiies())
@@ -45,8 +44,8 @@ namespace Final_Project.Controllers
 				TempData["Role_ID"] = r_id;
 
 
-				var  noti_role = objj.role_funcdata.Where((u => u.Role_ID == r_id)).Select(u => u.GiveNotification).FirstOrDefault();
-                TempData["NotiRole"] = (bool)noti_role;
+		//		var  noti_role = objj.role_funcdata.Where((u => u.Role_ID == r_id)).Select(u => u.GiveNotification).FirstOrDefault();
+                TempData["NotiRole"] = false;
 
 
 				var Data= objj.creators.SqlQuery("Select * from creator where id = '" + creatorid + "' ").FirstOrDefault<creator>();
@@ -61,18 +60,21 @@ namespace Final_Project.Controllers
 		}
 
 		public ActionResult AddStudent()
-		{
-			int MS_d = (int)TempData["M_ID"];
-			TempData.Keep();
-			int creatorid = (int)TempData["Cr_ID"];
-			TempData.Keep();
-		//	int MS_d = 21;
-			int roll_id=(int)TempData["Role_ID"];
-			TempData.Keep();
-			string st = "Student";
+        {
+            //int MS_d = 72;
+            //int creatorid = 21;
+            //int rollid = 180;
+            ////////////////////up is the testing data
+            int MS_d = (int)TempData["M_ID"];
+            TempData.Keep();
+            int creatorid = (int)TempData["Cr_ID"];
+            TempData.Keep();
+            int roll_id = (int)TempData["Role_ID"];
+            TempData.Keep();
+            string st = "Student";
+            //////////////////////////////////////////////////
 
-
-			using (testdbEntiies objj = new testdbEntiies())
+            using (testdbEntiies objj = new testdbEntiies())
 			{
 
                 try
@@ -94,9 +96,7 @@ namespace Final_Project.Controllers
                 }
                 catch(Exception ex)
                 {
-                    TempData["ClassBool"] = false;  
-                 
-                
+                    TempData["ClassBool"] = false; 
                 }
                 
 				var Data = objj.roledatas.SqlQuery("Select * from roledata where MS_iid = '" + MS_d + "' AND Role_Name = '"+st+"' ").FirstOrDefault<roledata>();
@@ -114,22 +114,58 @@ namespace Final_Project.Controllers
                 TempData.Keep();
 
 			}
-
-
-
 			return View();
 		}
 
-		public ActionResult DeleteStudent()
+        public ActionResult AddTeacher()
+        {
+            ////////////////////up is the testing data
+            int MS_d = (int)TempData["M_ID"];
+            TempData.Keep("M_ID");
+            int creatorid = (int)TempData["Cr_ID"];
+            TempData.Keep("Cr_ID");
+            int roll_id = (int)TempData["Role_ID"];
+            TempData.Keep("Role_ID");
+            string st = "Teacher";
+            //////////////////////////////////////////////////
+            ///
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+
+                var Data = objj.roledatas.SqlQuery("Select * from roledata where MS_iid = '" + MS_d + "' AND Role_Name = '" + st + "' ").FirstOrDefault<roledata>();
+                
+                TempData["Sdon"] = Data.Role_Dob;
+                TempData["Saddress"] = Data.Role_Address;
+                TempData["Scnic"] = Data.Role_CNIC;
+                TempData["Sgender"] = Data.Role_Gender;
+                TempData["Spic"] = Data.Role_Pic;
+                TempData["SEmail"] = Data.Role_Email;
+          
+                TempData["Tportal"] = Data.Role_Portal;
+                TempData.Keep();
+
+            }
+            return View();
+        }
+
+
+
+        public ActionResult DeleteStudent()
 		{
 
 			return View();
 		}
 
-		public ActionResult UpdateHR()
+
+
+        public ActionResult DeleteTeacher()
+        {
+
+            return View();
+        }
+        public ActionResult UpdateHR()
 		{
 			return View();
-		
 		}
 		public ActionResult UpdateStudent()
 		{
@@ -140,43 +176,43 @@ namespace Final_Project.Controllers
 		[HttpPost]
 		public ActionResult AddStudent(studfuctional stu_add)
 		{
-			int MS_d = (int)TempData["M_ID"];
-			TempData.Keep();
+//	nx		int MS_d = (int)TempData["M_ID"];
+//	nx		TempData.Keep();               
 
 
-            object portal_check=TempData["Sportal"];
-          //  int MS_d = 21;
-            int random;
+               int MS_d = 72;
 
-			string rol;
-			//////////// random generation of student id
-			bool num=false;
-			do
-			{
-				 random = GenerateRandomNo();
-				 rol = random.ToString();
-				 rol = "S_" + rol;
-				using (testdbEntiies obj = new testdbEntiies())
-				{
-					try
-					{
-						var usr = obj.studfuctionals.Single(u => u.studF_RollNO == rol);
-					}
-					catch(Exception e)
-					{
+            if ((bool)TempData["Sportal"] == true) ////////////////  if it will be true Student Portal will be created
+            {
+                int random;
+                string rol;
+                //////////// random generation of student id
+                bool num = false;
+                do
+                {
+                    random = GenerateRandomNo();
+                    rol = random.ToString();
+                    rol = "S_" + rol;
+                    using (testdbEntiies obj = new testdbEntiies())
+                    {
+                        try
+                        {
+                            var usr = obj.studfuctionals.Single(u => u.studF_RollNO == rol);
+                        }
+                        catch (Exception e)
+                        {
+                            num = true;
+                        }
 
-						num = true;
-					}
-					   
-				}
-                
-			} while (num == false);
+                    }
 
-			///////////////////////////random generation of student id
-			stu_add.studF_MSID = MS_d;
-			stu_add.studF_RollNO = rol;
-			stu_add.studF_password = rol;
+                } while (num == false);
 
+                ///////////////////////////random generation of student id
+                stu_add.studF_MSID = MS_d;
+                stu_add.studF_RollNO = rol;
+                stu_add.studF_password = rol;
+            }
 
 
 			if (ModelState.IsValid)
@@ -189,37 +225,37 @@ namespace Final_Project.Controllers
 				ModelState.Clear();
 				ViewBag.msg1 = "Successfully Added";
 			}
-
-
-
 			return View();
 		}
-
         
         [HttpPost]
         public ActionResult DeleteStudent(string Roll_number)
         {
         //    int MS_id = (int)TempData["M_ID"];
-            int MS_id = 21;
+            int MS_id = 72;
             TempData.Keep();
-
+            bool del = false;
             using (testdbEntiies objj = new testdbEntiies())
             {
                 
                 try
                 {
-                    var usr = objj.studfuctionals.Single(u => u.studF_RollNO == Roll_number && u.studF_MSID == MS_id);
+
+                    var usr = objj.studfuctionals.First(u => u.studF_RollNO == Roll_number && u.studF_MSID == MS_id);
                     if (usr != null)
                     {
-                        var Data = objj.creators.SqlQuery("Delete from studfuctional where studF_RollNO = '" + Roll_number + "' ").FirstOrDefault<creator>();
-                        ViewBag.delete = "SuccessFully Deleted";
+                        del = true;
+                        var Data = objj.studfuctionals.SqlQuery("Delete from studfuctional where studF_RollNO = '" + Roll_number + "' ").First<studfuctional>();
                         return View();
                     }
+
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.delete = "Deleted";
-
+                    if(del ==true)
+                    ViewBag.deleteStudent = "SuccessFully Deleted";
+                    else
+                    ViewBag.deleteStudent = "Deletion Unsuccessful";
                 }
 
             }
@@ -227,5 +263,93 @@ namespace Final_Project.Controllers
 
             return View();
         }
-	}
+
+        [HttpPost]
+        public ActionResult AddTeacher(tchrfunctional tch_add )
+        {
+            //	nx		int MS_d = (int)TempData["M_ID"];
+            //	nx		TempData.Keep();               
+            
+            int MS_d = 72;
+
+            if ((bool)TempData["Tportal"] == true) ////////////////  if it will be true Teacher Portal will be created
+            {
+                int random;
+                string rol;
+                //////////// random generation of student id
+                bool num = false;
+                do
+                {
+                    random = GenerateRandomNo();
+                    rol = random.ToString();
+                    rol = "T_" + rol;
+                    using (testdbEntiies obj = new testdbEntiies())
+                    {
+                        try
+                        {
+                            var usr = obj.tchrfunctionals.Single(u => u.TchrF_RollID == rol);
+                        }
+                        catch (Exception e)
+                        {
+                            num = true;
+                        }
+                    }
+
+                } while (num == false);
+
+                ///////////////////////////random generation of student id
+                tch_add.TchrF_MSID = MS_d;
+                tch_add.TchrF_RollID = rol;
+                tch_add.TchrF_MSID = MS_d;
+                tch_add.TchrF_password = rol;
+            }
+            
+            if (ModelState.IsValid)
+            {
+                using (testdbEntiies obj = new testdbEntiies())
+                {
+                    obj.tchrfunctionals.Add(tch_add);
+                    obj.SaveChanges();
+                }
+                ModelState.Clear();
+                ViewBag.msg1 = "Successfully Added";
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult DeleteTeacher(string Roll_number)
+        {
+            //   int MS_id = (int)TempData["M_ID"];
+            int MS_id = 72;
+            TempData.Keep();
+            bool del = false;
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                try
+                {
+                    var usr = objj.tchrfunctionals.First(u => u.TchrF_RollID == Roll_number && u.TchrF_MSID == MS_id);
+                    if (usr != null)
+                    {
+                        del = true;
+                        var Data = objj.tchrfunctionals.SqlQuery("Delete from tchrfunctional where TchrF_RollID  = '" + Roll_number + "' ").First<tchrfunctional>();
+                        return View();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (del == true)
+                        ViewBag.deleteStudent = "SuccessFully Deleted";
+                    else
+                        ViewBag.deleteStudent = "Deletion Unsuccessful";
+                }
+
+            }
+
+
+            return View();
+        }
+
+
+    }
 }

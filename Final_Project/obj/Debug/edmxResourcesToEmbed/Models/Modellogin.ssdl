@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="testdbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="testdbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="accfuctional">
     <Key>
       <PropertyRef Name="AccF_ID" />
@@ -88,6 +88,11 @@
     <Property Name="TrackAccProgress" Type="bool" />
     <Property Name="updateclassfee" Type="bool" />
     <Property Name="updateHRpay" Type="bool" />
+    <Property Name="updateAccountant" Type="bool" />
+    <Property Name="Marks" Type="bool" />
+    <Property Name="Attendance" Type="bool" />
+    <Property Name="UpdateTeacherPay" Type="bool" />
+    <Property Name="UpdateTeacher" Type="bool" />
   </EntityType>
   <EntityType Name="roledata">
     <Key>
@@ -147,6 +152,26 @@
     <Property Name="Subj_name" Type="varchar" MaxLength="255" />
     <Property Name="Cls_id" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="tchrfunctional">
+    <Key>
+      <PropertyRef Name="TchrF_ID" />
+    </Key>
+    <Property Name="TchrF_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TchrF_MSID" Type="int" Nullable="false" />
+    <Property Name="TchrF_FName" Type="varchar" MaxLength="255" />
+    <Property Name="TchrF_LName" Type="varchar" MaxLength="255" />
+    <Property Name="TchrF_DOB" Type="date" />
+    <Property Name="TchrF_CNIC" Type="varchar" MaxLength="255" />
+    <Property Name="TchrF_Phone" Type="varchar" MaxLength="255" />
+    <Property Name="TchrF_Address" Type="varchar" MaxLength="255" />
+    <Property Name="TchrF_Pic" Type="blob" />
+    <Property Name="TchrF_Email" Type="varchar" MaxLength="255" />
+    <Property Name="TchrF_Gender" Type="varchar" MaxLength="255" />
+    <Property Name="TchrF_Qualif" Type="varchar" MaxLength="255" />
+    <Property Name="Tchr_GuardName" Type="varchar" MaxLength="255" />
+    <Property Name="TchrF_RollID" Type="varchar" MaxLength="255" />
+    <Property Name="TchrF_password" Type="varchar" MaxLength="255" />
+  </EntityType>
   <Association Name="fik">
     <End Role="ms" Type="Self.ms" Multiplicity="1" />
     <End Role="roledata" Type="Self.roledata" Multiplicity="*" />
@@ -180,18 +205,6 @@
       </Principal>
       <Dependent Role="ms">
         <PropertyRef Name="C_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fkm">
-    <End Role="classes" Type="Self.classes" Multiplicity="1" />
-    <End Role="subjects" Type="Self.subjects" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="classes">
-        <PropertyRef Name="Class_ID" />
-      </Principal>
-      <Dependent Role="subjects">
-        <PropertyRef Name="Cls_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -231,7 +244,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fooik">
+  <Association Name="fook">
     <End Role="roledata" Type="Self.roledata" Multiplicity="1" />
     <End Role="role_funcdata" Type="Self.role_funcdata" Multiplicity="*" />
     <ReferentialConstraint>
@@ -240,6 +253,30 @@
       </Principal>
       <Dependent Role="role_funcdata">
         <PropertyRef Name="Role_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="subjects_ibfk_1">
+    <End Role="classes" Type="Self.classes" Multiplicity="1" />
+    <End Role="subjects" Type="Self.subjects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="classes">
+        <PropertyRef Name="Class_ID" />
+      </Principal>
+      <Dependent Role="subjects">
+        <PropertyRef Name="Cls_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="tchrfunctional_ibfk_1">
+    <End Role="ms" Type="Self.ms" Multiplicity="1" />
+    <End Role="tchrfunctional" Type="Self.tchrfunctional" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ms">
+        <PropertyRef Name="MS_ID" />
+      </Principal>
+      <Dependent Role="tchrfunctional">
+        <PropertyRef Name="TchrF_MSID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -253,6 +290,7 @@
     <EntitySet Name="roledata" EntityType="Self.roledata" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="studfuctional" EntityType="Self.studfuctional" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="subjects" EntityType="Self.subjects" Schema="testdb" store:Type="Tables" />
+    <EntitySet Name="tchrfunctional" EntityType="Self.tchrfunctional" Schema="testdb" store:Type="Tables" />
     <AssociationSet Name="fik" Association="Self.fik">
       <End Role="ms" EntitySet="ms" />
       <End Role="roledata" EntitySet="roledata" />
@@ -264,10 +302,6 @@
     <AssociationSet Name="fkid" Association="Self.fkid">
       <End Role="creator" EntitySet="creator" />
       <End Role="ms" EntitySet="ms" />
-    </AssociationSet>
-    <AssociationSet Name="fkm" Association="Self.fkm">
-      <End Role="classes" EntitySet="classes" />
-      <End Role="subjects" EntitySet="subjects" />
     </AssociationSet>
     <AssociationSet Name="foAccS" Association="Self.foAccS">
       <End Role="ms" EntitySet="ms" />
@@ -281,9 +315,17 @@
       <End Role="ms" EntitySet="ms" />
       <End Role="studfuctional" EntitySet="studfuctional" />
     </AssociationSet>
-    <AssociationSet Name="fooik" Association="Self.fooik">
+    <AssociationSet Name="fook" Association="Self.fook">
       <End Role="roledata" EntitySet="roledata" />
       <End Role="role_funcdata" EntitySet="role_funcdata" />
+    </AssociationSet>
+    <AssociationSet Name="subjects_ibfk_1" Association="Self.subjects_ibfk_1">
+      <End Role="classes" EntitySet="classes" />
+      <End Role="subjects" EntitySet="subjects" />
+    </AssociationSet>
+    <AssociationSet Name="tchrfunctional_ibfk_1" Association="Self.tchrfunctional_ibfk_1">
+      <End Role="ms" EntitySet="ms" />
+      <End Role="tchrfunctional" EntitySet="tchrfunctional" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

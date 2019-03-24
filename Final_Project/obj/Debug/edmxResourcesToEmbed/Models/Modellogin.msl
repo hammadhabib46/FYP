@@ -103,34 +103,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="subjects">
-      <EntityTypeMapping TypeName="testdbModel.subject">
-        <MappingFragment StoreEntitySet="subjects">
-          <ScalarProperty Name="Cls_id" ColumnName="Cls_id" />
-          <ScalarProperty Name="Subj_name" ColumnName="Subj_name" />
-          <ScalarProperty Name="Subj_ID" ColumnName="Subj_ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="role_funcdata">
-      <EntityTypeMapping TypeName="testdbModel.role_funcdata">
-        <MappingFragment StoreEntitySet="role_funcdata">
-          <ScalarProperty Name="updateHRpay" ColumnName="updateHRpay" />
-          <ScalarProperty Name="updateclassfee" ColumnName="updateclassfee" />
-          <ScalarProperty Name="TrackAccProgress" ColumnName="TrackAccProgress" />
-          <ScalarProperty Name="addHR" ColumnName="addHR" />
-          <ScalarProperty Name="updateHR" ColumnName="updateHR" />
-          <ScalarProperty Name="UpdateStudent" ColumnName="UpdateStudent" />
-          <ScalarProperty Name="DeleteStudent" ColumnName="DeleteStudent" />
-          <ScalarProperty Name="AddStudent" ColumnName="AddStudent" />
-          <ScalarProperty Name="GiveNotification" ColumnName="GiveNotification" />
-          <ScalarProperty Name="ViewChallan" ColumnName="ViewChallan" />
-          <ScalarProperty Name="ViewNotification" ColumnName="ViewNotification" />
-          <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
-          <ScalarProperty Name="fun_id" ColumnName="fun_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="studfuctionals">
       <EntityTypeMapping TypeName="testdbModel.studfuctional">
         <MappingFragment StoreEntitySet="studfuctional">
@@ -154,6 +126,60 @@
           <ScalarProperty Name="studF_MSID" ColumnName="studF_MSID" />
           <ScalarProperty Name="studF_FamilyID" ColumnName="studF_FamilyID" />
           <ScalarProperty Name="studF_ID" ColumnName="studF_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="role_funcdata">
+      <EntityTypeMapping TypeName="testdbModel.role_funcdata">
+        <MappingFragment StoreEntitySet="role_funcdata">
+          <ScalarProperty Name="UpdateTeacher" ColumnName="UpdateTeacher" />
+          <ScalarProperty Name="UpdateTeacherPay" ColumnName="UpdateTeacherPay" />
+          <ScalarProperty Name="Attendance" ColumnName="Attendance" />
+          <ScalarProperty Name="Marks" ColumnName="Marks" />
+          <ScalarProperty Name="updateAccountant" ColumnName="updateAccountant" />
+          <ScalarProperty Name="updateHRpay" ColumnName="updateHRpay" />
+          <ScalarProperty Name="updateclassfee" ColumnName="updateclassfee" />
+          <ScalarProperty Name="TrackAccProgress" ColumnName="TrackAccProgress" />
+          <ScalarProperty Name="addHR" ColumnName="addHR" />
+          <ScalarProperty Name="updateHR" ColumnName="updateHR" />
+          <ScalarProperty Name="UpdateStudent" ColumnName="UpdateStudent" />
+          <ScalarProperty Name="DeleteStudent" ColumnName="DeleteStudent" />
+          <ScalarProperty Name="AddStudent" ColumnName="AddStudent" />
+          <ScalarProperty Name="GiveNotification" ColumnName="GiveNotification" />
+          <ScalarProperty Name="ViewChallan" ColumnName="ViewChallan" />
+          <ScalarProperty Name="ViewNotification" ColumnName="ViewNotification" />
+          <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+          <ScalarProperty Name="fun_id" ColumnName="fun_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="subjects">
+      <EntityTypeMapping TypeName="testdbModel.subject">
+        <MappingFragment StoreEntitySet="subjects">
+          <ScalarProperty Name="Cls_id" ColumnName="Cls_id" />
+          <ScalarProperty Name="Subj_name" ColumnName="Subj_name" />
+          <ScalarProperty Name="Subj_ID" ColumnName="Subj_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tchrfunctionals">
+      <EntityTypeMapping TypeName="testdbModel.tchrfunctional">
+        <MappingFragment StoreEntitySet="tchrfunctional">
+          <ScalarProperty Name="TchrF_password" ColumnName="TchrF_password" />
+          <ScalarProperty Name="TchrF_RollID" ColumnName="TchrF_RollID" />
+          <ScalarProperty Name="Tchr_GuardName" ColumnName="Tchr_GuardName" />
+          <ScalarProperty Name="TchrF_Qualif" ColumnName="TchrF_Qualif" />
+          <ScalarProperty Name="TchrF_Gender" ColumnName="TchrF_Gender" />
+          <ScalarProperty Name="TchrF_Email" ColumnName="TchrF_Email" />
+          <ScalarProperty Name="TchrF_Pic" ColumnName="TchrF_Pic" />
+          <ScalarProperty Name="TchrF_Address" ColumnName="TchrF_Address" />
+          <ScalarProperty Name="TchrF_Phone" ColumnName="TchrF_Phone" />
+          <ScalarProperty Name="TchrF_CNIC" ColumnName="TchrF_CNIC" />
+          <ScalarProperty Name="TchrF_DOB" ColumnName="TchrF_DOB" />
+          <ScalarProperty Name="TchrF_LName" ColumnName="TchrF_LName" />
+          <ScalarProperty Name="TchrF_FName" ColumnName="TchrF_FName" />
+          <ScalarProperty Name="TchrF_MSID" ColumnName="TchrF_MSID" />
+          <ScalarProperty Name="TchrF_ID" ColumnName="TchrF_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

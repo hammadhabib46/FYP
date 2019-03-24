@@ -74,15 +74,25 @@ namespace Final_Project.Controllers
             return View();
         }
 
+        public ActionResult AccountantFunctionalities()
+        {
+            return View();
+        }
 
-        public ActionResult Continue()
+        public ActionResult TeacherAttributes()
+        {
+            return View();
+        }
+        public ActionResult TeacherFucntionalities()
         {
             return View();
         }
 
 
-
-
+        public ActionResult Continue()
+        {
+            return View();
+        }
         // for adding it to model.logo ,doing conversion for blob
         public byte[] ConvertToByte(HttpPostedFileBase file)
         {
@@ -138,11 +148,12 @@ namespace Final_Project.Controllers
             return View();
         }
 
-
         // POST method for adding Class data + subjects + fee in database ( in 2 separate tables)
         [HttpPost]
         public ActionResult ManageClass(string ClassName,Nullable<double> Fee, string subjects)
         {
+           
+
             @class class_obj = new @class();
             class_obj.Class_Fee = Fee;
             class_obj.Class_Name = ClassName;
@@ -166,6 +177,7 @@ namespace Final_Project.Controllers
                         using (testdbEntiies obj = new testdbEntiies())
                         {
                             class_obj.MS_id = (int)TempData["MS_ID"];
+                            TempData.Keep();
                             obj.classes.Add(class_obj);
                             obj.SaveChanges();
                         }
@@ -214,9 +226,9 @@ namespace Final_Project.Controllers
         }
 
         [HttpPost]
-        public ActionResult ManageRoles(bool AccountManager = false, bool HRmanager = false)
+        public ActionResult ManageRoles(bool AccountManager = false, bool HRmanager = false,bool Teacher = false)
         {
-
+            TempData["Teacher"] = Teacher;
             TempData["Acc_Manager"] = AccountManager;
             TempData["HR_Manager"] = HRmanager;
             TempData["HR_Manager5"] = HRmanager;
@@ -230,9 +242,11 @@ namespace Final_Project.Controllers
         [HttpPost]
         public ActionResult StudentAttributes(roledata obj_R, bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false, bool pic = false, bool FatherCNIC = false, bool GuardianContact = false, bool email = false, bool StudPortal = false)
         {
+        //    TempData["MS_ID"] = 73;
 
 
             obj_R.MS_iid = (int)TempData["MS_ID"];
+            TempData.Keep();
             //	obj_R.MS_iid = 5;
             obj_R.Role_Name = "Student";
 
@@ -273,19 +287,24 @@ namespace Final_Project.Controllers
             {
                 var role_Id = objj.roledatas.Where((u => u.MS_iid == obj_R.MS_iid && u.Role_Name == obj_R.Role_Name)).Select(u => u.Role_ID).FirstOrDefault();   //// getting MS from database using MS_Name
                 TempData["Stud_Role_ID"] = (int)role_Id;
-
             }
+
+            
 
             if ((bool)TempData["Acc_Manager"] == true)
             {
                 return RedirectToAction("AccountantAttributes", "Creator");
-
-
+                
             }
             if ((bool)TempData["HR_Manager"] == true)
             {
                 return RedirectToAction("HRAttributes", "Creator");
             }
+            if ((bool)TempData["Teacher"] == true)
+            {
+                return RedirectToAction("TeacherAttributes", "Creator");
+            }
+
 
 
             return RedirectToAction("adminFunctionlities", "Creator");
@@ -346,6 +365,10 @@ namespace Final_Project.Controllers
                 HR_A = true;
                 return RedirectToAction("HRAttributes", "Creator");
             }
+            if ((bool)TempData["Teacher"] == true)
+            {
+                return RedirectToAction("TeacherAttributes", "Creator");
+            }
 
             TempData["Hr_Portal"] = false;
             return RedirectToAction("adminFunctionlities", "Creator");
@@ -396,13 +419,66 @@ namespace Final_Project.Controllers
             {
                 var role_Id = objj.roledatas.Where((u => u.MS_iid == obj_R.MS_iid && u.Role_Name == obj_R.Role_Name)).Select(u => u.Role_ID).FirstOrDefault();   //// getting MS from database using MS_Name
                 TempData["Hr_Role_ID"] = (int)role_Id;
+            }
 
+            if ((bool)TempData["Teacher"] == true)
+            {
+                return RedirectToAction("TeacherAttributes", "Creator");
             }
 
             return RedirectToAction("adminFunctionlities", "Creator");
         }
 
+        [HttpPost]
+        public ActionResult TeacherAttributes(bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false, bool pic = false, bool email = false, bool Portal = false)
+        {
+            roledata obj_R = new roledata();
+            obj_R.MS_iid = (int)TempData["MS_ID"];
+         //   	obj_R.MS_iid = 5;
+            obj_R.Role_Name = "Teacher";
 
+            
+            obj_R.Role_Pic = pic;
+            obj_R.Role_Dob = DOB;
+            obj_R.Role_Address = Address;
+            obj_R.Role_Gender = Gender;
+            obj_R.Role_CNIC = CNIC;
+            obj_R.Role_Email = email;
+
+            obj_R.Role_Portal = Portal;
+            TempData["Teacher_Portal"] = Portal;
+
+
+
+            obj_R.Role_Fname = true;
+            obj_R.Role_Lname = true;
+            obj_R.Role_Phone = true;
+            obj_R.Role_FthrName = true;
+            obj_R.Role_Qualif = true;
+
+
+            if (ModelState.IsValid)
+            {
+                using (testdbEntiies obj = new testdbEntiies())
+                {
+                    obj.roledatas.Add(obj_R);
+                    obj.SaveChanges();
+                }
+
+                ModelState.Clear();
+            }
+
+
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                var role_Id = objj.roledatas.Where((u => u.MS_iid == obj_R.MS_iid && u.Role_Name == obj_R.Role_Name)).Select(u => u.Role_ID).FirstOrDefault();   //// getting MS from database using MS_Name
+                TempData["Teacher_Role_ID"] = (int)role_Id;
+            }
+            
+            return RedirectToAction("adminFunctionlities", "Creator");
+        }
+
+        
         [HttpPost]
         public ActionResult adminFunctionlities(bool Nofi = false)
         {
@@ -441,6 +517,7 @@ namespace Final_Project.Controllers
 
 
             obj_RF.Role_ID = (int)TempData["Admin_Role_ID"];
+            TempData.Keep();
 
             obj_RF.GiveNotification = true;
             obj_RF.AddStudent = true;
@@ -470,15 +547,25 @@ namespace Final_Project.Controllers
 
             TempData["adminNoti"] = Nofi;
             TempData["adminNoti2"] = Nofi;
+
             if ((bool)TempData["St_Portal"] == true)
             {
                 return RedirectToAction("StudFunctionlities", "Creator");
             }
-
+            //if ((bool)TempData["Acc_Portal"] == true)
+            //{
+            //    return RedirectToAction("AccFunctionlities", "Creator");
+            //}
             if ((bool)TempData["Hr_Portal"] == true)
             {
                 return RedirectToAction("HrFunctionlities", "Creator");
             }
+
+            if ((bool)TempData["Teacher_Portal"] == true)
+            {
+                return RedirectToAction("TeacherFucntionalities", "Creator");
+            }
+
 
             return RedirectToAction("Continue", "Creator");
         }
@@ -488,14 +575,10 @@ namespace Final_Project.Controllers
         public ActionResult StudFunctionlities(bool Nofi = false)
         {
             role_funcdata obj_RF = new role_funcdata();
-
-
-
+            
             obj_RF.ViewNotification = Nofi;
             obj_RF.Role_ID = (int)TempData["Stud_Role_ID"];
-
-
-
+            
             if (ModelState.IsValid)
             {
                 using (testdbEntiies obj = new testdbEntiies())
@@ -506,14 +589,16 @@ namespace Final_Project.Controllers
                 }
                 ModelState.Clear();
             }
-
-
+            
             if ((bool)TempData["Hr_Portal"] == true)
             {
                 return RedirectToAction("HrFunctionlities", "Creator");
 
             }
-
+            if ((bool)TempData["Teacher_Portal"] == true)
+            {
+                return RedirectToAction("TeacherFucntionalities", "Creator");
+            }
 
             return RedirectToAction("Continue", "Creator");
         }
@@ -542,11 +627,42 @@ namespace Final_Project.Controllers
                 }
                 ModelState.Clear();
             }
+            if ((bool)TempData["Teacher_Portal"] == true)
+            {
+                return RedirectToAction("TeacherFucntionalities", "Creator");
+            }
 
 
             return RedirectToAction("Continue", "Creator");
         }
 
+
+     
+        [HttpPost]
+        public ActionResult TeacherFucntionalities(bool Nofi = false,bool M = false,bool A= false)
+        {
+            role_funcdata obj_RF = new role_funcdata();
+
+            obj_RF.Marks = M;
+            obj_RF.Attendance = A;
+            
+            obj_RF.ViewNotification = Nofi;
+            obj_RF.Role_ID = (int)TempData["Teacher_Role_ID"];
+            TempData.Keep();
+
+            if (ModelState.IsValid)
+            {
+                using (testdbEntiies obj = new testdbEntiies())
+                {
+                    obj.role_funcdata.Add(obj_RF);
+                    obj.SaveChanges();
+
+                }
+                ModelState.Clear();
+            }
+            
+            return RedirectToAction("Continue", "Creator");
+        }
 
 
 

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="testdbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="testdbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="accfuctional">
           <Key>
             <PropertyRef Name="AccF_ID" />
@@ -93,6 +93,11 @@
           <Property Name="TrackAccProgress" Type="bool" />
           <Property Name="updateclassfee" Type="bool" />
           <Property Name="updateHRpay" Type="bool" />
+          <Property Name="updateAccountant" Type="bool" />
+          <Property Name="Marks" Type="bool" />
+          <Property Name="Attendance" Type="bool" />
+          <Property Name="UpdateTeacherPay" Type="bool" />
+          <Property Name="UpdateTeacher" Type="bool" />
         </EntityType>
         <EntityType Name="roledata">
           <Key>
@@ -152,6 +157,26 @@
           <Property Name="Subj_name" Type="varchar" MaxLength="255" />
           <Property Name="Cls_id" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="tchrfunctional">
+          <Key>
+            <PropertyRef Name="TchrF_ID" />
+          </Key>
+          <Property Name="TchrF_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TchrF_MSID" Type="int" Nullable="false" />
+          <Property Name="TchrF_FName" Type="varchar" MaxLength="255" />
+          <Property Name="TchrF_LName" Type="varchar" MaxLength="255" />
+          <Property Name="TchrF_DOB" Type="date" />
+          <Property Name="TchrF_CNIC" Type="varchar" MaxLength="255" />
+          <Property Name="TchrF_Phone" Type="varchar" MaxLength="255" />
+          <Property Name="TchrF_Address" Type="varchar" MaxLength="255" />
+          <Property Name="TchrF_Pic" Type="blob" />
+          <Property Name="TchrF_Email" Type="varchar" MaxLength="255" />
+          <Property Name="TchrF_Gender" Type="varchar" MaxLength="255" />
+          <Property Name="TchrF_Qualif" Type="varchar" MaxLength="255" />
+          <Property Name="Tchr_GuardName" Type="varchar" MaxLength="255" />
+          <Property Name="TchrF_RollID" Type="varchar" MaxLength="255" />
+          <Property Name="TchrF_password" Type="varchar" MaxLength="255" />
+        </EntityType>
         <Association Name="fik">
           <End Role="ms" Type="Self.ms" Multiplicity="1" />
           <End Role="roledata" Type="Self.roledata" Multiplicity="*" />
@@ -185,18 +210,6 @@
             </Principal>
             <Dependent Role="ms">
               <PropertyRef Name="C_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fkm">
-          <End Role="classes" Type="Self.classes" Multiplicity="1" />
-          <End Role="subjects" Type="Self.subjects" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="classes">
-              <PropertyRef Name="Class_ID" />
-            </Principal>
-            <Dependent Role="subjects">
-              <PropertyRef Name="Cls_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -236,7 +249,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fooik">
+        <Association Name="fook">
           <End Role="roledata" Type="Self.roledata" Multiplicity="1" />
           <End Role="role_funcdata" Type="Self.role_funcdata" Multiplicity="*" />
           <ReferentialConstraint>
@@ -245,6 +258,30 @@
             </Principal>
             <Dependent Role="role_funcdata">
               <PropertyRef Name="Role_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="subjects_ibfk_1">
+          <End Role="classes" Type="Self.classes" Multiplicity="1" />
+          <End Role="subjects" Type="Self.subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classes">
+              <PropertyRef Name="Class_ID" />
+            </Principal>
+            <Dependent Role="subjects">
+              <PropertyRef Name="Cls_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tchrfunctional_ibfk_1">
+          <End Role="ms" Type="Self.ms" Multiplicity="1" />
+          <End Role="tchrfunctional" Type="Self.tchrfunctional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ms">
+              <PropertyRef Name="MS_ID" />
+            </Principal>
+            <Dependent Role="tchrfunctional">
+              <PropertyRef Name="TchrF_MSID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -258,6 +295,7 @@
           <EntitySet Name="roledata" EntityType="Self.roledata" Schema="testdb" store:Type="Tables" />
           <EntitySet Name="studfuctional" EntityType="Self.studfuctional" Schema="testdb" store:Type="Tables" />
           <EntitySet Name="subjects" EntityType="Self.subjects" Schema="testdb" store:Type="Tables" />
+          <EntitySet Name="tchrfunctional" EntityType="Self.tchrfunctional" Schema="testdb" store:Type="Tables" />
           <AssociationSet Name="fik" Association="Self.fik">
             <End Role="ms" EntitySet="ms" />
             <End Role="roledata" EntitySet="roledata" />
@@ -269,10 +307,6 @@
           <AssociationSet Name="fkid" Association="Self.fkid">
             <End Role="creator" EntitySet="creator" />
             <End Role="ms" EntitySet="ms" />
-          </AssociationSet>
-          <AssociationSet Name="fkm" Association="Self.fkm">
-            <End Role="classes" EntitySet="classes" />
-            <End Role="subjects" EntitySet="subjects" />
           </AssociationSet>
           <AssociationSet Name="foAccS" Association="Self.foAccS">
             <End Role="ms" EntitySet="ms" />
@@ -286,9 +320,17 @@
             <End Role="ms" EntitySet="ms" />
             <End Role="studfuctional" EntitySet="studfuctional" />
           </AssociationSet>
-          <AssociationSet Name="fooik" Association="Self.fooik">
+          <AssociationSet Name="fook" Association="Self.fook">
             <End Role="roledata" EntitySet="roledata" />
             <End Role="role_funcdata" EntitySet="role_funcdata" />
+          </AssociationSet>
+          <AssociationSet Name="subjects_ibfk_1" Association="Self.subjects_ibfk_1">
+            <End Role="classes" EntitySet="classes" />
+            <End Role="subjects" EntitySet="subjects" />
+          </AssociationSet>
+          <AssociationSet Name="tchrfunctional_ibfk_1" Association="Self.tchrfunctional_ibfk_1">
+            <End Role="ms" EntitySet="ms" />
+            <End Role="tchrfunctional" EntitySet="tchrfunctional" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -313,7 +355,6 @@
           <EntitySet Name="hrfuctionals" EntityType="testdbModel.hrfuctional" />
           <EntitySet Name="ms" EntityType="testdbModel.m" />
           <EntitySet Name="roledatas" EntityType="testdbModel.roledata" />
-          <EntitySet Name="subjects" EntityType="testdbModel.subject" />
           <AssociationSet Name="foAccS" Association="testdbModel.foAccS">
             <End Role="m" EntitySet="ms" />
             <End Role="accfuctional" EntitySet="accfuctionals" />
@@ -321,10 +362,6 @@
           <AssociationSet Name="fk" Association="testdbModel.fk">
             <End Role="m" EntitySet="ms" />
             <End Role="class" EntitySet="classes" />
-          </AssociationSet>
-          <AssociationSet Name="fkm" Association="testdbModel.fkm">
-            <End Role="class" EntitySet="classes" />
-            <End Role="subject" EntitySet="subjects" />
           </AssociationSet>
           <AssociationSet Name="fkid" Association="testdbModel.fkid">
             <End Role="creator" EntitySet="creators" />
@@ -338,15 +375,25 @@
             <End Role="m" EntitySet="ms" />
             <End Role="roledata" EntitySet="roledatas" />
           </AssociationSet>
-          <EntitySet Name="role_funcdata" EntityType="testdbModel.role_funcdata" />
-          <AssociationSet Name="fooik" Association="testdbModel.fooik">
-            <End Role="roledata" EntitySet="roledatas" />
-            <End Role="role_funcdata" EntitySet="role_funcdata" />
-          </AssociationSet>
           <EntitySet Name="studfuctionals" EntityType="testdbModel.studfuctional" />
           <AssociationSet Name="foMS" Association="testdbModel.foMS">
             <End Role="m" EntitySet="ms" />
             <End Role="studfuctional" EntitySet="studfuctionals" />
+          </AssociationSet>
+          <EntitySet Name="role_funcdata" EntityType="testdbModel.role_funcdata" />
+          <EntitySet Name="subjects" EntityType="testdbModel.subject" />
+          <AssociationSet Name="subjects_ibfk_1" Association="testdbModel.subjects_ibfk_1">
+            <End Role="class" EntitySet="classes" />
+            <End Role="subject" EntitySet="subjects" />
+          </AssociationSet>
+          <AssociationSet Name="fook" Association="testdbModel.fook">
+            <End Role="roledata" EntitySet="roledatas" />
+            <End Role="role_funcdata" EntitySet="role_funcdata" />
+          </AssociationSet>
+          <EntitySet Name="tchrfunctionals" EntityType="testdbModel.tchrfunctional" />
+          <AssociationSet Name="tchrfunctional_ibfk_1" Association="testdbModel.tchrfunctional_ibfk_1">
+            <End Role="m" EntitySet="ms" />
+            <End Role="tchrfunctional" EntitySet="tchrfunctionals" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="accfuctional">
@@ -379,7 +426,7 @@
           <Property Name="Class_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="MS_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="m" Relationship="testdbModel.fk" FromRole="class" ToRole="m" />
-          <NavigationProperty Name="subjects" Relationship="testdbModel.fkm" FromRole="class" ToRole="subject" />
+          <NavigationProperty Name="subjects" Relationship="testdbModel.subjects_ibfk_1" FromRole="class" ToRole="subject" />
         </EntityType>
         <EntityType Name="hrfuctional">
           <Key>
@@ -419,6 +466,7 @@
           <NavigationProperty Name="hrfuctionals" Relationship="testdbModel.foHrS" FromRole="m" ToRole="hrfuctional" />
           <NavigationProperty Name="roledatas" Relationship="testdbModel.fik" FromRole="m" ToRole="roledata" />
           <NavigationProperty Name="studfuctionals" Relationship="testdbModel.foMS" FromRole="m" ToRole="studfuctional" />
+          <NavigationProperty Name="tchrfunctionals" Relationship="testdbModel.tchrfunctional_ibfk_1" FromRole="m" ToRole="tchrfunctional" />
         </EntityType>
         <EntityType Name="roledata">
           <Key>
@@ -445,16 +493,7 @@
           <Property Name="Role_PendingFee" Type="Boolean" />
           <Property Name="MS_iid" Type="Int32" Nullable="false" />
           <NavigationProperty Name="m" Relationship="testdbModel.fik" FromRole="roledata" ToRole="m" />
-          <NavigationProperty Name="role_funcdata" Relationship="testdbModel.fooik" FromRole="roledata" ToRole="role_funcdata" />
-        </EntityType>
-        <EntityType Name="subject">
-          <Key>
-            <PropertyRef Name="Subj_ID" />
-          </Key>
-          <Property Name="Subj_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Subj_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Cls_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="class" Relationship="testdbModel.fkm" FromRole="subject" ToRole="class" />
+          <NavigationProperty Name="role_funcdata" Relationship="testdbModel.fook" FromRole="roledata" ToRole="role_funcdata" />
         </EntityType>
         <Association Name="foAccS">
           <End Type="testdbModel.m" Role="m" Multiplicity="1" />
@@ -477,18 +516,6 @@
             </Principal>
             <Dependent Role="class">
               <PropertyRef Name="MS_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fkm">
-          <End Type="testdbModel.class" Role="class" Multiplicity="1" />
-          <End Type="testdbModel.subject" Role="subject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="class">
-              <PropertyRef Name="Class_ID" />
-            </Principal>
-            <Dependent Role="subject">
-              <PropertyRef Name="Cls_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -528,37 +555,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="role_funcdata">
-          <Key>
-            <PropertyRef Name="fun_id" />
-          </Key>
-          <Property Name="fun_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Role_ID" Type="Int32" Nullable="false" />
-          <Property Name="ViewNotification" Type="Boolean" />
-          <Property Name="ViewChallan" Type="Boolean" />
-          <Property Name="GiveNotification" Type="Boolean" />
-          <Property Name="AddStudent" Type="Boolean" />
-          <Property Name="DeleteStudent" Type="Boolean" />
-          <Property Name="UpdateStudent" Type="Boolean" />
-          <Property Name="updateHR" Type="Boolean" />
-          <Property Name="addHR" Type="Boolean" />
-          <Property Name="TrackAccProgress" Type="Boolean" />
-          <Property Name="updateclassfee" Type="Boolean" />
-          <Property Name="updateHRpay" Type="Boolean" />
-          <NavigationProperty Name="roledata" Relationship="testdbModel.fooik" FromRole="role_funcdata" ToRole="roledata" />
-        </EntityType>
-        <Association Name="fooik">
-          <End Type="testdbModel.roledata" Role="roledata" Multiplicity="1" />
-          <End Type="testdbModel.role_funcdata" Role="role_funcdata" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="roledata">
-              <PropertyRef Name="Role_ID" />
-            </Principal>
-            <Dependent Role="role_funcdata">
-              <PropertyRef Name="Role_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="studfuctional">
           <Key>
             <PropertyRef Name="studF_ID" />
@@ -594,6 +590,96 @@
             </Principal>
             <Dependent Role="studfuctional">
               <PropertyRef Name="studF_MSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="role_funcdata">
+          <Key>
+            <PropertyRef Name="fun_id" />
+          </Key>
+          <Property Name="fun_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role_ID" Type="Int32" Nullable="false" />
+          <Property Name="ViewNotification" Type="Boolean" />
+          <Property Name="ViewChallan" Type="Boolean" />
+          <Property Name="GiveNotification" Type="Boolean" />
+          <Property Name="AddStudent" Type="Boolean" />
+          <Property Name="DeleteStudent" Type="Boolean" />
+          <Property Name="UpdateStudent" Type="Boolean" />
+          <Property Name="updateHR" Type="Boolean" />
+          <Property Name="addHR" Type="Boolean" />
+          <Property Name="TrackAccProgress" Type="Boolean" />
+          <Property Name="updateclassfee" Type="Boolean" />
+          <Property Name="updateHRpay" Type="Boolean" />
+          <Property Name="updateAccountant" Type="Boolean" />
+          <Property Name="Marks" Type="Boolean" />
+          <Property Name="Attendance" Type="Boolean" />
+          <Property Name="UpdateTeacherPay" Type="Boolean" />
+          <Property Name="UpdateTeacher" Type="Boolean" />
+          <NavigationProperty Name="roledata" Relationship="testdbModel.fook" FromRole="role_funcdata" ToRole="roledata" />
+        </EntityType>
+        <EntityType Name="subject">
+          <Key>
+            <PropertyRef Name="Subj_ID" />
+          </Key>
+          <Property Name="Subj_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subj_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Cls_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="class" Relationship="testdbModel.subjects_ibfk_1" FromRole="subject" ToRole="class" />
+        </EntityType>
+        <Association Name="subjects_ibfk_1">
+          <End Type="testdbModel.class" Role="class" Multiplicity="1" />
+          <End Type="testdbModel.subject" Role="subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="class">
+              <PropertyRef Name="Class_ID" />
+            </Principal>
+            <Dependent Role="subject">
+              <PropertyRef Name="Cls_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fook">
+          <End Type="testdbModel.roledata" Role="roledata" Multiplicity="1" />
+          <End Type="testdbModel.role_funcdata" Role="role_funcdata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roledata">
+              <PropertyRef Name="Role_ID" />
+            </Principal>
+            <Dependent Role="role_funcdata">
+              <PropertyRef Name="Role_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tchrfunctional">
+          <Key>
+            <PropertyRef Name="TchrF_ID" />
+          </Key>
+          <Property Name="TchrF_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TchrF_MSID" Type="Int32" Nullable="false" />
+          <Property Name="TchrF_FName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TchrF_LName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TchrF_DOB" Type="DateTime" />
+          <Property Name="TchrF_CNIC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TchrF_Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TchrF_Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TchrF_Pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="TchrF_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TchrF_Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TchrF_Qualif" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Tchr_GuardName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TchrF_RollID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TchrF_password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="m" Relationship="testdbModel.tchrfunctional_ibfk_1" FromRole="tchrfunctional" ToRole="m" />
+        </EntityType>
+        <Association Name="tchrfunctional_ibfk_1">
+          <End Type="testdbModel.m" Role="m" Multiplicity="1" />
+          <End Type="testdbModel.tchrfunctional" Role="tchrfunctional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m">
+              <PropertyRef Name="MS_ID" />
+            </Principal>
+            <Dependent Role="tchrfunctional">
+              <PropertyRef Name="TchrF_MSID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -705,34 +791,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="subjects">
-            <EntityTypeMapping TypeName="testdbModel.subject">
-              <MappingFragment StoreEntitySet="subjects">
-                <ScalarProperty Name="Cls_id" ColumnName="Cls_id" />
-                <ScalarProperty Name="Subj_name" ColumnName="Subj_name" />
-                <ScalarProperty Name="Subj_ID" ColumnName="Subj_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="role_funcdata">
-            <EntityTypeMapping TypeName="testdbModel.role_funcdata">
-              <MappingFragment StoreEntitySet="role_funcdata">
-                <ScalarProperty Name="updateHRpay" ColumnName="updateHRpay" />
-                <ScalarProperty Name="updateclassfee" ColumnName="updateclassfee" />
-                <ScalarProperty Name="TrackAccProgress" ColumnName="TrackAccProgress" />
-                <ScalarProperty Name="addHR" ColumnName="addHR" />
-                <ScalarProperty Name="updateHR" ColumnName="updateHR" />
-                <ScalarProperty Name="UpdateStudent" ColumnName="UpdateStudent" />
-                <ScalarProperty Name="DeleteStudent" ColumnName="DeleteStudent" />
-                <ScalarProperty Name="AddStudent" ColumnName="AddStudent" />
-                <ScalarProperty Name="GiveNotification" ColumnName="GiveNotification" />
-                <ScalarProperty Name="ViewChallan" ColumnName="ViewChallan" />
-                <ScalarProperty Name="ViewNotification" ColumnName="ViewNotification" />
-                <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
-                <ScalarProperty Name="fun_id" ColumnName="fun_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="studfuctionals">
             <EntityTypeMapping TypeName="testdbModel.studfuctional">
               <MappingFragment StoreEntitySet="studfuctional">
@@ -756,6 +814,60 @@
                 <ScalarProperty Name="studF_MSID" ColumnName="studF_MSID" />
                 <ScalarProperty Name="studF_FamilyID" ColumnName="studF_FamilyID" />
                 <ScalarProperty Name="studF_ID" ColumnName="studF_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="role_funcdata">
+            <EntityTypeMapping TypeName="testdbModel.role_funcdata">
+              <MappingFragment StoreEntitySet="role_funcdata">
+                <ScalarProperty Name="UpdateTeacher" ColumnName="UpdateTeacher" />
+                <ScalarProperty Name="UpdateTeacherPay" ColumnName="UpdateTeacherPay" />
+                <ScalarProperty Name="Attendance" ColumnName="Attendance" />
+                <ScalarProperty Name="Marks" ColumnName="Marks" />
+                <ScalarProperty Name="updateAccountant" ColumnName="updateAccountant" />
+                <ScalarProperty Name="updateHRpay" ColumnName="updateHRpay" />
+                <ScalarProperty Name="updateclassfee" ColumnName="updateclassfee" />
+                <ScalarProperty Name="TrackAccProgress" ColumnName="TrackAccProgress" />
+                <ScalarProperty Name="addHR" ColumnName="addHR" />
+                <ScalarProperty Name="updateHR" ColumnName="updateHR" />
+                <ScalarProperty Name="UpdateStudent" ColumnName="UpdateStudent" />
+                <ScalarProperty Name="DeleteStudent" ColumnName="DeleteStudent" />
+                <ScalarProperty Name="AddStudent" ColumnName="AddStudent" />
+                <ScalarProperty Name="GiveNotification" ColumnName="GiveNotification" />
+                <ScalarProperty Name="ViewChallan" ColumnName="ViewChallan" />
+                <ScalarProperty Name="ViewNotification" ColumnName="ViewNotification" />
+                <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+                <ScalarProperty Name="fun_id" ColumnName="fun_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="subjects">
+            <EntityTypeMapping TypeName="testdbModel.subject">
+              <MappingFragment StoreEntitySet="subjects">
+                <ScalarProperty Name="Cls_id" ColumnName="Cls_id" />
+                <ScalarProperty Name="Subj_name" ColumnName="Subj_name" />
+                <ScalarProperty Name="Subj_ID" ColumnName="Subj_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tchrfunctionals">
+            <EntityTypeMapping TypeName="testdbModel.tchrfunctional">
+              <MappingFragment StoreEntitySet="tchrfunctional">
+                <ScalarProperty Name="TchrF_password" ColumnName="TchrF_password" />
+                <ScalarProperty Name="TchrF_RollID" ColumnName="TchrF_RollID" />
+                <ScalarProperty Name="Tchr_GuardName" ColumnName="Tchr_GuardName" />
+                <ScalarProperty Name="TchrF_Qualif" ColumnName="TchrF_Qualif" />
+                <ScalarProperty Name="TchrF_Gender" ColumnName="TchrF_Gender" />
+                <ScalarProperty Name="TchrF_Email" ColumnName="TchrF_Email" />
+                <ScalarProperty Name="TchrF_Pic" ColumnName="TchrF_Pic" />
+                <ScalarProperty Name="TchrF_Address" ColumnName="TchrF_Address" />
+                <ScalarProperty Name="TchrF_Phone" ColumnName="TchrF_Phone" />
+                <ScalarProperty Name="TchrF_CNIC" ColumnName="TchrF_CNIC" />
+                <ScalarProperty Name="TchrF_DOB" ColumnName="TchrF_DOB" />
+                <ScalarProperty Name="TchrF_LName" ColumnName="TchrF_LName" />
+                <ScalarProperty Name="TchrF_FName" ColumnName="TchrF_FName" />
+                <ScalarProperty Name="TchrF_MSID" ColumnName="TchrF_MSID" />
+                <ScalarProperty Name="TchrF_ID" ColumnName="TchrF_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
