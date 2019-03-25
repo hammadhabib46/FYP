@@ -219,6 +219,20 @@ namespace Final_Project.Controllers
             }
 
 
+            /////////////sending Class ID to Table instead of Class Name
+
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                var Data = objj.classes.SqlQuery("Select * from classes where ms_id = '" + MS_d + "' and Class_Name = '" + stu_add.studF_ClassName + "' ").FirstOrDefault<@class>();
+                stu_add.studF_ClassName = (string)Data.Class_ID.ToString();
+
+            }
+
+
+
+            ///
+
+
             if (ModelState.IsValid)
             {
                 using (testdbEntiies obj = new testdbEntiies())

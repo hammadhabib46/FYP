@@ -1,15 +1,19 @@
-﻿@{
+﻿@using Final_Project.Models;
+
+@{
     Layout = null;
 
     bool teacherP = (bool)TempData["Teach_Present"];
     TempData.Keep();
     bool HRP = (bool)TempData["HR_Present"];
     TempData.Keep();
+    
+    var classData = (List<@class>)Session["clz"];
 
-
-    List<string> ClassList = (List<string>)TempData["classL"];
+    // List<string> ClassList = (List<string>)TempData["classL"];
 
     bool addteacher = true;
+    
 }
 
 
@@ -60,7 +64,6 @@
                 <!-- Begin Topbar -->
                 <div class="navbar-holder d-flex align-items-center align-middle justify-content-between">
                     <!-- Begin Logo -->
-                    
                     <!-- End Logo -->
                     <!-- Begin Navbar Menu -->
                     <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center pull-right">
@@ -119,14 +122,15 @@
                         <li class="active">
                             <a href="#dropdown-tables" aria-expanded="true" data-toggle="collapse"><i class="la la-th-large"></i><span>Student Details</span></a>
                             <ul id="dropdown-tables" class="collapse list-unstyled show pt-0">
-                                @{ 
-                                   foreach (string item in ClassList)
+                                @{
+                                    foreach (var item in classData)
                                     {
-                                        <li><a href="@Url.Action("ClassDetails", "Admin", new { data = @item })">@item</a></li>
+                                         Nullable<int> x = item.Class_ID;
+                                        <li><a href="@Url.Action("ClassDetails", "Admin", new { data = x})">@item.Class_Name </a></li>
                                     }
-                                            
+
                                 }
-                                    </ul>
+                            </ul>
                         </li>
 
 
@@ -158,7 +162,9 @@
     <script src="~/Content/assets/vendors/js/base/core.min.js"></script>
     <!-- End Vendor Js -->
     <!-- Begin Page Vendor Js -->
-    
+
+
+
     <script src="~/Content/assets/vendors/js/nicescroll/nicescroll.min.js"></script>
     <script src="~/Content/assets/vendors/js/calendar/moment.min.js"></script>
     <script src="~/Content/assets/vendors/js/calendar/fullcalendar.min.js"></script>
@@ -169,7 +175,7 @@
 
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 
-   
+
 
     @{Html.EnableClientValidation(true);}
     @{Html.EnableUnobtrusiveJavaScript(true);}

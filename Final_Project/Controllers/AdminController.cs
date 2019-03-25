@@ -12,7 +12,6 @@ namespace Final_Project.Controllers
 {
 	public class AdminController : Controller
 	{
-		//
 		// GET: /Admin/
 
 		public int GenerateRandomNo()
@@ -22,16 +21,15 @@ namespace Final_Project.Controllers
 			Random _rdm = new Random();
 			return _rdm.Next(_min, _max);
 		}
-
-
+        
 		public ActionResult Index()
 		{
-           
+            Session["M_ID"] = 80;
             ////////////////////// up is the testing area attributes
             string name = "Admin";
         	int MS_id = (int)Session["M_ID"];
-           
 
+            TempData["Cr_ID"] = 22;
             int creatorid = (int)TempData["Cr_ID"]; 
 			TempData.Keep("Cr_ID");
 
@@ -87,7 +85,7 @@ namespace Final_Project.Controllers
 
             }
 
-            // getting list of Students
+            // getting list of classes
             using (testdbEntiies objj = new testdbEntiies())
             {
 
@@ -95,17 +93,9 @@ namespace Final_Project.Controllers
                 {
                     var clz = objj.classes.SqlQuery("Select * from classes where MS_id ='" + MS_id + "'").ToList<@class>();
 
-                    TempData["clz"] = clz;
+                    Session["clz"] = clz;
 
-                    List<string> classList = new List<string>();
 
-                    foreach (var x in clz)
-                    {
-                        classList.Add(x.Class_Name);
-                        TempData.Keep();
-                    }
-                    TempData["classL"] = classList;
-                    TempData["ClassBool"] = true;
                 }
                 catch (Exception ex)
                 {
@@ -239,9 +229,25 @@ namespace Final_Project.Controllers
             return View();
         }
 
-        public ActionResult ClassDetails(string data)
+        public ActionResult ClassDetails(int data)
         {
-            Session["Class_Name"] = data;
+             Session["Class_Name"] = data;
+            // find the attributes of the students in  current maangement system to show in the coloumn name
+            
+            
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                var StudData = objj.studfuctionals.SqlQuery("Select * from studfuctional where studf_Classname = '" + data + "' ").ToList<studfuctional>();
+                Session["studdata"] = StudData;
+
+                string st = "Student";
+                var ColData = objj.roledatas.SqlQuery("Select * from roledata where MS_iid = '" + (int)Session["M_ID"] + "' AND Role_Name = '" + st + "' ").FirstOrDefault<roledata>();
+
+                Session["coldata"]=ColData;
+           
+                TempData.Keep();
+            }
+
             return View();
         }
 
@@ -273,8 +279,7 @@ namespace Final_Project.Controllers
 		{
     		int MS_d = (int)Session["M_ID"];
          	TempData.Keep();
-
-
+            
             //     int MS_d = 72;
             string rol;
             //         if ((bool)TempData["Sportal"] == true) ////////////////  if it will be true Student Portal will be created
@@ -309,8 +314,22 @@ namespace Final_Project.Controllers
                 stu_add.studF_password = rol;
             }
 
+            /////////////sending Class ID to Table instead of Class Name
 
-			if (ModelState.IsValid)
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                var Data = objj.classes.SqlQuery("Select * from classes where ms_id = '" + MS_d + "' and Class_Name = '"+ stu_add.studF_ClassName +"' ").FirstOrDefault<@class>();
+                stu_add.studF_ClassName = (string)Data.Class_ID.ToString();
+                
+            }
+
+
+
+            ///
+
+
+
+            if (ModelState.IsValid)
 			{
 				using (testdbEntiies obj = new testdbEntiies())
 				{
