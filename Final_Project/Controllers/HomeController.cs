@@ -35,7 +35,23 @@ namespace Final_Project.Controllers
 
 		public ActionResult UserLogin()
 		{
-			return View();
+            int MS_id = (int)Session["M_id"];
+
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+
+                var clz = objj.roledatas.SqlQuery("Select * from roledata where MS_iid ='" + MS_id + "'").ToList<roledata>();
+
+                List<string> roleList = new List<string>();
+                
+                foreach (var x in clz)
+                {
+                    roleList.Add(x.Role_Name);
+                }
+                TempData["roles"] = roleList;
+            }
+            
+            return View();
 		}
 
 		public ActionResult SelectMS()
@@ -150,10 +166,10 @@ namespace Final_Project.Controllers
 			{
 				try
 				{
-					var usr = objj.creators.Single(u => u.email == user.CreatorName && u.c_password == passDecrypt);
+					var usr = objj.creators.Single(u => u.email == user.Name && u.c_password == passDecrypt);
 					if (usr != null)
 					{
-						var userId = objj.creators.Where(u => u.email == user.CreatorName).Select(u => u.id).FirstOrDefault();
+						var userId = objj.creators.Where(u => u.email == user.Name).Select(u => u.id).FirstOrDefault();
 
 						TempData["log_user"] = userId;
 					   
@@ -169,45 +185,121 @@ namespace Final_Project.Controllers
 			return View();
 		}
 
+        //sign in user mode
+        [HttpPost]
+        public ActionResult UserLogin(CreatorLogin user)
+        {
+            int ms_id = (int)Session["M_ID"];
+            
 
-		//sign in user mode
-		[HttpPost]
-		public ActionResult UserLogin(CreatorLogin user)
-		{
-             
-            string passDecrypt =Encrypt(user.Password);
+            if (user.role == "Admin")
+            {
 
-            using (testdbEntiies objj = new testdbEntiies())
-			{
-				try
-				{
-					var usr = objj.creators.Single(u => u.email == user.CreatorName && u.c_password == passDecrypt);  
-					if (usr != null)
-					{
+                string passDecrypt = Encrypt(user.Password);
+                using (testdbEntiies objj = new testdbEntiies())
+                {
+                    try
+                    {
+                        var usr = objj.creators.Single(u => u.email == user.Name && u.c_password == passDecrypt);
+                        if (usr != null)
+                        {
 
-						var userId = objj.creators.Where(u => u.email == user.CreatorName).Select(u => u.id).FirstOrDefault();
+                            var userId = objj.creators.Where(u => u.email == user.Name).Select(u => u.id).FirstOrDefault();
 
-						if ((int)TempData["Cr_ID"] == (int)userId) // checking if logging in userID = MS creatorID
-						{
-							return RedirectToAction("Index", "Admin");
-						}
-						else {
-							ModelState.AddModelError("Password", "Doesnt Match Any System");
-						}
-					}
-				}
-				catch (Exception ex)
-				{
-					ModelState.AddModelError("Password", "email or password is incorrect");
-				}
+                            if ((int)TempData["Cr_ID"] == (int)userId) // checking if logging in userID = MS creatorID
+                            {
+                                return RedirectToAction("Index", "Admin");
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("Password", "Doesnt Match Any System");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("Password", "email or password is incorrect");
+                    }
 
-			}
-			
-			return View();
+                }
+            }
+            else
+                if (user.role == "Student")
+            {
+                using (testdbEntiies objj = new testdbEntiies())
+                {
+                    try
+                    {
+                        var usr = objj.studfuctionals.Single(u => u.studF_RollNO == user.Name && u.studF_password == user.Password && u.studF_MSID == ms_id);
+                        if (usr != null)
+                        {
+                            
+                            var userId = objj.studfuctionals.Where(u => u.studF_RollNO == user.Name).Select(u => u.studF_ID).FirstOrDefault();
+                            TempData["st_id"] = userId;
+
+                      
+                            return RedirectToAction("Index", "Student");
+                           
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("Password", "User ID or password is incorrect");
+                    }
+
+                }
+
+            }
+            else
+                if (user.role == "HR")
+            {
+                using (testdbEntiies objj = new testdbEntiies())
+                {
+                    try
+                    {
+                        var usr = objj.hrfuctionals.Single(u => u.HrF_userNumber == user.Name && u.HrF_password == user.Password && u.HrF_MsID == ms_id);
+                        if (usr != null)
+                        {
+                            TempData["hr_id"] = usr.HrF_ID;
+                            return RedirectToAction("Index", "HR");
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("Password", "User ID or password is incorrect");
+                    }
+
+                }
+
+            }
+            else  /// means thats a teacher
+            {
+                using (testdbEntiies objj = new testdbEntiies())
+                {
+                    try
+                    {
+                        var usr = objj.tchrfunctionals.Single(u => u.TchrF_RollID == user.Name && u.TchrF_password == user.Password && u.TchrF_MSID == ms_id);
+                        if (usr != null)
+                        {
+                            TempData["hr_id"] = usr.TchrF_ID;
+                            return RedirectToAction("Index", "Student");
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("Password", "User ID or password is incorrect");
+                    }
+
+                }
+
+            }
+
+            return View();
 		   
 		}
-
-
+        
 		//
 		[HttpPost]
 		public ActionResult SelectMS(CreatorLogin MS_Name)
@@ -218,20 +310,20 @@ namespace Final_Project.Controllers
 				{
 
 					{
-						var MS_Present = objj.ms.Where(b => b.MS_InstName == MS_Name.CreatorName).FirstOrDefault();
+						var MS_Present = objj.ms.Where(b => b.MS_InstName == MS_Name.Name).FirstOrDefault();
 						//creatorname is used for MS name search
 
 						if (MS_Present != null)
 						{
-							var creatorID = objj.ms.Where(u => u.MS_InstName == MS_Name.CreatorName).Select(u => u.C_ID).FirstOrDefault();
+							var creatorID = objj.ms.Where(u => u.MS_InstName == MS_Name.Name).Select(u => u.C_ID).FirstOrDefault();
 							
 							TempData["Cr_ID"] = (int)creatorID;
 
 
-							var systemID = objj.ms.Where(u => u.MS_InstName == MS_Name.CreatorName).Select(u => u.MS_ID).FirstOrDefault();
+							var systemID = objj.ms.Where(u => u.MS_InstName == MS_Name.Name).Select(u => u.MS_ID).FirstOrDefault();
 
-							TempData["M_ID"] = (int)systemID;
-
+							Session["M_ID"] = systemID;
+                            
 
 							return RedirectToAction("UserLogin","Home");
 						}
@@ -334,15 +426,15 @@ namespace Final_Project.Controllers
 		{
 
 			string x = user.Password;
-			x = user.CreatorName;
+			x = user.Name;
 			using (testdbEntiies objj = new testdbEntiies())
 			{
 				try
 				{
-					var usr = objj.creators.Single(u => u.email == user.CreatorName && u.c_password == user.Password);
+					var usr = objj.creators.Single(u => u.email == user.Name && u.c_password == user.Password);
 					if (usr != null)
 					{
-						var userId = objj.creators.Where(u => u.email == user.CreatorName).Select(u => u.id).FirstOrDefault();
+						var userId = objj.creators.Where(u => u.email == user.Name).Select(u => u.id).FirstOrDefault();
 
 						TempData["log_user"] = userId;
 
@@ -365,17 +457,17 @@ namespace Final_Project.Controllers
 		{
 
 			string x = user.Password;
-			x = user.CreatorName;// ............ ?
+			x = user.Name;// ............ ?
 
 			using (testdbEntiies objj = new testdbEntiies())
 			{
 				try
 				{
-					var usr = objj.creators.Single(u => u.email == user.CreatorName && u.c_password == user.Password);
+					var usr = objj.creators.Single(u => u.email == user.Name && u.c_password == user.Password);
 					if (usr != null)
 					{
 
-						var userId = objj.creators.Where(u => u.email == user.CreatorName).Select(u => u.id).FirstOrDefault();
+						var userId = objj.creators.Where(u => u.email == user.Name).Select(u => u.id).FirstOrDefault();
 
 						if ((int)TempData["Cr_ID"] == (int)userId) // checking if logging in userID = MS creatorID
 						{
@@ -411,17 +503,17 @@ namespace Final_Project.Controllers
 				{
 
 					{
-						var MS_Present = objj.ms.Where(b => b.MS_InstName == MS_Name.CreatorName).FirstOrDefault();
+						var MS_Present = objj.ms.Where(b => b.MS_InstName == MS_Name.Name).FirstOrDefault();
 						//creatorname is used for MS name search
 
 						if (MS_Present != null)
 						{
-							var creatorID = objj.ms.Where(u => u.MS_InstName == MS_Name.CreatorName).Select(u => u.C_ID).FirstOrDefault();
+							var creatorID = objj.ms.Where(u => u.MS_InstName == MS_Name.Name).Select(u => u.C_ID).FirstOrDefault();
 
 							TempData["Cr_ID"] = (int)creatorID;
 
 
-							var systemID = objj.ms.Where(u => u.MS_InstName == MS_Name.CreatorName).Select(u => u.MS_ID).FirstOrDefault();
+							var systemID = objj.ms.Where(u => u.MS_InstName == MS_Name.Name).Select(u => u.MS_ID).FirstOrDefault();
 
 							TempData["M_ID"] = (int)systemID;
 

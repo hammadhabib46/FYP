@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Final_Project.Models;
 using System.IO;
 
-
 namespace Final_Project.Controllers
 {
     public class CreatorController : Controller
@@ -229,12 +228,13 @@ namespace Final_Project.Controllers
         public ActionResult ManageRoles(bool AccountManager = false, bool HRmanager = false,bool Teacher = false)
         {
             TempData["Teacher"] = Teacher;
+            TempData.Keep();
             TempData["Acc_Manager"] = AccountManager;
             TempData["HR_Manager"] = HRmanager;
             TempData["HR_Manager5"] = HRmanager;
             TempData["Hr_Portal"] = false;
             TempData["St_Portal"] = false;
-
+            TempData["Teacher_Portal"] = false;
 
             return RedirectToAction("StudentAttributes", "Creator");
         }
@@ -376,7 +376,7 @@ namespace Final_Project.Controllers
 
 
         [HttpPost]
-        public ActionResult HRAttributes(bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false, bool pic = false, bool Qualification = false, bool Portal = false)
+        public ActionResult HRAttributes(bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false,bool Email = false, bool pic = false, bool Qualification = false, bool Portal = false)
         {
             roledata obj_R = new roledata();
             obj_R.MS_iid = (int)TempData["MS_ID"];
@@ -389,6 +389,7 @@ namespace Final_Project.Controllers
             obj_R.Role_Address = Address;
             obj_R.Role_Gender = Gender;
             obj_R.Role_CNIC = CNIC;
+            obj_R.Role_Email = Email;
 
 
             obj_R.Role_Portal = Portal;
@@ -474,7 +475,6 @@ namespace Final_Project.Controllers
                 var role_Id = objj.roledatas.Where((u => u.MS_iid == obj_R.MS_iid && u.Role_Name == obj_R.Role_Name)).Select(u => u.Role_ID).FirstOrDefault();   //// getting MS from database using MS_Name
                 TempData["Teacher_Role_ID"] = (int)role_Id;
             }
-            
             return RedirectToAction("adminFunctionlities", "Creator");
         }
 

@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewBag.Title = "ClassDetails";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+<h2>@Session["Class_Name"]</h2>
+
+<!-- Export --><div class="widget has-shadow">
+    <div class="widget-header bordered no-actions d-flex align-items-center">
+        <h4>Export</h4>
+    </div>
+    <div class="widget-body">
+        <div class="table-responsive">
+            <div class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer" id="export-table_wrapper">
+                <div class="dt-buttons">          <button tabindex="0" class="btn btn-primary buttons-copy buttons-html5" aria-controls="export-table"><span>Copy</span></button> <button tabindex="0" class="btn btn-primary buttons-excel buttons-html5" aria-controls="export-table"><span>Excel</span></button> <button tabindex="0" class="btn btn-primary buttons-csv buttons-html5" aria-controls="export-table"><span>Csv</span></button> <button tabindex="0" class="btn btn-primary buttons-pdf buttons-html5" aria-controls="export-table"><span>Pdf</span></button> <button tabindex="0" class="btn btn-primary buttons-print" aria-controls="export-table"><span>Print</span></button> </div><div class="dataTables_filter" id="export-table_filter"><label>Search:<input class="form-control form-control-sm" aria-controls="export-table" type="search" placeholder=""></label></div><table class="table mb-0 dataTable no-footer" id="export-table" role="grid" aria-describedby="export-table_info">
+                    <thead>
+                        <tr role="row"><th tabindex="0" class="sorting_asc" aria-controls="export-table" style="width: 145.2px;" aria-label="Order ID: activate to sort column descending" aria-sort="ascending" rowspan="1" colspan="1">Order ID</th><th tabindex="0" class="sorting" aria-controls="export-table" style="width: 252.39px;" aria-label="Customer Name: activate to sort column ascending" rowspan="1" colspan="1">Customer Name</th><th tabindex="0" class="sorting" aria-controls="export-table" style="width: 138.83px;" aria-label="Country: activate to sort column ascending" rowspan="1" colspan="1">Country</th><th tabindex="0" class="sorting" aria-controls="export-table" style="width: 161.16px;" aria-label="Ship Date: activate to sort column ascending" rowspan="1" colspan="1">Ship Date</th><th tabindex="0" class="sorting" aria-controls="export-table" style="width: 214.16px;" aria-label="Status: activate to sort column ascending" rowspan="1" colspan="1"><span style="width:100px;">Status</span></th><th tabindex="0" class="sorting" aria-controls="export-table" style="width: 181.13px;" aria-label="Order Total: activate to sort column ascending" rowspan="1" colspan="1">Order Total</th><th tabindex="0" class="sorting" aria-controls="export-table" style="width: 131.97px;" aria-label="Actions: activate to sort column ascending" rowspan="1" colspan="1">Actions</th></tr>
+                    </thead>
+                    <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <tr class="odd" role="row">
+                            <td class="sorting_1"><span class="text-primary">021-09-US</span></td>
+                            <td>Ryan Hanson</td>
+                            <td>ES</td>
+                            <td>07/21/2017</td>
+                            <td><span style="width:100px;"><span class="badge-text badge-text-small info">Paid</span></span></td>
+                            <td>$199.95</td>
+                            <td class="td-actions">
+                                <a href="#"><i class="la la-edit edit"></i></a>
+                                <a href="#"><i class="la la-close delete"></i></a>
+                            </td>
+                        </tr>
+                        <tr class="even" role="row">
+                            <td class="sorting_1"><span class="text-primary">021-09-US</span></td>
+                            <td>Jeffrey Arnold</td>
+                            <td>US</td>
+                            <td>07/21/2017</td>
+                            <td><span style="width:100px;"><span class="badge-text badge-text-small info">Paid</span></span></td>
+                            <td>$199.95</td>
+                            <td class="td-actions">
+                                <a href="#"><i class="la la-edit edit"></i></a>
+                                <a href="#"><i class="la la-close delete"></i></a>
+                            </td>
+                        </tr>
+                        <tr class="odd" role="row">
+                            <td class="sorting_1"><span class="text-primary">021-09-US</span></td>
+                            <td>Ryan Hanson</td>
+                            <td>ES</td>
+                            <td>07/21/2017</td>
+                            <td><span style="width:100px;"><span class="badge-text badge-text-small info">Paid</span></span></td>
+                            <td>$199.95</td>
+                            <td class="td-actions">
+                                <a href="#"><i class="la la-edit edit"></i></a>
+                                <a href="#"><i class="la la-close delete"></i></a>
+                            </td>
+                        </tr>
+                        <tr class="even" role="row">
+                            <td class="sorting_1"><span class="text-primary">021-09-US</span></td>
+                            <td>Jeffrey Arnold</td>
+                            <td>US</td>
+                            <td>07/21/2017</td>
+                            <td><span style="width:100px;"><span class="badge-text badge-text-small info">Paid</span></span></td>
+                            <td>$199.95</td>
+                            <td class="td-actions">
+                                <a href="#"><i class="la la-edit edit"></i></a>
+                                <a href="#"><i class="la la-close delete"></i></a>
+                            </td>
+                        </tr>
+                        <tr class="odd" role="row">
+                            <td class="sorting_1"><span class="text-primary">021-12-US</span></td>
+                            <td>Lawrence Crawford</td>
+                            <td>FR</td>
+                            <td>10/21/2017</td>
+                            <td><span style="width:100px;"><span class="badge-text badge-text-small info">Paid</span></span></td>
+                            <td>$189.00</td>
+                            <td class="td-actions">
+                                <a href="#"><i class="la la-edit edit"></i></a>
+                                <a href="#"><i class="la la-close delete"></i></a>
+                            </td>
+                        </tr>
+                        <tr class="even" role="row">
+                            <td class="sorting_1"><span class="text-primary">021-12-US</span></td>
+                            <td>James Morris</td>
+                            <td>EN</td>
+                            <td>10/21/2017</td>
+                            <td><span style="width:100px;"><span class="badge-text badge-text-small info">Paid</span></span></td>
+                            <td>$189.00</td>
+                            <td class="td-actions">
+                                <a href="#"><i class="la la-edit edit"></i></a>
+                                <a href="#"><i class="la la-close delete"></i></a>
+                            </td>
+                        </tr>
+                        <tr class="odd" role="row">
+                            <td class="sorting_1"><span class="text-primary">021-12-US</span></td>
+                            <td>Lawrence Crawford</td>
+                            <td>FR</td>
+                            <td>10/21/2017</td>
+                            <td><span style="width:100px;"><span class="badge-text badge-text-small info">Paid</span></span></td>
+                            <td>$189.00</td>
+                            <td class="td-actions">
+                                <a href="#"><i class="la la-edit edit"></i></a>
+                                <a href="#"><i class="la la-close delete"></i></a>
+                            </td>
+                        </tr>
+                        <tr class="even" role="row">
+                            <td class="sorting_1"><span class="text-primary">021-12-US</span></td>
+                            <td>James Morris</td>
+                            <td>EN</td>
+                            <td>10/21/2017</td>
+                            <td><span style="width:100px;"><span class="badge-text badge-text-small info">Paid</span></span></td>
+                            <td>$189.00</td>
+                            <td class="td-actions">
+                                <a href="#"><i class="la la-edit edit"></i></a>
+                                <a href="#"><i class="la la-close delete"></i></a>
+                            </td>
+                        </tr>
+                        <tr class="odd" role="row">
+                            <td class="sorting_1"><span class="text-primary">054-01-FR</span></td>
+                            <td>Lori Baker</td>
+                            <td>US</td>
+                            <td>10/21/2017</td>
+                            <td><span style="width:100px;"><span class="badge-text badge-text-small info">Paid</span></span></td>
+                            <td>$139.45</td>
+                            <td class="td-actions">
+                                <a href="#"><i class="la la-edit edit"></i></a>
+                                <a href="#"><i class="la la-close delete"></i></a>
+                            </td>
+                        </tr>
+                        <tr class="even" role="row">
+                            <td class="sorting_1"><span class="text-primary">054-01-FR</span></td>
+                            <td>Evelyn Black</td>
+                            <td>FR</td>
+                            <td>10/21/2017</td>
+                            <td><span style="width:100px;"><span class="badge-text badge-text-small info">Paid</span></span></td>
+                            <td>$139.45</td>
+                            <td class="td-actions">
+                                <a href="#"><i class="la la-edit edit"></i></a>
+                                <a href="#"><i class="la la-close delete"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table><div class="dataTables_info" id="export-table_info" role="status" aria-live="polite">Showing 1 to 10 of 20 entries</div><div class="dataTables_paginate paging_simple_numbers" id="export-table_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="export-table_previous"><a tabindex="0" class="page-link" aria-controls="export-table" href="#" data-dt-idx="0">Previous</a></li><li class="paginate_button page-item active"><a tabindex="0" class="page-link" aria-controls="export-table" href="#" data-dt-idx="1">1</a></li><li class="paginate_button page-item "><a tabindex="0" class="page-link" aria-controls="export-table" href="#" data-dt-idx="2">2</a></li><li class="paginate_button page-item next" id="export-table_next"><a tabindex="0" class="page-link" aria-controls="export-table" href="#" data-dt-idx="3">Next</a></li></ul></div>
+            </div>
+        </div>
+    </div>
+</div>

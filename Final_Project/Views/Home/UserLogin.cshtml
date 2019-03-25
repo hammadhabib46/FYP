@@ -1,6 +1,10 @@
 ﻿@model Final_Project.Models.CreatorLogin
 @{
     Layout = null;
+
+    List<string> Rol = (List<string>)TempData["roles"];
+    TempData.Keep();
+
 }
 
 
@@ -74,11 +78,17 @@
                                 <img src="~/Content/assets/img/logo.png" alt="logo">
                             </a>
                         </div>
-                        <h3>Sign In As Creator</h3>
+                        <h3>Sign In As User</h3>
                         <form>
+                            <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
+                                <label class="col-lg-2 form-control-label">Class</label>
+                                <div class="col-lg-8">
+                                  @Html.DropDownListFor(model => model.role ,new SelectList(Rol), new { @class = "form-control", aria_describedby = "dropdownMenu1" })
+                                </div>
+                            </div>
                             <div class="group material-input">
-                                @Html.EditorFor(Model => Model.CreatorName)
-                                @Html.ValidationMessageFor(Model => Model.CreatorName)
+                                @Html.EditorFor(Model => Model.Name)
+                                @Html.ValidationMessageFor(Model => Model.Name)
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Email</label>
@@ -90,7 +100,7 @@
                                 <span class="bar"></span>
                                 <label>Password</label>
                             </div>
-                           
+
                         </form>
                         <div class="row">
                             <div class="col text-left">

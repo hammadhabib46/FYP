@@ -1,11 +1,13 @@
 ﻿@{
 
-    int Noti = 0;
+    int Noti = 1;
     int Chal = 0;
 
-    Noti = (int)TempData["Noti"];
-}
+    bool teacherP = (bool)TempData["Teach_Present"];
+    TempData.Keep();
 
+    // Noti = (int)TempData["Noti"];
+}
 
 
 <!DOCTYPE html>
@@ -108,18 +110,22 @@ Author: SAEROX
                 <nav class="side-navbar box-scroll sidebar-scroll">
                     <!-- Begin Main Navigation -->
                     <ul class="list-unstyled">
-                        <li><a href="components-widgets.html"><i class="la la-spinner"></i><span>Home</span></a></li>
+                        <li>@Html.ActionLink("Home", "Index", "Student")</li>
                         @{
                             if (Noti == 1)
                             {
-                                <li><a href="components-widgets.html"><i class="la la-spinner"></i><span>Notifications</span></a></li>
-
+                                <li>@Html.ActionLink("Notifications", "Index", "Student")</li>
                             }
                             if (Chal == 1)
                             {
-
-                                <li><a href="components-widgets.html"><i class="la la-spinner"></i><span>Fees</span></a></li>
+                                <li>@Html.ActionLink("Fees record", "Index", "Student")</li>
                             }
+                            if (teacherP == true)
+                            {
+                                <li>@Html.ActionLink("Marks", "Index", "Student")</li>
+                                <li>@Html.ActionLink("Attendance", "Index", "Student")</li>
+                            }
+
                         }
 
                     </ul>

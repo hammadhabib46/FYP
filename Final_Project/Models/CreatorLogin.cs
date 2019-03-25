@@ -8,9 +8,11 @@ namespace Final_Project.Models
 {
     public class CreatorLogin
     {
+        public string role { get; set; }
+
 
         [Required(ErrorMessage = "Username is required")]
-        public string CreatorName { get; set; }
+        public string Name { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]

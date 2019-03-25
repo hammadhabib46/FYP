@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_hrLayout.cshtml";
+   
+    TempData["Name"] = TempData["P_Name"];
+    TempData.Keep();
+   
+}
+
+<h2>Index</h2>
+
+<div class="container-fluid">
+    <div class="row flex-row">
+        <div class="col-xl-5">
+            <div class="widget has-shadow">
+                <div class="widget-body ">
+                    <div class="mt-5">
+                        <img src="~/Content/assets/img/avatar/avatar-01.jpg" alt="..." style="width: 120px;" class="avatar rounded-circle d-block mx-auto">
+                    </div>
+                    <h3 class="text-center mt-3 mb-1">@TempData["Name"]</h3>
+                    <p class="text-center">dgreen@example.com</p>
+                    <div class="em-separator separator-dashed"></div>
+                    <ul class="nav flex-column">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0)"><i class=" la-2x align-middle pr-2"></i>Name:    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;         @TempData["Name"]</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0)"><i class=" la-2x align-middle pr-2"></i>Position:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  @TempData["Post"]</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

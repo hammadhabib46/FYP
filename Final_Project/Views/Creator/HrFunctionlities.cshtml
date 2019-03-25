@@ -67,15 +67,31 @@
                                     <label for="remeber">Update Student</label>
                                 </div>
 
-@{
-                                  if ((bool)TempData["adminNoti2"] == true)
-                                      {
-                                    <div class="styled-checkbox">
-                                    <input type="checkbox" name="Nofi" value="true" id="Nofi_ID" class="form-control">
-                                    <label for="Nofi_ID">Activate Notifications</label>
-                                    </div>
-                                      }
-                }
+                                @{ 
+                                    if ((bool)TempData["Teacher"] == true)
+                                    {<div class="styled-checkbox">
+                                    <input type="checkbox" name="Admin" id="addstudenttid" checked="checked" class="form-control" readonly>
+                                    <label for="remeber">Add Teacher </label>
+                                </div>
+                                
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="Student" id="deletestudenttid" checked="checked" class="form-control" readonly>
+                                    <label for="remeber">Delete Teacher </label>
+                                </div>
+                                        }
+                                    }
+
+
+
+                                @{
+                                    if ((bool)TempData["adminNoti2"] == true)
+                                    {
+                                        <div class="styled-checkbox">
+                                            <input type="checkbox" name="Nofi" value="true" id="Nofi_ID" class="form-control">
+                                            <label for="Nofi_ID">Activate Notifications</label>
+                                        </div>
+                                    }
+                                }
                                 <div class="sign-btn text-center">
                                     <br>
                                     <br>

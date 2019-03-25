@@ -1,22 +1,18 @@
 ﻿@{
     Layout = null;
 
-    bool Notif = false;
-    bool HR_A = false;
-    //    Notif = (bool)TempData["NotiRole"];
+    bool teacherP = (bool)TempData["Teach_Present"];
     TempData.Keep();
+    bool HRP = (bool)TempData["HR_Present"];
+    TempData.Keep();
+
+
+    List<string> ClassList = (List<string>)TempData["classL"];
 
     bool addteacher = true;
 }
 
-<!DOCTYPE html>
-<!--
-Item Name: Elisyam - Web App & Admin Dashboard Template
-Version: 1.3
-Author: SAEROX
 
-** A license must be purchased in order to legally use this template for your project **
--->
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -107,25 +103,31 @@ Author: SAEROX
 
 
                         @{
-                            if (addteacher == true)
+                            if (teacherP == true)
                             {
                                 <li>@Html.ActionLink("Add Teacher", "AddTeacher", "Admin")</li>
+                                <li>@Html.ActionLink("Delete Teacher", "DeleteTeacher", "Admin")</li>
 
                             }
-                            if (HR_A == true)
+                            if (HRP == true)
                             {
-
-                                <li>@Html.ActionLink("Update HR", "UpdateHr", "Admin")</li>
-                                <li><a href="components-widgets.html"><i class="la la-spinner"></i><span>Update Hr Pay</span></a></li>
-                            }
-                            if (Notif == true)
-                            {
-                                <li><a href="components-widgets.html"><i class="la la-spinner"></i><span>Send Notifications</span></a></li>
+                                <li>@Html.ActionLink("Add HR", "AddHR", "Admin")</li>
+                                <li>@Html.ActionLink("Delete HR", "DeleteHR", "Admin")</li>
                             }
                         }
 
-                        <li><a href="components-widgets.html"><i class="la la-spinner"></i><span>Update accountant</span></a></li>
-                        <li><a href="components-widgets.html"><i class="la la-spinner"></i><span>Track Revenue</span></a></li>
+                        <li class="active">
+                            <a href="#dropdown-tables" aria-expanded="true" data-toggle="collapse"><i class="la la-th-large"></i><span>Student Details</span></a>
+                            <ul id="dropdown-tables" class="collapse list-unstyled show pt-0">
+                                @{ 
+                                   foreach (string item in ClassList)
+                                    {
+                                        <li><a href="@Url.Action("ClassDetails", "Admin", new { data = @item })">@item</a></li>
+                                    }
+                                            
+                                }
+                                    </ul>
+                        </li>
 
 
                     </ul>

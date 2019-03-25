@@ -8,7 +8,6 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Data.Sql;
 
-
 namespace Final_Project.Controllers
 {
 	public class AdminController : Controller
@@ -27,14 +26,16 @@ namespace Final_Project.Controllers
 
 		public ActionResult Index()
 		{
+           
+            ////////////////////// up is the testing area attributes
+            string name = "Admin";
+        	int MS_id = (int)Session["M_ID"];
+           
 
-			string name = "Admin";
-          	int MS_id = (int)TempData["M_ID"];
-            TempData.Keep("M_ID");
             int creatorid = (int)TempData["Cr_ID"]; 
 			TempData.Keep("Cr_ID");
-		//	int creatorid = 9;
 
+            // getting User name To view
 			using (testdbEntiies objj = new testdbEntiies())
 			{
 
@@ -44,8 +45,11 @@ namespace Final_Project.Controllers
 				TempData["Role_ID"] = r_id;
 
 
+
+
 		//		var  noti_role = objj.role_funcdata.Where((u => u.Role_ID == r_id)).Select(u => u.GiveNotification).FirstOrDefault();
-                TempData["NotiRole"] = false;
+        //       TempData["NotiRole"] = false;
+
 
 
 				var Data= objj.creators.SqlQuery("Select * from creator where id = '" + creatorid + "' ").FirstOrDefault<creator>();
@@ -56,7 +60,61 @@ namespace Final_Project.Controllers
 				TempData["Post"] = "Admin";
 			}
 
-			return View();
+            // Getting either the System has tacher or Hr or not
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+
+                var clz = objj.roledatas.SqlQuery("Select * from roledata where MS_iid ='" + MS_id + "'").ToList<roledata>();
+
+                List<string> classList = new List<string>();
+
+                TempData["Teach_Present"] = false;
+                TempData["HR_Present"] = false;
+
+                foreach (var x in clz)
+                {
+                    classList.Add(x.Role_Name);
+
+                    if (x.Role_Name == "Teacher")
+                        TempData["Teach_Present"] = true;
+
+                    if (x.Role_Name == "HR")
+                        TempData["HR_Present"] = true;
+
+
+                }
+
+
+            }
+
+            // getting list of Students
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+
+                try
+                {
+                    var clz = objj.classes.SqlQuery("Select * from classes where MS_id ='" + MS_id + "'").ToList<@class>();
+
+                    TempData["clz"] = clz;
+
+                    List<string> classList = new List<string>();
+
+                    foreach (var x in clz)
+                    {
+                        classList.Add(x.Class_Name);
+                        TempData.Keep();
+                    }
+                    TempData["classL"] = classList;
+                    TempData["ClassBool"] = true;
+                }
+                catch (Exception ex)
+                {
+                    TempData["ClassBool"] = false;
+                }
+
+            }
+
+                return View();
 		}
 
 		public ActionResult AddStudent()
@@ -65,12 +123,12 @@ namespace Final_Project.Controllers
             //int creatorid = 21;
             //int rollid = 180;
             ////////////////////up is the testing data
-            int MS_d = (int)TempData["M_ID"];
-            TempData.Keep();
+            int MS_d = (int)Session["M_ID"];
+        
             int creatorid = (int)TempData["Cr_ID"];
-            TempData.Keep();
+      //      TempData.Keep();
             int roll_id = (int)TempData["Role_ID"];
-            TempData.Keep();
+     //       TempData.Keep();
             string st = "Student";
             //////////////////////////////////////////////////
 
@@ -89,7 +147,6 @@ namespace Final_Project.Controllers
                     {
                         classList.Add(x.Class_Name);
                         TempData.Keep();
-
                     }
                     TempData["classL"] = classList;
                     TempData["ClassBool"] = true;  
@@ -120,8 +177,8 @@ namespace Final_Project.Controllers
         public ActionResult AddTeacher()
         {
             ////////////////////up is the testing data
-            int MS_d = (int)TempData["M_ID"];
-            TempData.Keep("M_ID");
+            int MS_d = (int)Session["M_ID"];
+            
             int creatorid = (int)TempData["Cr_ID"];
             TempData.Keep("Cr_ID");
             int roll_id = (int)TempData["Role_ID"];
@@ -148,7 +205,45 @@ namespace Final_Project.Controllers
             return View();
         }
 
+        public ActionResult AddHR()
+        {
+            ////////////////////up is the testing data
+            int MS_d = (int)Session["M_ID"];
+           
+            int creatorid = (int)TempData["Cr_ID"];
+            TempData.Keep("Cr_ID");
+            int roll_id = (int)TempData["Role_ID"];
+            TempData.Keep("Role_ID");
+            string st = "HR";
+            //////////////////////////////////////////////////
+            ///
+            using (testdbEntiies objj = new testdbEntiies())
+            {
 
+                var Data = objj.roledatas.SqlQuery("Select * from roledata where MS_iid = '" + MS_d + "' AND Role_Name = '" + st + "' ").FirstOrDefault<roledata>();
+
+                Data.Role_Email = true;
+
+                TempData["Hdon"] = Data.Role_Dob;
+                TempData["Haddress"] = Data.Role_Address;
+                TempData["Hcnic"] = Data.Role_CNIC;
+                TempData["Hgender"] = Data.Role_Gender;
+                TempData["Hpic"] = Data.Role_Pic;
+                TempData["HEmail"] = Data.Role_Email;
+                TempData["Hqualif"] = Data.Role_Qualif;
+
+                TempData["Hportal"] = Data.Role_Portal;
+                TempData.Keep();
+
+            }
+            return View();
+        }
+
+        public ActionResult ClassDetails(string data)
+        {
+            Session["Class_Name"] = data;
+            return View();
+        }
 
         public ActionResult DeleteStudent()
 		{
@@ -176,16 +271,16 @@ namespace Final_Project.Controllers
 		[HttpPost]
 		public ActionResult AddStudent(studfuctional stu_add)
 		{
-//	nx		int MS_d = (int)TempData["M_ID"];
-//	nx		TempData.Keep();               
+    		int MS_d = (int)Session["M_ID"];
+         	TempData.Keep();
 
 
-               int MS_d = 72;
-
-            if ((bool)TempData["Sportal"] == true) ////////////////  if it will be true Student Portal will be created
+            //     int MS_d = 72;
+            string rol;
+            //         if ((bool)TempData["Sportal"] == true) ////////////////  if it will be true Student Portal will be created
             {
                 int random;
-                string rol;
+              
                 //////////// random generation of student id
                 bool num = false;
                 do
@@ -223,7 +318,7 @@ namespace Final_Project.Controllers
 					obj.SaveChanges();
 				}
 				ModelState.Clear();
-				ViewBag.msg1 = "Successfully Added";
+				ViewBag.msg1 = "Successfully Added! User Name :" + rol + "Password is " + rol ;
 			}
 			return View();
 		}
@@ -231,7 +326,7 @@ namespace Final_Project.Controllers
         [HttpPost]
         public ActionResult DeleteStudent(string Roll_number)
         {
-        //    int MS_id = (int)TempData["M_ID"];
+        //    int MS_id = (int)Session["M_ID"];
             int MS_id = 72;
             TempData.Keep();
             bool del = false;
@@ -267,10 +362,10 @@ namespace Final_Project.Controllers
         [HttpPost]
         public ActionResult AddTeacher(tchrfunctional tch_add )
         {
-            //	nx		int MS_d = (int)TempData["M_ID"];
-            //	nx		TempData.Keep();               
+            		int MS_d = (int)Session["M_ID"];
+             		           
             
-            int MS_d = 72;
+        //   int MS_d = 72;
 
             if ((bool)TempData["Tportal"] == true) ////////////////  if it will be true Teacher Portal will be created
             {
@@ -320,7 +415,7 @@ namespace Final_Project.Controllers
         [HttpPost]
         public ActionResult DeleteTeacher(string Roll_number)
         {
-            //   int MS_id = (int)TempData["M_ID"];
+            //   int MS_id = (int)Session["M_ID"];
             int MS_id = 72;
             TempData.Keep();
             bool del = false;
@@ -349,6 +444,61 @@ namespace Final_Project.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public ActionResult AddHR(hrfuctional hrdata)
+        {
+            	int MS_d = (int)Session["M_ID"];
+            	             
+
+       //     int MS_d = 72;
+
+            if ((bool)TempData["Hportal"] == true) ////////////////  if it will be true Teacher Portal will be created
+            {
+                int random;
+                string rol;
+                //////////// random generation of student id
+                bool num = false;
+                do
+                {
+                    random = GenerateRandomNo();
+                    rol = random.ToString();
+                    rol = "H_" + rol;
+                    using (testdbEntiies obj = new testdbEntiies())
+                    {
+                        try
+                        {
+                            var usr = obj.tchrfunctionals.Single(u => u.TchrF_RollID == rol);
+                        }
+                        catch (Exception e)
+                        {
+                            num = true;
+                        }
+                    }
+
+                } while (num == false);
+
+                ///////////////////////////random generation of student id
+                hrdata.HrF_MsID = MS_d;
+                hrdata.HrF_userNumber = rol;
+
+                if ((bool)TempData["Hportal"] == true)
+                    hrdata.HrF_password= rol;
+            }
+
+            if (ModelState.IsValid)
+            {
+                using (testdbEntiies obj = new testdbEntiies())
+                {
+                    obj.hrfuctionals.Add(hrdata);
+                    obj.SaveChanges();
+                }
+                ModelState.Clear();
+                ViewBag.msg1 = "Successfully Added";
+            }
+            return View();
+        }
+
 
 
     }
