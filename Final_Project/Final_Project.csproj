@@ -547,6 +547,7 @@
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Admin\View.cshtml" />
     <Content Include="Views\Admin\ClassDetails.cshtml" />
+    <Content Include="Views\Home\verifyEmail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

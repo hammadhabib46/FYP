@@ -125,14 +125,13 @@ Author: SAEROX
             </div>
         </form>
         <div class="register">
-   @{ if (ViewBag.msg == null)
+   @{ if (Session["msg"] == null)
      {
         <p>Already have an account?</p>
-
     }
     else
     {
-       <p class=" text-gradient-01">@ViewBag.msg</p>
+        <p class=" text-gradient-01">@Session["msg"]</p>
     
     } }
         

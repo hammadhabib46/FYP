@@ -7,15 +7,21 @@ using System.Web.Mvc;
 using Final_Project.Models;
 using System.Security.Cryptography;
 using System.IO;
+using System.Data;
+using System.Data.SqlClient;
+using System.Net;
+using System.Net.Mail;
+
 
 namespace Final_Project.Controllers
 {
 	public class HomeController : Controller
 	{
-		//
-		// GET: /Home/
-		
-		public ActionResult Index()
+        static String activationcode;
+        //
+        // GET: /Home/
+
+        public ActionResult Index()
 		{
 			return View();
 		}
@@ -59,7 +65,39 @@ namespace Final_Project.Controllers
 			return View();
 		}
 
-        
+        public ActionResult VerifyEmail()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult VerifyEmail(String vfc)
+        {
+            ViewBag.codeError = "Sucess";
+            creator signupuserdet = (creator)Session["signupdata"];
+            if (vfc != activationcode)
+            {
+                ViewBag.codeError = "Invalid code!, Try Again";
+
+                return View();
+            }
+            string passEncrypt = Encrypt(signupuserdet.c_password);
+            signupuserdet.c_password = passEncrypt;
+
+            // if (ModelState.IsValid)
+            {
+                using (testdbEntiies obj = new testdbEntiies())
+                {
+                    obj.creators.Add(signupuserdet);
+                    obj.SaveChanges();
+                }
+                ModelState.Clear();
+                Session["msg"] = signupuserdet.firstname + " " + signupuserdet.lastname + " successfully registered";
+            }
+
+
+            return RedirectToAction("SignUp", "Home");
+        }
 
         private string Encrypt(string clearText)
         {
@@ -109,54 +147,71 @@ namespace Final_Project.Controllers
             return cipherText;
         }
 
+        public void Sendcode()
+        {
+            creator s = (creator)Session["signupdata"];
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.Credentials = new System.Net.NetworkCredential("f158034@nu.edu.pk", "64>JyKS=");
+            smtp.EnableSsl = true;
+            MailMessage msg = new MailMessage();
+            msg.Subject = "NEXUM - Creator Email Verification Code";
+            msg.Body = "Dear " + s.firstname + " " + s.lastname + "," + " Your Email Verification Code is " + activationcode + "\n\n\nThank You for being a Creator at NEXUM !";
+            String toaddress = (String)s.email;
+            msg.To.Add(toaddress);
+            String fromaddress = "NEXUM <f158034@nu.edu.pk>";
+            msg.From = new MailAddress(fromaddress);
+            try
+            {
+                smtp.Send(msg);
+            }
+            catch
+            {
+                throw;
+            }
 
+
+        }
 
         //sign up creator mode
         [HttpPost]
-		public ActionResult SignUp(creator signup, string ConfirmPassword)
-		{
+        public ActionResult SignUp(creator signup, string ConfirmPassword)
+        {
 
-			using (testdbEntiies objj = new testdbEntiies())
-			{
-				try
-				{
-					var usr = objj.creators.Single(u => u.email == signup.email);
-					if (usr != null)
-					{
-						ModelState.AddModelError("email", "Email Already Exists");
-					}
-				}
-				catch (Exception ex)
-				{
-					if (ConfirmPassword != signup.c_password)
-					{
-						ModelState.AddModelError("c_password", "Password Did not Match");
-					}
-					else
-					{
-                        string passEncrypt = Encrypt(signup.c_password);
-                        signup.c_password = passEncrypt;
-                        
-                        if (ModelState.IsValid)
-						{
-							using (testdbEntiies obj = new testdbEntiies())
-							{
-								obj.creators.Add(signup);
-								obj.SaveChanges();
-							}
-							ModelState.Clear();
-							ViewBag.msg = signup.firstname + " " + signup.lastname + " successfully registered";
-						}
-					}
-				}
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                try
+                {
+                    var usr = objj.creators.Single(u => u.email == signup.email);
+                    if (usr != null)
+                    {
+                        ModelState.AddModelError("email", "Email Already Exists");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (ConfirmPassword != signup.c_password)
+                    {
+                        ModelState.AddModelError("c_password", "Password Did not Match");
+                    }
+                    else
+                    {
+                        //-----------verifuy email
+                        Session["signupdata"] = signup;
+                        Random random = new Random();
+                        activationcode = random.Next(1001, 9999).ToString();
+                        Sendcode();
+                        return RedirectToAction("VerifyEmail", "Home");
+                    }
+                }
 
-			 }
-			return View();
-		}
+            }
+            return View();
+        }
 
-
-		//sign in creator mode
-		[HttpPost]
+        //sign in creator mode
+        [HttpPost]
 		public ActionResult CreatorMode(CreatorLogin user)
 		{
         
