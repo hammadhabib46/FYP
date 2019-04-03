@@ -36,5 +36,6 @@ namespace Final_Project.Models
         public virtual DbSet<subject> subjects { get; set; }
         public virtual DbSet<tchrfunctional> tchrfunctionals { get; set; }
         public virtual DbSet<studfee> studfees { get; set; }
+        public virtual DbSet<notification> notifications { get; set; }
     }
 }

@@ -67,6 +67,7 @@
       <End Role="studfuctional" EntitySet="studfuctionals" />
       <End Role="studfee" EntitySet="studfees" />
     </AssociationSet>
+    <EntitySet Name="notifications" EntityType="testdbModel.notification" />
   </EntityContainer>
   <EntityType Name="accfuctional">
     <Key>
@@ -394,4 +395,17 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="notification">
+    <Key>
+      <PropertyRef Name="Noti_ID" />
+    </Key>
+    <Property Name="Noti_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sender_ID" Type="Int32" />
+    <Property Name="Reciever_ID" Type="Int32" />
+    <Property Name="Message" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="Time" Type="Time" />
+    <Property Name="Date" Type="DateTime" />
+    <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

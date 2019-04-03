@@ -462,6 +462,7 @@
     <Compile Include="Models\accfuctional.cs">
       <DependentUpon>Modellogin.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\check.cs" />
     <Compile Include="Models\class.cs">
       <DependentUpon>Modellogin.tt</DependentUpon>
     </Compile>
@@ -492,6 +493,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Modellogin.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\notification.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NotificationModel.cs" />
     <Compile Include="Models\roledata.cs">
       <DependentUpon>Modellogin.tt</DependentUpon>
     </Compile>
@@ -511,6 +516,7 @@
     <Compile Include="Models\tchrfunctional.cs">
       <DependentUpon>Modellogin.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\teacherSaverCheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -554,6 +560,9 @@
     <Content Include="Views\Home\verifyEmail.cshtml" />
     <Content Include="Views\Admin\AddFee.cshtml" />
     <Content Include="Views\Admin\VIewFeeRecords.cshtml" />
+    <Content Include="Views\Admin\Notification.cshtml" />
+    <Content Include="Views\Admin\Notification_Teacher.cshtml" />
+    <Content Include="Views\Admin\Notification_Hr.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

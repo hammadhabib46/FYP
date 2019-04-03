@@ -1,0 +1,65 @@
+﻿@using Final_Project.Models;
+@model Final_Project.Models.teacherSaverCheck
+@{
+    ViewBag.Title = "Notification_Hr";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+    int i = 0;
+    hrfuctional hrData = (hrfuctional)Session["All_Hr"];
+
+}
+<h1 class="text-center">Send Notification To Student </h1>
+
+@using (Html.BeginForm("Notification_Hr", "Admin", FormMethod.Post))
+{
+    <form>
+        @Html.ValidationSummary(false)
+        <div class="container-fluid h-100 overflow-y">
+            <div class="row ">
+                <div class="col-2 my-auto">
+                    <!-- Form -->
+                   
+                </div>
+                @{
+                    if (hrData == null)
+                    {
+                        <h2 class="text-center">Sorry No Hr in the Management System </h2>
+                    }
+                    else
+                    {
+                        <div class="col-8 my-auto">
+                            <div class="widget has-shadow ">
+                                <div class="widget-body ">
+                                    <div class="form-group row d-flex align-items-center ">
+                                        <label class="col-lg-12 form-control-label d-flex justify-content-lg-end">Custom Message</label>
+                                        <div class="col-lg-12">
+                                            <textarea class="form-control" name="notification_text" placeholder="Type your Notification here ..." required></textarea>
+                                            <div class="invalid-feedback">
+                                                Write Notification Content Here
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="sign-btn text-center">
+                                        <input type="submit" value="Send" class="btn btn-lg btn-gradient-01 " />
+                                    </div>
+
+                                    @{ if (ViewBag.noti_H == null)
+                                        {
+                                            <p></p>
+                                        }
+                                        else
+                                        {
+                                            <div class="alert alert-success">
+                                                <strong> @ViewBag.noti_H</strong>.
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </form>
+}

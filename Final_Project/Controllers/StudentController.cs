@@ -62,14 +62,9 @@ namespace Final_Project.Controllers
                         TempData["Teach_Present"] = true;
 
                 }
-
-
+                
             }
-
-
-
-
-
+            
             return View();
 		}
 	}

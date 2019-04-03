@@ -3,14 +3,11 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
     TempData["Name_A"] = 1;
-
     TempData["Name"] = TempData["P_Name"];
     TempData.Keep();
     TempData["Email"] = TempData["E_Mail"];
     TempData.Keep();
-
 }
-
 <h2>Admin</h2>
 <div class="container-fluid">
     <div class="row flex-row">
@@ -27,7 +24,7 @@
                            <li class="nav-item">
                                     <a class="nav-link" href="javascript:void(0)"><i class=" la-2x align-middle pr-2"></i>Name:    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;         @TempData["Name"]</a>
                                 </li>
-                        
+                    
                         <li class="nav-item">
                             <a class="nav-link" href="javascript:void(0)"><i class=" la-2x align-middle pr-2"></i>Position:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  @TempData["Post"]</a>
                         </li>

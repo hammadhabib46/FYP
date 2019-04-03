@@ -7,13 +7,15 @@
     TempData.Keep();
     bool HRP = (bool)TempData["HR_Present"];
     TempData.Keep();
-    
+
     var classData = (List<@class>)Session["clz"];
 
     // List<string> ClassList = (List<string>)TempData["classL"];
 
     bool addteacher = true;
-    
+
+    bool Nofi = (bool)Session["nofi"];
+
 }
 
 
@@ -38,7 +40,12 @@
     <link rel="apple-touch-icon" sizes="180x180" href="~/Content/assets/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/img/favicon-16x16.png">
+
     <!-- Stylesheet -->
+    
+    <link rel="stylesheet" href="assets/css/bootstrap-select/bootstrap-select.min.css">
+    <link rel="stylesheet" href="~/Content/assets/css/owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/assets/css/owl-carousel/owl.theme.min.css">
     <link rel="stylesheet" href="~/Content/assets/vendors/css/base/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/assets/vendors/css/base/elisyam-1.2.min.css">
     <!-- Tweaks for older IEs-->
@@ -103,14 +110,11 @@
                         <li>@Html.ActionLink("Delete Student", "DeleteStudent", "Admin")</li>
                         <li>@Html.ActionLink("Update Student", "UpdateStudent", "Admin")</li>
 
-
-
                         @{
                             if (teacherP == true)
                             {
                                 <li>@Html.ActionLink("Add Teacher", "AddTeacher", "Admin")</li>
                                 <li>@Html.ActionLink("Delete Teacher", "DeleteTeacher", "Admin")</li>
-                              
 
                             }
                             if (HRP == true)
@@ -124,11 +128,33 @@
                                 <li> @Html.ActionLink("Submit Fee", "AddFee", "Admin") </li>
                                 <li> @Html.ActionLink("Fee Records", "ViewFeeRecords", "Admin") </li>
                             }
+
+                            if (Nofi == true)
+                            {
+                                <li class="active">
+                                    <a href="#dropdown-tables" aria-expanded="true" data-toggle="collapse"><i class="la la-th-large"></i><span>Notifications</span></a>
+                                    <ul id="dropdown-tables" class="collapse list-unstyled show pt-0">
+                                        @{
+                                            <li> @Html.ActionLink("Students", "Notification", "Admin") </li>
+                                        }
+                                        @if (teacherP == true)
+                                        {
+                                            <li> @Html.ActionLink("Teacher", "Notification_Teacher", "Admin") </li>
+                                        }
+                                        @if (HRP == true)
+                                        {
+                                             <li> @Html.ActionLink("Hr", "Notification_Hr", "Admin") </li>
+                                        }
+                                    </ul>
+                                </li>
+                                
+                                
+                            }
                         }
 
                         <li class="active">
-                            <a href="#dropdown-tables" aria-expanded="true" data-toggle="collapse"><i class="la la-th-large"></i><span>Student Details</span></a>
-                            <ul id="dropdown-tables" class="collapse list-unstyled show pt-0">
+                            <a href="#dropdown-tabless" aria-expanded="true" data-toggle="collapse"><i class="la la-th-large"></i><span>Student Details</span></a>
+                            <ul id="dropdown-tabless" class="collapse list-unstyled show pt-0">
                                 @{
                                     foreach (var item in classData)
                                     {
@@ -179,9 +205,9 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
-
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 
+    
 
 
     @{Html.EnableClientValidation(true);}

@@ -195,5 +195,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="notifications">
+      <EntityTypeMapping TypeName="testdbModel.notification">
+        <MappingFragment StoreEntitySet="notification">
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Reciever_ID" ColumnName="Reciever_ID" />
+          <ScalarProperty Name="Sender_ID" ColumnName="Sender_ID" />
+          <ScalarProperty Name="Noti_ID" ColumnName="Noti_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

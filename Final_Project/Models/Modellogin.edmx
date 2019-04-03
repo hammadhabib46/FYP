@@ -76,6 +76,19 @@
           <Property Name="MS_logo" Type="blob" />
           <Property Name="MS_InstBranch" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="Noti_ID" />
+          </Key>
+          <Property Name="Noti_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sender_ID" Type="int" />
+          <Property Name="Reciever_ID" Type="int" />
+          <Property Name="Message" Type="text" />
+          <Property Name="Status" Type="bool" />
+          <Property Name="Time" Type="time" Precision="0" />
+          <Property Name="Date" Type="date" />
+          <Property Name="type" Type="varchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="role_funcdata">
           <Key>
             <PropertyRef Name="fun_id" />
@@ -326,6 +339,7 @@
           <EntitySet Name="creator" EntityType="Self.creator" Schema="testdb" store:Type="Tables" />
           <EntitySet Name="hrfuctional" EntityType="Self.hrfuctional" Schema="testdb" store:Type="Tables" />
           <EntitySet Name="ms" EntityType="Self.ms" Schema="testdb" store:Type="Tables" />
+          <EntitySet Name="notification" EntityType="Self.notification" Schema="testdb" store:Type="Tables" />
           <EntitySet Name="role_funcdata" EntityType="Self.role_funcdata" Schema="testdb" store:Type="Tables" />
           <EntitySet Name="roledata" EntityType="Self.roledata" Schema="testdb" store:Type="Tables" />
           <EntitySet Name="studfee" EntityType="Self.studfee" Schema="testdb" store:Type="Tables" />
@@ -448,6 +462,7 @@
             <End Role="studfuctional" EntitySet="studfuctionals" />
             <End Role="studfee" EntitySet="studfees" />
           </AssociationSet>
+          <EntitySet Name="notifications" EntityType="testdbModel.notification" />
         </EntityContainer>
         <EntityType Name="accfuctional">
           <Key>
@@ -775,6 +790,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="Noti_ID" />
+          </Key>
+          <Property Name="Noti_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sender_ID" Type="Int32" />
+          <Property Name="Reciever_ID" Type="Int32" />
+          <Property Name="Message" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="Time" Type="Time" />
+          <Property Name="Date" Type="DateTime" />
+          <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -972,6 +1000,20 @@
                 <ScalarProperty Name="FeeStud_ID" ColumnName="FeeStud_ID" />
                 <ScalarProperty Name="FeeMs_ID" ColumnName="FeeMs_ID" />
                 <ScalarProperty Name="Fee_ID" ColumnName="Fee_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notifications">
+            <EntityTypeMapping TypeName="testdbModel.notification">
+              <MappingFragment StoreEntitySet="notification">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Reciever_ID" ColumnName="Reciever_ID" />
+                <ScalarProperty Name="Sender_ID" ColumnName="Sender_ID" />
+                <ScalarProperty Name="Noti_ID" ColumnName="Noti_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

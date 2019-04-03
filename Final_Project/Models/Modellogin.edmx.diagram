@@ -27,6 +27,7 @@
         <EntityTypeShape EntityType="testdbModel.studfee" Width="1.5" PointX="11.125" PointY="9.75" />
         <AssociationConnector Association="testdbModel.studfee_ibfk_1" />
         <AssociationConnector Association="testdbModel.studfee_ibfk_2" />
+        <EntityTypeShape EntityType="testdbModel.notification" Width="1.5" PointX="13.125" PointY="6.625" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

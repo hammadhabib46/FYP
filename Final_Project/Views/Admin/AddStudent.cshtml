@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_adminLayout.cshtml";
     
     
-
     TempData["DOB_A"] = (bool)TempData["Sdon"];
     TempData.Keep();
     TempData["CNIC_A"] =(bool)TempData["Scnic"];
@@ -73,7 +72,6 @@
                             </div>
                         </div>
                         @{
-
                             if ((bool)TempData["DOB_A"] == true)
                             {
                                 <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">

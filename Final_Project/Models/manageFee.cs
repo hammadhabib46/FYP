@@ -24,7 +24,7 @@ namespace Final_Project.Models
             public string feestatus;
             public double? pendingfee;
         }
-
+       
 
         public string month { get; set; }
 
@@ -167,6 +167,7 @@ namespace Final_Project.Models
 
         public List<string> UpdateStudentFee(manageFee obj_mF,int ms_id )
         {
+            bool wrongdate = false;
             DateTime mytime;
             List<string> outputdata = new List<string>();
 
@@ -238,20 +239,21 @@ namespace Final_Project.Models
                         }
                         else
                         {
-                            outputdata.Add("Wrong Date");
-                            return outputdata;
+                            //   outputdata.Add("Wrong Date");
+                            //  return outputdata;
+                            wrongdate = true;
 
                         }
                     }
                  /////////////
                 }
-              catch (Exception ex)
+                catch (Exception ex)
                 {
                     outputdata.Add("MsidError");
                     return outputdata;
                 }
             }
-            outputdata.Add("DataBaseError");
+            outputdata.Add("Wrong Date");
             return outputdata;
         }
 

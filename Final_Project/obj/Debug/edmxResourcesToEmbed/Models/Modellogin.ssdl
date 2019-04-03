@@ -71,6 +71,19 @@
     <Property Name="MS_logo" Type="blob" />
     <Property Name="MS_InstBranch" Type="varchar" MaxLength="255" />
   </EntityType>
+  <EntityType Name="notification">
+    <Key>
+      <PropertyRef Name="Noti_ID" />
+    </Key>
+    <Property Name="Noti_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Sender_ID" Type="int" />
+    <Property Name="Reciever_ID" Type="int" />
+    <Property Name="Message" Type="text" />
+    <Property Name="Status" Type="bool" />
+    <Property Name="Time" Type="time" Precision="0" />
+    <Property Name="Date" Type="date" />
+    <Property Name="type" Type="varchar" MaxLength="255" />
+  </EntityType>
   <EntityType Name="role_funcdata">
     <Key>
       <PropertyRef Name="fun_id" />
@@ -321,6 +334,7 @@
     <EntitySet Name="creator" EntityType="Self.creator" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="hrfuctional" EntityType="Self.hrfuctional" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="ms" EntityType="Self.ms" Schema="testdb" store:Type="Tables" />
+    <EntitySet Name="notification" EntityType="Self.notification" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="role_funcdata" EntityType="Self.role_funcdata" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="roledata" EntityType="Self.roledata" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="studfee" EntityType="Self.studfee" Schema="testdb" store:Type="Tables" />
