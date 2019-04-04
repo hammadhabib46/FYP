@@ -1,22 +1,23 @@
-﻿@model Final_Project.Models.hrfuctional
+﻿@model Final_Project.Models.accfuctional
 @{
-    ViewBag.Title = "AddHR";
+    ViewBag.Title = "AddAccountant";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 
 
-    bool V_dob = (bool)TempData["Hdon"];
-    bool V_address = (bool)TempData["Haddress"];
-    bool V_cnic = (bool)TempData["Hcnic"];
-    bool V_gender = (bool)TempData["Hgender"];
-    bool V_pic = (bool)TempData["Hpic"];
-    bool V_email = (bool)TempData["HEmail"];
-    bool V_qualif = (bool)TempData["Hqualif"];
+    bool V_dob = (bool)TempData["Adon"];
+    bool V_address = (bool)TempData["Aaddress"];
+    bool V_cnic = (bool)TempData["Acnic"];
+    bool V_gender = (bool)TempData["Agender"];
+    bool V_pic = (bool)TempData["Apic"];
+    bool V_email = (bool)TempData["AEmail"];
+    bool V_qualif = (bool)TempData["Aqualif"];
 
     List<bool> genderList = new List<bool>()
-        {
-            true,
-            false
-        };
+    {
+    true,
+    false
+    };
+
 }
 
 <h2>AddHR</h2>
@@ -37,30 +38,30 @@
                             <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
                                 <label class="col-lg-2 form-control-label">First Name</label>
                                 <div class="col-lg-8">
-                                    @Html.TextBoxFor(model => model.HrF_FName, new { @class = "form-control", @required = "required" })
-                                    @Html.ValidationMessageFor(model => model.HrF_FName)
+                                    @Html.TextBoxFor(model => model.AccF_FName, new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.AccF_FName)
                                 </div>
                             </div>
                             <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
                                 <label class="col-lg-2 form-control-label">Last Name</label>
                                 <div class="col-lg-8">
-                                    @Html.TextBoxFor(model => model.HrF_LName, new { @class = "form-control", @required = "required" })
-                                    @Html.ValidationMessageFor(model => model.HrF_LName)
+                                    @Html.TextBoxFor(model => model.AccF_LName, new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.AccF_LName)
                                 </div>
                             </div>
                             <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
                                 <label class="col-lg-2 form-control-label">Father's Name</label>
                                 <div class="col-lg-8">
-                                    @Html.TextBoxFor(model => model.HrF_PasswordName, new { @class = "form-control", @required = "required" })
-                                    @Html.ValidationMessageFor(model => model.HrF_PasswordName)
+                                    @Html.TextBoxFor(model => model.AccF_PasswordName, new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.AccF_PasswordName)
                                 </div>
                             </div>
 
                             <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
                                 <label class="col-lg-2 form-control-label">Phone Number</label>
                                 <div class="col-lg-8">
-                                    @Html.TextBoxFor(model => model.HrF_Phone, new { @class = "form-control", @required = "required" })
-                                    @Html.ValidationMessageFor(model => model.HrF_Phone)
+                                    @Html.TextBoxFor(model => model.AccF_Phone, new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.AccF_Phone)
                                 </div>
                             </div>
                             @{
@@ -69,8 +70,8 @@
                                     <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
                                         <label class="col-lg-2 form-control-label">Qualification</label>
                                         <div class="col-lg-8">
-                                            @Html.TextBoxFor(model => model.HrF_Qualification, new { @class = "form-control", @required = "required" })
-                                            @Html.ValidationMessageFor(model => model.HrF_Qualification)
+                                            @Html.TextBoxFor(model => model.AccF_Qualification, new { @class = "form-control", @required = "required" })
+                                            @Html.ValidationMessageFor(model => model.AccF_Qualification)
                                         </div>
                                     </div>
                                 }
@@ -80,8 +81,8 @@
                                     <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
                                         <label class="col-lg-2 form-control-label">Date of Birth</label>
                                         <div class="col-lg-8">
-                                            @Html.TextBoxFor(model => model.HrF_DOB, new { @class = "form-control", @required = "required", @type = "date" })
-                                            @Html.ValidationMessageFor(model => model.HrF_DOB)
+                                            @Html.TextBoxFor(model => model.AccF_DOB, new { @class = "form-control", @required = "required", @type = "date" })
+                                            @Html.ValidationMessageFor(model => model.AccF_DOB)
                                         </div>
                                     </div>
                                 }
@@ -90,7 +91,7 @@
                                     <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
                                         <label class="col-lg-2 form-control-label">Gender</label>
                                         <div class="col-lg-8">
-                                            @Html.DropDownListFor(model => model.HrF_Gender, new SelectList(genderList), new { @class = "form-control", aria_describedby = "dropdownMenu2" })
+                                            @Html.DropDownListFor(model => model.AccF_Gender, new SelectList(genderList), new { @class = "form-control", aria_describedby = "dropdownMenu2" })
                                         </div>
                                     </div>
                                 }
@@ -99,8 +100,8 @@
                                     <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
                                         <label class="col-lg-2 form-control-label">CNIC</label>
                                         <div class="col-lg-8">
-                                            @Html.TextBoxFor(model => model.HrF_CNIC, new { @class = "form-control", @required = "required", @type = "Number" })
-                                            @Html.ValidationMessageFor(model => model.HrF_CNIC)
+                                            @Html.TextBoxFor(model => model.AccF_CNIC, new { @class = "form-control", @required = "required", @type = "Number" })
+                                            @Html.ValidationMessageFor(model => model.AccF_CNIC)
                                         </div>
                                     </div>
                                 }
@@ -109,15 +110,15 @@
                                     <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
                                         <label class="col-lg-2 form-control-label">Address</label>
                                         <div class="col-lg-8">
-                                            @Html.TextBoxFor(model => model.HrF_Address, new { @class = "form-control", @required = "required" })
-                                            @Html.ValidationMessageFor(model => model.HrF_Address)
+                                            @Html.TextBoxFor(model => model.AccF_Address, new { @class = "form-control", @required = "required" })
+                                            @Html.ValidationMessageFor(model => model.AccF_Address)
                                         </div>
                                     </div>
                                 }
 
                             }
                             <div class="sign-btn text-center ">
-                                <input type="submit" value="Add HR" class="btn btn-lg btn-gradient-03" />
+                                <input type="submit" value="Add Accountant" class="btn btn-lg btn-gradient-03" />
                             </div>
                             @{ if (ViewBag.msg1 == null)
                                 {

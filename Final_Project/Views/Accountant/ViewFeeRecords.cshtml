@@ -1,14 +1,17 @@
 ﻿@model Final_Project.Models.manageFee
 @{
     ViewBag.Title = "VIewFeeRecords";
-    Layout = "~/Views/Shared/_adminLayout.cshtml";
+    Layout = "~/Views/Shared/_accountantLayout.cshtml";
     List<string> months = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec" };
     int currentYear = int.Parse(DateTime.Now.Year.ToString());
     List<int> years = new List<int>();
     for (int i = 2017; i <= currentYear; i++)
     { years.Add(i); }
+
     bool V_data = (bool)Session["ViewData"];
+
     List<Final_Project.Models.manageFee.ViewData> feeRecord = (List<Final_Project.Models.manageFee.ViewData>)Session["FeeRecords"];
+
 }
 
 <h2>VIewFeeRecords</h2>
@@ -37,7 +40,7 @@
 
 
                 <div class="form-group row d-flex ">
-                   
+
                     <div class="sign-btn text-center col-lg-2 ">
                         <input type="submit" value="Submit Fee" class="btn btn-lg btn-gradient-03" />
                     </div>
@@ -81,16 +84,16 @@
                                 @{
                                     foreach (var studentData in feeRecord)
                                     {
-                                <tr>
-                                    <td>@studentData.rollnumber</td>
-                                    <td>@studentData.name</td>
-                                    <td>@studentData.classname</td>
-                                    <td>
-                                    <span style="width:100px;"><span class="badge-text badge-text-small info">@studentData.feestatus</span></span>
-                                   </td>
-                                    <td>@studentData.pendingfee</td>
+                                        <tr>
+                                            <td>@studentData.rollnumber</td>
+                                            <td>@studentData.name</td>
+                                            <td>@studentData.classname</td>
+                                            <td>
+                                                <span style="width:100px;"><span class="badge-text badge-text-small info">@studentData.feestatus</span></span>
+                                            </td>
+                                            <td>@studentData.pendingfee</td>
 
-                                </tr>
+                                        </tr>
                                     }
                                 }
                             </tbody>

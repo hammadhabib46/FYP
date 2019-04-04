@@ -1,10 +1,23 @@
-﻿@{
-
+﻿@using Final_Project.Models;
+@{
+    string sh;
     int Noti = 1;
     int Chal = 0;
 
     bool teacherP = (bool)TempData["Teach_Present"];
     TempData.Keep();
+
+    List<notification> notis = (List<notification>)Session["NotiList"];
+    List<notification> nayi = new List<notification>();
+
+    foreach (notification not in notis)
+    {
+        if (not.Status == false)
+        {
+            nayi.Add(not);
+        }
+    }
+    DateTime datenow = DateTime.Now;
 
     // Noti = (int)TempData["Noti"];
 }
@@ -80,6 +93,54 @@ Author: SAEROX
                     <!-- Begin Navbar Menu -->
                     <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center pull-right">
                         <!-- Begin Notifications -->
+                        <li class="nav-item dropdown">
+                            <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="la la-bell animated infinite swing"></i><span class="badge-pulse"></span></a>
+                            <ul aria-labelledby="notifications" class="dropdown-menu notification">
+                                <li>
+                                    <div class="notifications-header">
+                                        <div class="title">Notifications @nayi.Count</div>
+                                        <div class="notifications-overlay"></div>
+                                        <img src="assets/img/notifications/01.jpg" alt="..." class="img-fluid">
+                                    </div>
+                                </li>
+                                @{
+                                    foreach (notification not in nayi)
+                                    {
+                                <li>
+                                   
+                                    <a href="#">
+                                        <div class="message-icon">
+                                            <i class="la la-history"></i>
+                                        </div>
+                                        <div class="message-body">
+                                            <div class="message-body-heading">
+                                                @{ sh = "";
+                                                    if (not.Message.Length < 50)
+                                                    { sh = not.Message; }
+                                                    else
+                                                    { sh = not.Message.Substring(0, 50); }
+                                                }
+                                                @sh
+                                               
+                                            </div>@{
+                                                DateTime x = (DateTime)not.Date;
+                                                int dayss = (int)x.Subtract(datenow).TotalDays;
+
+                                                TimeSpan y = (TimeSpan)not.Time;
+                                                TimeSpan nowd = DateTime.UtcNow.TimeOfDay;
+                                                TimeSpan res = nowd - y;
+                                            }
+                                            <span class="date">@res.ToString(@"hh\:mm") minutes and   @dayss day/days ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                    }
+                                }
+                                <li>
+                                    <a rel="nofollow" href="@Url.Action("MarkallAsRead", "Student")" class="dropdown-item all-notifications text-center">View All and Mark as Read</a>
+                                </li>
+                            </ul>
+                        </li>
                         <!-- End Notifications -->
                         <!-- User -->
                         <li class="nav-item dropdown">
@@ -90,7 +151,7 @@ Author: SAEROX
                                         Logout
                                     </a>
                                 </li>
-                                <li><a rel="nofollow" href="pages-login.html" class="dropdown-item logout text-center"><i class="ti-power-off"></i></a></li>
+                                <li><a rel="nofollow" href="http://localhost:59439/" class="dropdown-item logout text-center"><i class="ti-power-off"></i></a></li>
                             </ul>
                         </li>
                         <!-- End User -->
@@ -114,7 +175,7 @@ Author: SAEROX
                         @{
                             if (Noti == 1)
                             {
-                                <li>@Html.ActionLink("Notifications", "Index", "Student")</li>
+                                <li>@Html.ActionLink("Notifications", "Notifications", "Student")</li>
                             }
                             if (Chal == 1)
                             {

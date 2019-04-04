@@ -21,6 +21,7 @@ namespace Final_Project.Models
             List<int>  stud_id;
             string con_clas_id = "";
             TimeSpan ti = DateTime.UtcNow.TimeOfDay;
+            DateTime da = DateTime.Now;
             try
             {
                 using (testdbEntiies obj = new testdbEntiies())
@@ -40,7 +41,8 @@ namespace Final_Project.Models
                             noti_obj.Reciever_ID = id;
                             noti_obj.Time = ti;
                             noti_obj.Status = false;
-                            noti_obj.type = "Student"; ;
+                            noti_obj.type = "Student";
+                            noti_obj.Date=da;
                             obj.notifications.Add(noti_obj);
                             obj.SaveChanges();
                         }

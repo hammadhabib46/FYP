@@ -42,7 +42,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/img/favicon-16x16.png">
 
     <!-- Stylesheet -->
-    
+
     <link rel="stylesheet" href="assets/css/bootstrap-select/bootstrap-select.min.css">
     <link rel="stylesheet" href="~/Content/assets/css/owl-carousel/owl.carousel.min.css">
     <link rel="stylesheet" href="~/Content/assets/css/owl-carousel/owl.theme.min.css">
@@ -122,6 +122,11 @@
                                 <li>@Html.ActionLink("Add HR", "AddHR", "Admin")</li>
                                 <li>@Html.ActionLink("Delete HR", "DeleteHR", "Admin")</li>
                             }
+                            if ((bool)TempData["Acc_Present"] == true)
+                            {
+                                <li>@Html.ActionLink("Add Accountant", "AddAccountant", "Admin")</li>
+                                <li>@Html.ActionLink("Delete Accountant", "DeleteAccountant", "Admin")</li>
+                            }
 
                             if ((bool)Session["fee"] == true)
                             {
@@ -143,12 +148,12 @@
                                         }
                                         @if (HRP == true)
                                         {
-                                             <li> @Html.ActionLink("Hr", "Notification_Hr", "Admin") </li>
+                                            <li> @Html.ActionLink("Hr", "Notification_Hr", "Admin") </li>
                                         }
                                     </ul>
                                 </li>
-                                
-                                
+
+
                             }
                         }
 
@@ -176,10 +181,9 @@
             <!-- End Left Sidebar -->
             <div class="content-inner">
                 <!-- Begin Container -->
-             
-                    <!-- Begin Page Header-->
-                    @RenderBody()
-               
+                <!-- Begin Page Header-->
+                @RenderBody()
+
                 <!-- End Container -->
                 <!-- Begin Page Footer-->
                 <!-- End Page Footer -->
@@ -207,7 +211,7 @@
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 
-    
+
 
 
     @{Html.EnableClientValidation(true);}

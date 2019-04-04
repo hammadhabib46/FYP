@@ -327,7 +327,7 @@ namespace Final_Project.Controllers
                 }
 
             }
-            else  /// means thats a teacher
+            else if (user.role == "Teacher")/// means thats a teacher
             {
                 using (testdbEntiies objj = new testdbEntiies())
                 {
@@ -336,9 +336,8 @@ namespace Final_Project.Controllers
                         var usr = objj.tchrfunctionals.Single(u => u.TchrF_RollID == user.Name && u.TchrF_password == user.Password && u.TchrF_MSID == ms_id);
                         if (usr != null)
                         {
-                            TempData["hr_id"] = usr.TchrF_ID;
+                            TempData["tc_id"] = usr.TchrF_ID;
                             return RedirectToAction("Index", "Student");
-
                         }
                     }
                     catch (Exception ex)
@@ -349,6 +348,28 @@ namespace Final_Project.Controllers
                 }
 
             }
+            else if (user.role == "Accountant")/// means thats a Accountant
+            {
+                using (testdbEntiies objj = new testdbEntiies())
+                {
+                    try
+                    {
+                        var usr = objj.accfuctionals.Single(u => u.AccF_userNumber == user.Name && u.AccF_password == user.Password && u.AccF_MsID == ms_id);
+                        if (usr != null)
+                        {
+                            TempData["ac_id"] = usr.AccF_ID;
+                            return RedirectToAction("Index", "Accountant");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("Password", "User ID or password is incorrect");
+                    }
+
+                }
+
+            }
+
 
             return View();
 		   

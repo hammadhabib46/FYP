@@ -13,7 +13,10 @@ namespace Final_Project.Controllers
 		// GET: /Student/
 		public ActionResult Index()
 		{
-            string name = "HR";
+
+       //     Session["M_ID"] = 86;    fully
+       //     TempData["st_id"] = 16;   fully
+
             int MS_id = (int)Session["M_ID"];
             TempData.Keep("M_ID");
 
@@ -65,7 +68,44 @@ namespace Final_Project.Controllers
                 
             }
             
+            // gather all notifications
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+
+                List<notification> NotiList = objj.notifications.Where(u => u.Reciever_ID == st_id).ToList<notification>();
+                Session["NotiList"] = NotiList;
+
+
+            }
+            
             return View();
 		}
-	}
+
+        public ActionResult Notifications()
+        {
+            return View();
+        }
+
+        public ActionResult MarkallAsRead()
+        {
+            int st_id = (int)TempData["st_id"];
+            TempData.Keep("st_id");
+
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+
+                List<notification> NotiList = objj.notifications.Where(u => u.Reciever_ID == st_id).ToList<notification>();
+
+                foreach (notification n in NotiList)
+                {
+                    n.Status = true;
+                    objj.SaveChanges();
+                }
+
+            }
+
+            return RedirectToAction("Notifications", "Student");
+        }
+
+    }
 }

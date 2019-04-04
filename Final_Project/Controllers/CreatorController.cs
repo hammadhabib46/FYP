@@ -137,6 +137,7 @@ namespace Final_Project.Controllers
                         var userId = objj.ms.Where(u => u.MS_InstName == superTable_input.MS_InstName).Select(u => u.MS_ID).FirstOrDefault();   //// getting MS from database using MS_Name
 
                         TempData["MS_ID"] = userId;
+                        TempData.Keep();
 
                         ModelState.Clear();
                         return RedirectToAction("ManageClass", "Creator");
@@ -151,8 +152,9 @@ namespace Final_Project.Controllers
         [HttpPost]
         public ActionResult ManageClass(string ClassName,Nullable<double> Fee, string subjects)
         {
-           
-
+            int mid = (int)TempData["MS_ID"]; ;
+            TempData.Keep();
+            
             @class class_obj = new @class();
             class_obj.Class_Fee = Fee;
             class_obj.Class_Name = ClassName;
@@ -162,7 +164,7 @@ namespace Final_Project.Controllers
                 try
                 {
                     // ek anagement system ki specific id k  class name k sath compare krna ha newly entered class name 
-                    var usr = objj.classes.Single(u => u.Class_Name == class_obj.Class_Name);
+                    var usr = objj.classes.Single(u => u.Class_Name == class_obj.Class_Name && u.MS_id == mid);
                     if (usr != null)
                     {
                         ModelState.AddModelError("Class_Name", "Class Already Exists");

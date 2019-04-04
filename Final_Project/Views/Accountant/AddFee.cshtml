@@ -1,0 +1,186 @@
+﻿@model Final_Project.Models.manageFee
+@{
+    ViewBag.Title = "AddFee";
+    Layout = "~/Views/Shared/_accountantLayout.cshtml";
+    List<string> months = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec" };
+    int currentYear = int.Parse(DateTime.Now.Year.ToString());
+    List<int> years = new List<int>();
+    for (int i = 2017; i <= currentYear; i++)
+    { years.Add(i); }
+
+
+    bool showInvoice = (bool)Session["ShowInvoice"];
+    List<string> invoicedata = (List<string>)Session["DataInvoice"];
+}
+
+
+<div class="page">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(false)
+        if (showInvoice == false)
+        {
+            <div class="widget has-shadow mx-auto" style="width: 1400px;  padding-right:120px; ">
+                <div class="widget-header bordered no-actions d-flex align-items-center justify-content-md-center">
+                    <h3>Submit Fee</h3>
+                </div>
+                <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center " style="padding-top: 60px;">
+                    <label class="col-lg-3 form-control-label text-right">Select Month</label>
+                    <div class="col-lg-3">
+                        @Html.DropDownListFor(model => model.month, new SelectList(months), new { @class = "form-control", aria_describedby = "dropdownMenu1" })
+                    </div>
+                    <label class="col-lg-3 form-control-label text-right">Select Year</label>
+                    <div class="col-lg-3">
+                        @Html.DropDownListFor(model => model.year, new SelectList(years), new { @class = "form-control", aria_describedby = "dropdownMenu1" })
+                    </div>
+                </div>
+
+
+                <div class="form-group row d-flex ">
+                    <label class="col-lg-4 form-control-label text-right">Roll Number</label>
+                    <div class="col-lg-4">
+                        @Html.TextBoxFor(model => model.rollnumber, new { @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.rollnumber)
+                    </div>
+
+                    <div class="sign-btn text-center col-lg-2 ">
+                        <input type="submit" value="Submit Fee" class="btn btn-lg btn-gradient-03" />
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    @{
+        if (showInvoice == true)
+        {
+
+            <!-- Begin Page Content -->
+            <div class="page-content d-flex align-items-stretch">
+                <div class="content-inner">
+                    <div class="container-fluid">
+                        <!-- End Page Header -->
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <!-- Begin Invoice -->
+                                <div class="invoice has-shadow">
+                                    <!-- Begin Invoice COntainer -->
+                                    <div class="invoice-container">
+                                        <!-- Begin Invoice Top -->
+                                        <div class="invoice-top">
+                                            <div class="row d-flex align-items-center">
+                                                <div class="col-xl-6 col-md-6 col-sm-6 col-6">
+                                                    <h1>Nexum</h1>
+                                                    <span>Invoice</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- End Invoice Top -->
+                                        <!-- Begin Invoice Header -->
+                                        <div class="invoice-header">
+                                            <div class="row d-flex align-items-center">
+                                                <div class="col-xl-2 col-md-2 col-sm-12 d-flex justify-content-xl-start justify-content-md-center justify-content-center mb-2">
+                                                    <div class="invoice-logo">
+                                                        <img src="~/Content/assets/img/logo.png" alt="logo">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-5 col-md-5 col-sm-6 d-flex justify-content-xl-start justify-content-md-center justify-content-center mb-2">
+                                                    <div class="details">
+                                                        <ul>
+                                                            <li class="company-name">@invoicedata[6]</li>
+                                                            <li>@invoicedata[9]</li>
+                                                            <li>@invoicedata[7]</li>
+                                                            <li>@invoicedata[8]</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- End Invoice Header -->
+                                        <div class="invoice-date d-flex justify-content-xl-end justify-content-center">
+                                            <span>@invoicedata[10]</span>
+                                        </div>
+                                        <!-- Begin Table -->
+                                        <div class="col-xl-12 desc-tables">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-left">Student Description</th>
+                                                            <th class="text-center">Pending Fee</th>
+                                                            <th class="text-center">Current Fee</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="text-left">
+                                                                @invoicedata[11] - @invoicedata[1] @invoicedata[2]
+                                                                <br>
+                                                                <div class="description">
+
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center">@invoicedata[5]</td>
+
+                                                            <td class="text-center">@invoicedata[4]</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- End Table -->
+                                    </div>
+                                    <!-- End Invoice Container -->
+                                    <!-- Begin Invoice Footer -->
+                                    <div class="invoice-footer">
+                                        <!-- Begin Invoice Container -->
+                                        <div class="invoice-container">
+                                            <div class="row d-flex align-items-center">
+                                                <div class="col-xl-6 col-md-6 col-sm-6 d-flex justify-content-xl-start justify-content-md-start justify-content-center mb-2">
+                                                    <div class="bank">
+                                                        <div class="title">Nexum</div>
+                                                        <div class="text">Created By Nexum</div>
+                                                        <div class="text">@invoicedata[10]</div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-md-6 col-sm-6 d-flex justify-content-xl-end justify-content-md-end justify-content-center">
+                                                    <div class="total">
+                                                        <div class="title">Total</div>
+                                                        <div class="number">@invoicedata[4]</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="footer-bottom">
+                                                <div class="thx">
+                                                    <i class="la la-heart"></i><span>Thank You!</span>
+                                                </div>
+                                                <div class="website">@invoicedata[6]</div>
+                                            </div>
+                                        </div>
+                                        <!-- End Invoice Container -->
+                                    </div>
+                                    <!-- End Invoice Footer -->
+                                </div>
+                                <!-- End Invoice -->
+                            </div>
+                        </div>
+                        <!-- End Row -->
+                    </div>
+                    <!-- End Container -->
+                    <!-- Begin Page Footer-->
+                    <!-- End Page Footer -->
+                    <a href="#" class="go-top"><i class="la la-arrow-up"></i></a>
+                    <!-- Offcanvas Sidebar -->
+                    <!-- End Offcanvas Sidebar -->
+                </div>
+            </div>
+
+            <!-- End Page Content -->
+        }
+    }
+</div>
+
+

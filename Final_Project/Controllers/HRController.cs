@@ -77,6 +77,13 @@ namespace Final_Project.Controllers
             }
 
 
+            // gather all notifications
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                List<notification> NotiList = objj.notifications.Where(u => u.Reciever_ID == h_id).ToList<notification>();
+                Session["NotiList"] = NotiList;
+            }
+
             return View();
         }
 
@@ -175,6 +182,34 @@ namespace Final_Project.Controllers
         {
             return View();
         }
+
+        public ActionResult Notifications()
+        {
+            return View();
+        }
+
+        public ActionResult MarkallAsRead()
+        {
+            int h_id = (int)TempData["hr_id"];
+            TempData.Keep("hr_id");
+
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+
+                List<notification> NotiList = objj.notifications.Where(u => u.Reciever_ID == h_id).ToList<notification>();
+
+                foreach (notification n in NotiList)
+                {
+                    n.Status = true;
+                    objj.SaveChanges();
+                }
+
+            }
+
+            return RedirectToAction("Notifications", "HR");
+        }
+
+
 
 
         [HttpPost]

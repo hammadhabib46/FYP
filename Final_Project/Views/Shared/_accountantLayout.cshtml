@@ -1,9 +1,7 @@
 ﻿@using Final_Project.Models;
 @{
-    Layout = null;
-    string sh = "";
-    bool teacherP = (bool)TempData["Teach_Present"];
-    TempData.Keep();
+    string sh;
+    int Noti = 1;
 
     List<notification> notis = (List<notification>)Session["NotiList"];
     List<notification> nayi = new List<notification>();
@@ -16,7 +14,9 @@
         }
     }
     DateTime datenow = DateTime.Now;
+    
 }
+
 
 <!DOCTYPE html>
 <!--
@@ -132,7 +132,7 @@ Author: SAEROX
                                     }
                                 }
                                 <li>
-                                    <a rel="nofollow" href="@Url.Action("MarkallAsRead", "HR")" class="dropdown-item all-notifications text-center">View All and Mark as Read</a>
+                                    <a rel="nofollow" href="@Url.Action("MarkallAsRead", "Accountant")" class="dropdown-item all-notifications text-center">View All and Mark as Read</a>
                                 </li>
                             </ul>
                         </li>
@@ -166,20 +166,17 @@ Author: SAEROX
                 <nav class="side-navbar box-scroll sidebar-scroll">
                     <!-- Begin Main Navigation -->
                     <ul class="list-unstyled">
-                        <li>@Html.ActionLink("Home", "Index", "HR")</li>
-                        <li>@Html.ActionLink("Add Student", "AddStudent", "HR")</li>
-                        <li>@Html.ActionLink("Delete Student", "DeleteStudent", "HR")</li>
-                        <li>@Html.ActionLink("Notifications", "Notifications", "HR")</li>
+                        <li>@Html.ActionLink("Home", "Index", "Accountant")</li>
                         @{
-                            if (teacherP == true)
+                            if (Noti == 1)
                             {
-                                <li>@Html.ActionLink("Add Teacher", "AddTeacher", "HR")</li>
-                                <li>@Html.ActionLink("Delete Teacher", "DeleteTeacher", "HR")</li>
-
+                                <li>@Html.ActionLink("Notifications", "Notifications", "Accountant")</li>
                             }
-
+                           
+                              <li>@Html.ActionLink("Submit Fee", "AddFee", "Accountant")</li>
+                              <li>@Html.ActionLink("View Records", "ViewFeeRecords", "Accountant")</li>
+                            
                         }
-
 
                     </ul>
 
@@ -209,21 +206,10 @@ Author: SAEROX
     <script src="~/Content/assets/vendors/js/base/core.min.js"></script>
     <!-- End Vendor Js -->
     <!-- Begin Page Vendor Js -->
-
     <script src="~/Content/assets/vendors/js/nicescroll/nicescroll.min.js"></script>
     <script src="~/Content/assets/vendors/js/calendar/moment.min.js"></script>
     <script src="~/Content/assets/vendors/js/calendar/fullcalendar.min.js"></script>
     <script src="~/Content/assets/vendors/js/app/app.min.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-
-
-
-    @{Html.EnableClientValidation(true);}
-    @{Html.EnableUnobtrusiveJavaScript(true);}
     <!-- End Page Vendor Js -->
     <!-- Begin Page Snippets -->
     <script src="~/Content/assets/js/app/calendar/basic-calendar.min.js"></script>

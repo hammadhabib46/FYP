@@ -451,6 +451,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountantController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CreatorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -563,6 +564,15 @@
     <Content Include="Views\Admin\Notification.cshtml" />
     <Content Include="Views\Admin\Notification_Teacher.cshtml" />
     <Content Include="Views\Admin\Notification_Hr.cshtml" />
+    <Content Include="Views\Admin\AddAccountant.cshtml" />
+    <Content Include="Views\Student\Notifications.cshtml" />
+    <Content Include="Views\Shared\_accountantLayout.cshtml" />
+    <Content Include="Views\Accountant\Index.cshtml" />
+    <Content Include="Views\Accountant\Notifications.cshtml" />
+    <Content Include="Views\Admin\Notification_Accountant.cshtml" />
+    <Content Include="Views\Accountant\AddFee.cshtml" />
+    <Content Include="Views\Accountant\ViewFeeRecords.cshtml" />
+    <Content Include="Views\HR\Notifications.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -24,16 +24,16 @@ namespace Final_Project.Controllers
 
         public ActionResult Index()
         {
-            Session["M_ID"] = 80;
+           
             ////////////////////// up is the testing area attributes
             string name = "Admin";
             int MS_id = (int)Session["M_ID"];
 
-            Session["Cr_IDD"] = 22;
-
-            TempData["Cr_ID"] = 22;
+            
+            
             int creatorid = (int)TempData["Cr_ID"];
             TempData.Keep("Cr_ID");
+            Session["Cr_IDD"] = creatorid;
 
             Session["nofi"] = true;
 
@@ -63,7 +63,7 @@ namespace Final_Project.Controllers
                 TempData["Post"] = "Admin";
             }
 
-            // Getting either the System has tacher or Hr or not   /// adn putting the teachers in a list
+            // Getting either the System has tacher//  or Hr or not   /// adn putting the teachers in a list
             using (testdbEntiies objj = new testdbEntiies())
             {
 
@@ -73,7 +73,7 @@ namespace Final_Project.Controllers
 
                 TempData["Teach_Present"] = false;
                 TempData["HR_Present"] = false;
-
+                TempData["Acc_Present"] = true;
                 foreach (var x in clz)
                 {
                     classList.Add(x.Role_Name);
@@ -91,6 +91,13 @@ namespace Final_Project.Controllers
                         TempData["HR_Present"] = true;
                         hrfuctional  hr = objj.hrfuctionals.SqlQuery("Select * from hrfuctional where HrF_MsID ='" + MS_id + "'").FirstOrDefault();
                         Session["All_Hr"] = hr;
+                    }
+
+                    if (x.Role_Name == "Acc")
+                    {
+                        TempData["Acc_Present"] = true;
+                        accfuctional ac = objj.accfuctionals.SqlQuery("Select * from accfuctional where AccF_id ='" + MS_id + "'").FirstOrDefault();
+                        Session["All_Ac"] = ac;
                     }
 
                 }
@@ -119,25 +126,21 @@ namespace Final_Project.Controllers
             }
 
             // getting either the system has fee fucntionality or not
-            //        using (testdbEntiies objj = new testdbEntiies())
-            //      {
+            using (testdbEntiies objj = new testdbEntiies())
+            {
 
-            //             try
-            //         {
-            //        var role_Id = objj.role_funcdata.Where(u => u.Role_ID == creatorid).Select(u => u.TrackAccProgress).FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
-            Session["fee"] = true;
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                Session["fee"] = false;
-            //          }
+                try
+                {
+                    var role_Id = objj.role_funcdata.Where(u => u.Role_ID == creatorid).Select(u => u.TrackAccProgress).FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
+                    Session["fee"] = true;
+                }
+                catch (Exception ex)
+                {
+                    Session["fee"] = false;
+                }
 
-            //     }
-
-
-
-
-
+            }
+            
             return View();
         }
 
@@ -263,6 +266,41 @@ namespace Final_Project.Controllers
             return View();
         }
 
+        public ActionResult AddAccountant()
+        {
+            ////////////////////up is the testing data
+            int MS_d = (int)Session["M_ID"];
+
+            int creatorid = (int)TempData["Cr_ID"];
+            TempData.Keep("Cr_ID");
+            int roll_id = (int)TempData["Role_ID"];
+            TempData.Keep("Role_ID");
+            string st = "Accountant";
+            //////////////////////////////////////////////////
+            ///
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+
+                var Data = objj.roledatas.SqlQuery("Select * from roledata where MS_iid = '" + MS_d + "' AND Role_Name = '" + st + "' ").FirstOrDefault<roledata>();
+
+                Data.Role_Email = true;
+
+                TempData["Adon"] = Data.Role_Dob;
+                TempData["Aaddress"] = Data.Role_Address;
+                TempData["Acnic"] = Data.Role_CNIC;
+                TempData["Agender"] = Data.Role_Gender;
+                TempData["Apic"] = Data.Role_Pic;
+                TempData["AEmail"] = Data.Role_Email;
+                TempData["Aqualif"] = Data.Role_Qualif;
+
+                TempData["Aportal"] = Data.Role_Portal;
+                TempData.Keep();
+
+            }
+            return View();
+        }
+
+        
         public ActionResult AddFee()
         {
             Session["ShowInvoice"] = false;
@@ -304,6 +342,11 @@ namespace Final_Project.Controllers
         }
 
 
+        public ActionResult Notification_Accountant()
+        {
+            return View();
+        }
+
         public ActionResult ViewFeeRecords()
         {
             Session["ViewData"] = false;
@@ -316,6 +359,11 @@ namespace Final_Project.Controllers
         }
 
 
+        public ActionResult Notification_Hr()
+        {
+
+            return View();
+        }
 
         public ActionResult DeleteTeacher()
         {
@@ -541,7 +589,7 @@ namespace Final_Project.Controllers
                     {
                         try
                         {
-                            var usr = obj.tchrfunctionals.Single(u => u.TchrF_RollID == rol);
+                            var usr = obj.hrfuctionals.Single(u => u.HrF_userNumber == rol);
                         }
                         catch (Exception e)
                         {
@@ -567,7 +615,7 @@ namespace Final_Project.Controllers
                     obj.SaveChanges();
                 }
                 ModelState.Clear();
-                ViewBag.msg1 = "Successfully Added";
+                ViewBag.msg1 = "Successfully Added "+" User Number = "+ hrdata.HrF_userNumber +"  " + " User Password = " + hrdata.HrF_userNumber + "  ";
             }
             return View();
         }
@@ -735,10 +783,79 @@ namespace Final_Project.Controllers
             return View();
         }
 
-       
-        public ActionResult Notification_Hr()
+
+        [HttpPost]
+        public ActionResult AddAccountant(accfuctional acdata)
         {
-            
+            int MS_d = (int)Session["M_ID"];
+
+
+            //     int MS_d = 72;
+
+            if ((bool)TempData["Aportal"] == true) ////////////////  if it will be true Teacher Portal will be created
+            {
+                int random;
+                string rol;
+                //////////// random generation of student id
+                bool num = false;
+                do
+                {
+                    random = GenerateRandomNo();
+                    rol = random.ToString();
+                    rol = "A_" + rol;
+                    using (testdbEntiies obj = new testdbEntiies())
+                    {
+                        try
+                        {
+                            var usr = obj.accfuctionals.Single(u => u.AccF_userNumber == rol);
+                        }
+                        catch (Exception e)
+                        {
+                            num = true;
+                        }
+                    }
+
+                } while (num == false);
+
+                ///////////////////////////random generation of student id
+                acdata.AccF_MsID = MS_d;
+                acdata.AccF_userNumber = rol;
+
+                if ((bool)TempData["Aportal"] == true)
+                    acdata.AccF_userNumber = rol;
+            }
+
+            if (ModelState.IsValid)
+            {
+                using (testdbEntiies obj = new testdbEntiies())
+                {
+                    obj.accfuctionals.Add(acdata);
+                    obj.SaveChanges();
+                }
+                ModelState.Clear();
+                ViewBag.msg1 = "Successfully Added " + " User Number = " + acdata.AccF_userNumber + "  " + " User Password = " + acdata.AccF_userNumber + "  ";
+            }
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Notification_Accountant(string notification_text)
+        {
+            accfuctional acdata = (accfuctional)Session["All_Ac"];
+
+            int userid = (int)Session["Cr_IDD"];
+            NotificationModel nf = new NotificationModel();
+            bool resutl = nf.sendNotificationsHr(acdata.AccF_ID, notification_text, userid);
+
+            if (resutl == true)
+            {
+                ViewBag.noti_A = "Successfully Sent Notification";
+            }
+
+
+
+
             return View();
         }
 
