@@ -83,17 +83,13 @@ namespace Final_Project.Controllers
 
             using (testdbEntiies objj = new testdbEntiies())
             {
-
                 List<notification> NotiList = objj.notifications.Where(u => u.Reciever_ID == ac_id).ToList<notification>();
-
                 foreach (notification n in NotiList)
                 {
                     n.Status = true;
                     objj.SaveChanges();
                 }
-
             }
-
             return RedirectToAction("Notifications", "Accountant");
         }
 

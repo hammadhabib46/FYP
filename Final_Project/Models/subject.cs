@@ -14,10 +14,20 @@ namespace Final_Project.Models
     
     public partial class subject
     {
+        public subject()
+        {
+            this.attendanceps = new HashSet<attendancep>();
+            this.marksps = new HashSet<marksp>();
+            this.tchrfsubjects = new HashSet<tchrfsubject>();
+        }
+    
         public int Subj_ID { get; set; }
         public string Subj_name { get; set; }
         public int Cls_id { get; set; }
     
         public virtual @class @class { get; set; }
+        public virtual ICollection<attendancep> attendanceps { get; set; }
+        public virtual ICollection<marksp> marksps { get; set; }
+        public virtual ICollection<tchrfsubject> tchrfsubjects { get; set; }
     }
 }

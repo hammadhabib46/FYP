@@ -1,38 +1,34 @@
 ﻿@using Final_Project.Models;
 @{
     Layout = null;
-    string sh = "";
-    bool teacherP = (bool)TempData["Teach_Present"];
-    TempData.Keep();
 
-    List<notification> notis = (List<notification>)Session["NotiList"];
-    List<notification> nayi = new List<notification>();
-
-    foreach (notification not in notis)
+    bool Notif = true;
+    bool Teachr_Marksfunc = true;
+    bool Teacher_Attendncefunc = true;
+    var subDatanm = (List<String>)Session["tchrdata"];
+    var clssidData = (List<int>)Session["tchrdataid"];
+    var subidData = (List<int>)Session["tchrdatasubiid"];
+    if (Session["maintaintwoforms"] == null)
     {
-        if (not.Status == false)
-        {
-            nayi.Add(not);
-        }
+        Session["maintaintwoforms"] = (Boolean)false;
     }
-    DateTime datenow = DateTime.Now;
+    if (Session["Mrkmaintaintwoforms"] == null)
+    {
+        Session["Mrkmaintaintwoforms"] = (Boolean)false;
+    }
+
 }
 
 <!DOCTYPE html>
-<!--
-Item Name: Elisyam - Web App & Admin Dashboard Template
-Version: 1.3
-Author: SAEROX
 
-** A license must be purchased in order to legally use this template for your project **
--->
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Elisyam - Calendar</title>
-    <meta name="description" content="Elisyam is a Web App and Admin Dashboard Template built with Bootstrap 4">
+    <title>_teacherLayout</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <!-- Google Fonts -->
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
     <script>
@@ -54,6 +50,10 @@ Author: SAEROX
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+
+
+
 </head>
 <body id="page-top">
     <!-- Begin Preloader -->
@@ -73,69 +73,10 @@ Author: SAEROX
                 <!-- Begin Topbar -->
                 <div class="navbar-holder d-flex align-items-center align-middle justify-content-between">
                     <!-- Begin Logo -->
-                    <div class="navbar-header">
-                        <a href="db-default.html" class="navbar-brand">
-                            <div class="brand-image brand-big">
-                                <img src="~/Content/assets/img/logo-big.png" alt="logo" class="logo-big">
-                            </div>
-                            <div class="brand-image brand-small">
-                                <img src="~/Content/assets/img/logo.png" alt="logo" class="logo-small">
-                            </div>
-                        </a>
-
-                    </div>
                     <!-- End Logo -->
                     <!-- Begin Navbar Menu -->
                     <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center pull-right">
                         <!-- Begin Notifications -->
-                        <li class="nav-item dropdown">
-                            <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="la la-bell animated infinite swing"></i><span class="badge-pulse"></span></a>
-                            <ul aria-labelledby="notifications" class="dropdown-menu notification">
-                                <li>
-                                    <div class="notifications-header">
-                                        <div class="title">Notifications @nayi.Count</div>
-                                        <div class="notifications-overlay"></div>
-                                        <img src="assets/img/notifications/01.jpg" alt="..." class="img-fluid">
-                                    </div>
-                                </li>
-                                @{
-                                    foreach (notification not in nayi)
-                                    {
-                                        <li>
-
-                                            <a href="#">
-                                                <div class="message-icon">
-                                                    <i class="la la-history"></i>
-                                                </div>
-                                                <div class="message-body">
-                                                    <div class="message-body-heading">
-                                                        @{ sh = "";
-                                                            if (not.Message.Length < 50)
-                                                            { sh = not.Message; }
-                                                            else
-                                                            { sh = not.Message.Substring(0, 50); }
-                                                        }
-                                                        @sh
-
-                                                    </div>@{
-                                                        DateTime x = (DateTime)not.Date;
-                                                        int dayss = (int)x.Subtract(datenow).TotalDays;
-
-                                                        TimeSpan y = (TimeSpan)not.Time;
-                                                        TimeSpan nowd = DateTime.UtcNow.TimeOfDay;
-                                                        TimeSpan res = nowd - y;
-                                                    }
-                                                    <span class="date">@res.ToString(@"hh\:mm") minutes and   @dayss day/days ago</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    }
-                                }
-                                <li>
-                                    <a rel="nofollow" href="@Url.Action("MarkallAsRead", "HR")" class="dropdown-item all-notifications text-center">View All and Mark as Read</a>
-                                </li>
-                            </ul>
-                        </li>
                         <!-- End Notifications -->
                         <!-- User -->
                         <li class="nav-item dropdown">
@@ -166,19 +107,77 @@ Author: SAEROX
                 <nav class="side-navbar box-scroll sidebar-scroll">
                     <!-- Begin Main Navigation -->
                     <ul class="list-unstyled">
-                        <li>@Html.ActionLink("Home", "Index", "HR")</li>
-                        <li>@Html.ActionLink("Add Student", "AddStudent", "HR")</li>
-                        <li>@Html.ActionLink("Delete Student", "DeleteStudent", "HR")</li>
-                        <li>@Html.ActionLink("Notifications", "Notifications", "HR")</li>
+                        <li>@Html.ActionLink("Home", "Index", "Teacher")</li>
+
                         @{
-                            if (teacherP == true)
+                            if (Notif == true)
                             {
-                                <li>@Html.ActionLink("Add Teacher", "AddTeacher", "HR")</li>
-                                <li>@Html.ActionLink("Delete Teacher", "DeleteTeacher", "HR")</li>
+                                <li>@Html.ActionLink("Notifications", "Notifications", "Teacher")</li>
+                            }
+                            if (Teachr_Marksfunc == true)
+                            {
+
+                                <li class="active">
+                                    <a href="#dropdown-tables" aria-expanded="true" data-toggle="collapse"><i class="la la-th-large"></i><span>Marks</span></a>
+                                    <ul id="dropdown-tables" class="collapse list-unstyled show pt-0">
+                                        @{
+                                            tchrsubdata obj = new tchrsubdata();
+                                            obj.classid = clssidData;
+                                            obj.claassname = subDatanm;
+                                            obj.subbid = subidData;
+
+                                            for (int i = 0; i < subDatanm.Count; i++)
+                                            {
+
+                                                Nullable<int> x = obj.classid[i];
+                                                Nullable<int> y = obj.subbid[i];
+                                                String cln = (String)obj.claassname[i];
+                                                Session["classIDT"] = x;
+                                                Session["subIDT"] = y;
+                                                Session["ClassSub_Name"] = cln;
+                                                Session["MclassIDT"] = x;
+                                                Session["MsubIDT"] = y;
+                                                Session["MClassSub_Name"] = cln;
+
+                                                <li><a href="@Url.Action("Marks", "Teacher", new { data = x, datt = y, dattt=cln})">@obj.claassname[i]</a></li>
+
+                                            }
+
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                            if (Teacher_Attendncefunc == true)
+                            {
+
+                                <li class="active">
+                                    <a href="#dropdown-tables" aria-expanded="true" data-toggle="collapse"><i class="la la-th-large"></i><span>Attendance</span></a>
+                                    <ul id="dropdown-tables" class="collapse list-unstyled show pt-0">
+                                        @{
+                                            tchrsubdata obj = new tchrsubdata();
+                                            obj.classid = clssidData;
+                                            obj.claassname = subDatanm;
+                                            obj.subbid = subidData;
+
+                                            for (int i = 0; i < subDatanm.Count; i++)
+                                            {
+
+                                                Nullable<int> x = obj.classid[i];
+                                                Nullable<int> y = obj.subbid[i];
+                                                String cln = (String)obj.claassname[i];
+
+                                                <li><a href="@Url.Action("Attendance", "Teacher", new { data = x, datt = y, dattt=cln})">@obj.claassname[i]</a></li>
+
+                                            }
+
+                                        }
+                                    </ul>
+                                </li>
                             }
 
-                        }
 
+
+                        }
 
                     </ul>
 

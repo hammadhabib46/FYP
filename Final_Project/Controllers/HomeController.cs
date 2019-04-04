@@ -336,8 +336,8 @@ namespace Final_Project.Controllers
                         var usr = objj.tchrfunctionals.Single(u => u.TchrF_RollID == user.Name && u.TchrF_password == user.Password && u.TchrF_MSID == ms_id);
                         if (usr != null)
                         {
-                            TempData["tc_id"] = usr.TchrF_ID;
-                            return RedirectToAction("Index", "Student");
+                            TempData["TchrF_ID"] = usr.TchrF_ID;
+                            return RedirectToAction("Index", "Teacher");
                         }
                     }
                     catch (Exception ex)

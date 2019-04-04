@@ -1,0 +1,113 @@
+﻿@using Final_Project.Models;
+@model Final_Project.Models.checkHelper
+@{
+    ViewBag.Title = "Attendance";
+    Layout = "~/Views/Shared/_teacherLayout.cshtml";
+    List<attendance> TstuData = (List<attendance>)Session["studdataa"];
+
+    List<bool> boolist = new List<bool>();
+
+    int i = 0;
+
+}
+
+<h2>@Session["ClassSub_Name"]</h2>
+
+<!-- Border -->
+@{
+    if ((Boolean)Session["maintaintwoforms"] == false)
+    {
+        using (Html.BeginForm("Attendance", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.ValidationSummary(true)
+            <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
+                <label class="col-lg-2 form-control-label">Date:</label>
+                <div class="col-lg-8">
+                    <input type="date" class="form-control" required="required" name="dateofAtt">
+                </div>
+            </div>
+            <div class="sign-btn text-center ">
+                <input type="submit" value="View Attendance Sheet" class="btn btn-lg btn-gradient-03" />
+            </div>
+        }
+    }
+
+    if ((Boolean)Session["maintaintwoforms"] == true)
+    {
+
+
+        using (Html.BeginForm("Attendance", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.ValidationSummary(true)
+            <div class="widget has-shadow">
+                @{
+                    <div class="widget-header bordered no-actions d-flex align-items-center">
+                        <h4>Attendance Data</h4>
+                    </div>
+
+                    if (TstuData == null)
+                    {
+                        <div class="widget-header bordered no-actions d-flex align-items-center">
+                            <h4>Class is Empty</h4>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="widget-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Roll Number</th>
+                                            <th>Student Name</th>
+                                            <th>Attendance</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            foreach (attendance item in TstuData)
+                                            {
+                                                <tr>
+                                                    <td>@item.Studnt_ID</td>
+                                                    <td>@item.Studnt_NAME</td>
+                                                    @{
+                                                        if ((bool)item.A_status == false)
+                                                        {
+                                                            <td>
+                                                                @Html.HiddenFor(model => model.checklist[i].id)
+                                                                @Html.CheckBoxFor(model => model.checklist[i].checkvalue)
+
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+
+                                                            <td>
+                                                                @Html.HiddenFor(model => model.checklist[i].id)
+                                                                @Html.CheckBoxFor(model => model.checklist[i].checkvalue, new { @checked = "checked" })
+                                                            </td>
+
+                                                        }
+                                                    }
+                                                </tr>
+                                                i++;
+                                            }
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+
+            <div class="sign-btn text-center ">
+                <input type="submit" value="Update" class="btn btn-lg btn-gradient-03" />
+            </div>
+
+        }
+
+    }
+}

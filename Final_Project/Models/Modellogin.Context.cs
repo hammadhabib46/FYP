@@ -37,5 +37,11 @@ namespace Final_Project.Models
         public virtual DbSet<tchrfunctional> tchrfunctionals { get; set; }
         public virtual DbSet<studfee> studfees { get; set; }
         public virtual DbSet<notification> notifications { get; set; }
+        public virtual DbSet<attendancep> attendanceps { get; set; }
+        public virtual DbSet<attendance> attendances { get; set; }
+        public virtual DbSet<marksp> marksps { get; set; }
+        public virtual DbSet<markss> marksses { get; set; }
+        public virtual DbSet<markstotal> markstotals { get; set; }
+        public virtual DbSet<tchrfsubject> tchrfsubjects { get; set; }
     }
 }

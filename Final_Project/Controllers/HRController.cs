@@ -17,9 +17,7 @@ namespace Final_Project.Controllers
             Random _rdm = new Random();
             return _rdm.Next(_min, _max);
         }
-
-
-
+        
         // GET: HR
         public ActionResult Index()
         {
@@ -86,8 +84,7 @@ namespace Final_Project.Controllers
 
             return View();
         }
-
-
+        
         public ActionResult AddStudent()
         {
             //int MS_d = 72;

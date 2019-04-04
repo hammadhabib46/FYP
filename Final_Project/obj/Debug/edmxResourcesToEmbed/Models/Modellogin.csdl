@@ -68,6 +68,56 @@
       <End Role="studfee" EntitySet="studfees" />
     </AssociationSet>
     <EntitySet Name="notifications" EntityType="testdbModel.notification" />
+    <EntitySet Name="attendanceps" EntityType="testdbModel.attendancep" />
+    <EntitySet Name="attendances" EntityType="testdbModel.attendance" />
+    <EntitySet Name="marksps" EntityType="testdbModel.marksp" />
+    <EntitySet Name="marksses" EntityType="testdbModel.markss" />
+    <EntitySet Name="markstotals" EntityType="testdbModel.markstotal" />
+    <EntitySet Name="tchrfsubjects" EntityType="testdbModel.tchrfsubject" />
+    <AssociationSet Name="attendancep_ibfk_1" Association="testdbModel.attendancep_ibfk_1">
+      <End Role="tchrfunctional" EntitySet="tchrfunctionals" />
+      <End Role="attendancep" EntitySet="attendanceps" />
+    </AssociationSet>
+    <AssociationSet Name="attendancep_ibfk_2" Association="testdbModel.attendancep_ibfk_2">
+      <End Role="subject" EntitySet="subjects" />
+      <End Role="attendancep" EntitySet="attendanceps" />
+    </AssociationSet>
+    <AssociationSet Name="attendancep_ibfk_3" Association="testdbModel.attendancep_ibfk_3">
+      <End Role="class" EntitySet="classes" />
+      <End Role="attendancep" EntitySet="attendanceps" />
+    </AssociationSet>
+    <AssociationSet Name="attendances_ibfk_1" Association="testdbModel.attendances_ibfk_1">
+      <End Role="attendancep" EntitySet="attendanceps" />
+      <End Role="attendance" EntitySet="attendances" />
+    </AssociationSet>
+    <AssociationSet Name="marksp_ibfk_3" Association="testdbModel.marksp_ibfk_3">
+      <End Role="class" EntitySet="classes" />
+      <End Role="marksp" EntitySet="marksps" />
+    </AssociationSet>
+    <AssociationSet Name="marksp_ibfk_1" Association="testdbModel.marksp_ibfk_1">
+      <End Role="tchrfunctional" EntitySet="tchrfunctionals" />
+      <End Role="marksp" EntitySet="marksps" />
+    </AssociationSet>
+    <AssociationSet Name="marksp_ibfk_2" Association="testdbModel.marksp_ibfk_2">
+      <End Role="subject" EntitySet="subjects" />
+      <End Role="marksp" EntitySet="marksps" />
+    </AssociationSet>
+    <AssociationSet Name="markss_ibfk_1" Association="testdbModel.markss_ibfk_1">
+      <End Role="marksp" EntitySet="marksps" />
+      <End Role="markss" EntitySet="marksses" />
+    </AssociationSet>
+    <AssociationSet Name="markstotal_ibfk_1" Association="testdbModel.markstotal_ibfk_1">
+      <End Role="marksp" EntitySet="marksps" />
+      <End Role="markstotal" EntitySet="markstotals" />
+    </AssociationSet>
+    <AssociationSet Name="tchrfsubjects_ibfk_2" Association="testdbModel.tchrfsubjects_ibfk_2">
+      <End Role="subject" EntitySet="subjects" />
+      <End Role="tchrfsubject" EntitySet="tchrfsubjects" />
+    </AssociationSet>
+    <AssociationSet Name="tchrfsubjects_ibfk_1" Association="testdbModel.tchrfsubjects_ibfk_1">
+      <End Role="tchrfunctional" EntitySet="tchrfunctionals" />
+      <End Role="tchrfsubject" EntitySet="tchrfsubjects" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="accfuctional">
     <Key>
@@ -100,6 +150,8 @@
     <Property Name="MS_id" Type="Int32" Nullable="false" />
     <NavigationProperty Name="m" Relationship="testdbModel.fk" FromRole="class" ToRole="m" />
     <NavigationProperty Name="subjects" Relationship="testdbModel.subjects_ibfk_1" FromRole="class" ToRole="subject" />
+    <NavigationProperty Name="attendanceps" Relationship="testdbModel.attendancep_ibfk_3" FromRole="class" ToRole="attendancep" />
+    <NavigationProperty Name="marksps" Relationship="testdbModel.marksp_ibfk_3" FromRole="class" ToRole="marksp" />
   </EntityType>
   <EntityType Name="hrfuctional">
     <Key>
@@ -300,6 +352,9 @@
     <Property Name="Subj_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Cls_id" Type="Int32" Nullable="false" />
     <NavigationProperty Name="class" Relationship="testdbModel.subjects_ibfk_1" FromRole="subject" ToRole="class" />
+    <NavigationProperty Name="attendanceps" Relationship="testdbModel.attendancep_ibfk_2" FromRole="subject" ToRole="attendancep" />
+    <NavigationProperty Name="marksps" Relationship="testdbModel.marksp_ibfk_2" FromRole="subject" ToRole="marksp" />
+    <NavigationProperty Name="tchrfsubjects" Relationship="testdbModel.tchrfsubjects_ibfk_2" FromRole="subject" ToRole="tchrfsubject" />
   </EntityType>
   <Association Name="subjects_ibfk_1">
     <End Type="testdbModel.class" Role="class" Multiplicity="1" />
@@ -345,6 +400,9 @@
     <Property Name="TchrF_RollID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="TchrF_password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="m" Relationship="testdbModel.tchrfunctional_ibfk_1" FromRole="tchrfunctional" ToRole="m" />
+    <NavigationProperty Name="attendanceps" Relationship="testdbModel.attendancep_ibfk_1" FromRole="tchrfunctional" ToRole="attendancep" />
+    <NavigationProperty Name="marksps" Relationship="testdbModel.marksp_ibfk_1" FromRole="tchrfunctional" ToRole="marksp" />
+    <NavigationProperty Name="tchrfsubjects" Relationship="testdbModel.tchrfsubjects_ibfk_1" FromRole="tchrfunctional" ToRole="tchrfsubject" />
   </EntityType>
   <Association Name="tchrfunctional_ibfk_1">
     <End Type="testdbModel.m" Role="m" Multiplicity="1" />
@@ -408,4 +466,207 @@
     <Property Name="Date" Type="DateTime" />
     <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="attendancep">
+    <Key>
+      <PropertyRef Name="Att_ID" />
+    </Key>
+    <Property Name="Att_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="T_ID" Type="Int32" Nullable="false" />
+    <Property Name="S_IID" Type="Int32" Nullable="false" />
+    <Property Name="C_IID" Type="Int32" Nullable="false" />
+    <Property Name="Att_date" Type="DateTime" />
+    <NavigationProperty Name="tchrfunctional" Relationship="testdbModel.attendancep_ibfk_1" FromRole="attendancep" ToRole="tchrfunctional" />
+    <NavigationProperty Name="subject" Relationship="testdbModel.attendancep_ibfk_2" FromRole="attendancep" ToRole="subject" />
+    <NavigationProperty Name="class" Relationship="testdbModel.attendancep_ibfk_3" FromRole="attendancep" ToRole="class" />
+    <NavigationProperty Name="attendances" Relationship="testdbModel.attendances_ibfk_1" FromRole="attendancep" ToRole="attendance" />
+  </EntityType>
+  <EntityType Name="attendance">
+    <Key>
+      <PropertyRef Name="Att_Pkey" />
+    </Key>
+    <Property Name="Att_Pkey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="A_ID" Type="Int32" Nullable="false" />
+    <Property Name="Studnt_ID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Studnt_NAME" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="A_status" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="attendancep" Relationship="testdbModel.attendances_ibfk_1" FromRole="attendance" ToRole="attendancep" />
+  </EntityType>
+  <EntityType Name="marksp">
+    <Key>
+      <PropertyRef Name="Marks_ID" />
+    </Key>
+    <Property Name="Marks_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Mtchr_ID" Type="Int32" Nullable="false" />
+    <Property Name="Msubj_ID" Type="Int32" Nullable="false" />
+    <Property Name="Mclas_ID" Type="Int32" Nullable="false" />
+    <Property Name="Mname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Mdate" Type="DateTime" />
+    <NavigationProperty Name="class" Relationship="testdbModel.marksp_ibfk_3" FromRole="marksp" ToRole="class" />
+    <NavigationProperty Name="tchrfunctional" Relationship="testdbModel.marksp_ibfk_1" FromRole="marksp" ToRole="tchrfunctional" />
+    <NavigationProperty Name="subject" Relationship="testdbModel.marksp_ibfk_2" FromRole="marksp" ToRole="subject" />
+    <NavigationProperty Name="marksses" Relationship="testdbModel.markss_ibfk_1" FromRole="marksp" ToRole="markss" />
+    <NavigationProperty Name="markstotals" Relationship="testdbModel.markstotal_ibfk_1" FromRole="marksp" ToRole="markstotal" />
+  </EntityType>
+  <EntityType Name="markss">
+    <Key>
+      <PropertyRef Name="Mpk_ID" />
+    </Key>
+    <Property Name="Mpk_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Mrk_ID" Type="Int32" Nullable="false" />
+    <Property Name="Mstd_ID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Mstd_NAME" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Mstd_marks" Type="Double" />
+    <NavigationProperty Name="marksp" Relationship="testdbModel.markss_ibfk_1" FromRole="markss" ToRole="marksp" />
+  </EntityType>
+  <EntityType Name="markstotal">
+    <Key>
+      <PropertyRef Name="Mtotal_ID" />
+    </Key>
+    <Property Name="Mtotal_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Mforgn_ID" Type="Int32" Nullable="false" />
+    <Property Name="Mtotal" Type="Double" />
+    <NavigationProperty Name="marksp" Relationship="testdbModel.markstotal_ibfk_1" FromRole="markstotal" ToRole="marksp" />
+  </EntityType>
+  <EntityType Name="tchrfsubject">
+    <Key>
+      <PropertyRef Name="TS_PKey" />
+    </Key>
+    <Property Name="TS_PKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Tchrr_ID" Type="Int32" />
+    <Property Name="Subjj_ID" Type="Int32" />
+    <NavigationProperty Name="subject" Relationship="testdbModel.tchrfsubjects_ibfk_2" FromRole="tchrfsubject" ToRole="subject" />
+    <NavigationProperty Name="tchrfunctional" Relationship="testdbModel.tchrfsubjects_ibfk_1" FromRole="tchrfsubject" ToRole="tchrfunctional" />
+  </EntityType>
+  <Association Name="attendancep_ibfk_1">
+    <End Type="testdbModel.tchrfunctional" Role="tchrfunctional" Multiplicity="1" />
+    <End Type="testdbModel.attendancep" Role="attendancep" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tchrfunctional">
+        <PropertyRef Name="TchrF_ID" />
+      </Principal>
+      <Dependent Role="attendancep">
+        <PropertyRef Name="T_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="attendancep_ibfk_2">
+    <End Type="testdbModel.subject" Role="subject" Multiplicity="1" />
+    <End Type="testdbModel.attendancep" Role="attendancep" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="subject">
+        <PropertyRef Name="Subj_ID" />
+      </Principal>
+      <Dependent Role="attendancep">
+        <PropertyRef Name="S_IID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="attendancep_ibfk_3">
+    <End Type="testdbModel.class" Role="class" Multiplicity="1" />
+    <End Type="testdbModel.attendancep" Role="attendancep" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="class">
+        <PropertyRef Name="Class_ID" />
+      </Principal>
+      <Dependent Role="attendancep">
+        <PropertyRef Name="C_IID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="attendances_ibfk_1">
+    <End Type="testdbModel.attendancep" Role="attendancep" Multiplicity="1" />
+    <End Type="testdbModel.attendance" Role="attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="attendancep">
+        <PropertyRef Name="Att_ID" />
+      </Principal>
+      <Dependent Role="attendance">
+        <PropertyRef Name="A_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="marksp_ibfk_3">
+    <End Type="testdbModel.class" Role="class" Multiplicity="1" />
+    <End Type="testdbModel.marksp" Role="marksp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="class">
+        <PropertyRef Name="Class_ID" />
+      </Principal>
+      <Dependent Role="marksp">
+        <PropertyRef Name="Mclas_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="marksp_ibfk_1">
+    <End Type="testdbModel.tchrfunctional" Role="tchrfunctional" Multiplicity="1" />
+    <End Type="testdbModel.marksp" Role="marksp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tchrfunctional">
+        <PropertyRef Name="TchrF_ID" />
+      </Principal>
+      <Dependent Role="marksp">
+        <PropertyRef Name="Mtchr_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="marksp_ibfk_2">
+    <End Type="testdbModel.subject" Role="subject" Multiplicity="1" />
+    <End Type="testdbModel.marksp" Role="marksp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="subject">
+        <PropertyRef Name="Subj_ID" />
+      </Principal>
+      <Dependent Role="marksp">
+        <PropertyRef Name="Msubj_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="markss_ibfk_1">
+    <End Type="testdbModel.marksp" Role="marksp" Multiplicity="1" />
+    <End Type="testdbModel.markss" Role="markss" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="marksp">
+        <PropertyRef Name="Marks_ID" />
+      </Principal>
+      <Dependent Role="markss">
+        <PropertyRef Name="Mrk_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="markstotal_ibfk_1">
+    <End Type="testdbModel.marksp" Role="marksp" Multiplicity="1" />
+    <End Type="testdbModel.markstotal" Role="markstotal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="marksp">
+        <PropertyRef Name="Marks_ID" />
+      </Principal>
+      <Dependent Role="markstotal">
+        <PropertyRef Name="Mforgn_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="tchrfsubjects_ibfk_2">
+    <End Type="testdbModel.subject" Role="subject" Multiplicity="0..1" />
+    <End Type="testdbModel.tchrfsubject" Role="tchrfsubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="subject">
+        <PropertyRef Name="Subj_ID" />
+      </Principal>
+      <Dependent Role="tchrfsubject">
+        <PropertyRef Name="Subjj_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="tchrfsubjects_ibfk_1">
+    <End Type="testdbModel.tchrfunctional" Role="tchrfunctional" Multiplicity="0..1" />
+    <End Type="testdbModel.tchrfsubject" Role="tchrfsubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tchrfunctional">
+        <PropertyRef Name="TchrF_ID" />
+      </Principal>
+      <Dependent Role="tchrfsubject">
+        <PropertyRef Name="Tchrr_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

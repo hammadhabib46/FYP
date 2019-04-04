@@ -148,6 +148,7 @@ namespace Final_Project.Controllers
             return View();
         }
 
+
         // POST method for adding Class data + subjects + fee in database ( in 2 separate tables)
         [HttpPost]
         public ActionResult ManageClass(string ClassName,Nullable<double> Fee, string subjects)

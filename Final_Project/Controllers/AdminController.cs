@@ -24,7 +24,10 @@ namespace Final_Project.Controllers
 
         public ActionResult Index()
         {
-           
+
+            Session["M_ID"] = 86;
+            TempData["Cr_ID"] = 22;
+
             ////////////////////// up is the testing area attributes
             string name = "Admin";
             int MS_id = (int)Session["M_ID"];
@@ -36,7 +39,6 @@ namespace Final_Project.Controllers
             Session["Cr_IDD"] = creatorid;
 
             Session["nofi"] = true;
-
 
             // getting User name To view
             using (testdbEntiies objj = new testdbEntiies())
@@ -114,9 +116,7 @@ namespace Final_Project.Controllers
                     var clz = objj.classes.SqlQuery("Select * from classes where MS_id ='" + MS_id + "'").ToList<@class>();
 
                     Session["clz"] = clz;
-
-
-
+                    
                 }
                 catch (Exception ex)
                 {
@@ -305,6 +305,70 @@ namespace Final_Project.Controllers
         {
             Session["ShowInvoice"] = false;
             return View();
+        }
+
+        public ActionResult AssignSubjects()
+        {
+            int mid = (int)Session["M_ID"];
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+
+                try
+                {
+                    List<tchrfunctional> allteach = objj.tchrfunctionals.Where(u => u.TchrF_MSID == mid).ToList<tchrfunctional>();    //// getting RoleID from database(ms) using Role name + ms id
+                    Session["allTeach"] = allteach;
+                  
+                }
+                catch (Exception ex)
+                {
+                    
+                }
+
+            }
+            
+            return View();
+        }
+
+      
+        public ActionResult AssignSubjectx(int s_id)
+        {
+            int t_id=(int)Session["Tcch_id"];
+            tchrfsubject ob = new tchrfsubject();
+            ob.Tchrr_ID = t_id;
+
+            ob.Subjj_ID = s_id;
+
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                objj.tchrfsubjects.Add(ob);
+                objj.SaveChanges();
+            }
+
+            ViewBag.subA = "Subject Assigned Successfully";
+
+
+            return RedirectToAction("AssignSubjects", "Admin");
+        }
+
+
+        public ActionResult AssignS_Classes(int t_id)
+        {
+            Session["Tcch_id"] = t_id;
+
+            
+            return View();
+        }
+        
+
+        public ActionResult AssignS_Subjects(int c_id)
+        {
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                List<subject> subs = objj.subjects.Where(u=> u.Cls_id == c_id).ToList<subject>();
+                Session["subss"] = subs;
+            }
+
+                return View();
         }
 
         public ActionResult ClassDetails(int data)

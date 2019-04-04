@@ -17,6 +17,8 @@ namespace Final_Project.Models
         public @class()
         {
             this.subjects = new HashSet<subject>();
+            this.attendanceps = new HashSet<attendancep>();
+            this.marksps = new HashSet<marksp>();
         }
     
         public int Class_ID { get; set; }
@@ -26,5 +28,7 @@ namespace Final_Project.Models
     
         public virtual m m { get; set; }
         public virtual ICollection<subject> subjects { get; set; }
+        public virtual ICollection<attendancep> attendanceps { get; set; }
+        public virtual ICollection<marksp> marksps { get; set; }
     }
 }

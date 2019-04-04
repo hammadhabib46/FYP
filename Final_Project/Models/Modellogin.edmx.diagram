@@ -27,7 +27,24 @@
         <EntityTypeShape EntityType="testdbModel.studfee" Width="1.5" PointX="11.125" PointY="9.75" />
         <AssociationConnector Association="testdbModel.studfee_ibfk_1" />
         <AssociationConnector Association="testdbModel.studfee_ibfk_2" />
-        <EntityTypeShape EntityType="testdbModel.notification" Width="1.5" PointX="13.125" PointY="6.625" />
+        <EntityTypeShape EntityType="testdbModel.notification" Width="1.5" PointX="20.375" PointY="4.75" />
+        <EntityTypeShape EntityType="testdbModel.attendancep" Width="1.5" PointX="18.25" PointY="1.375" />
+        <EntityTypeShape EntityType="testdbModel.attendance" Width="1.5" PointX="20.5" PointY="1.75" />
+        <EntityTypeShape EntityType="testdbModel.marksp" Width="1.5" PointX="16.25" PointY="5.25" />
+        <EntityTypeShape EntityType="testdbModel.markss" Width="1.5" PointX="18.5" PointY="5.5" />
+        <EntityTypeShape EntityType="testdbModel.markstotal" Width="1.5" PointX="18.5" PointY="8.375" />
+        <EntityTypeShape EntityType="testdbModel.tchrfsubject" Width="1.5" PointX="15.25" PointY="1.875" />
+        <AssociationConnector Association="testdbModel.attendancep_ibfk_1" />
+        <AssociationConnector Association="testdbModel.attendancep_ibfk_2" />
+        <AssociationConnector Association="testdbModel.attendancep_ibfk_3" />
+        <AssociationConnector Association="testdbModel.attendances_ibfk_1" />
+        <AssociationConnector Association="testdbModel.marksp_ibfk_3" />
+        <AssociationConnector Association="testdbModel.marksp_ibfk_1" />
+        <AssociationConnector Association="testdbModel.marksp_ibfk_2" />
+        <AssociationConnector Association="testdbModel.markss_ibfk_1" />
+        <AssociationConnector Association="testdbModel.markstotal_ibfk_1" />
+        <AssociationConnector Association="testdbModel.tchrfsubjects_ibfk_2" />
+        <AssociationConnector Association="testdbModel.tchrfsubjects_ibfk_1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

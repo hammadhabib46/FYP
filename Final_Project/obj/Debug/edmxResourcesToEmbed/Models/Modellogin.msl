@@ -209,5 +209,68 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="attendanceps">
+      <EntityTypeMapping TypeName="testdbModel.attendancep">
+        <MappingFragment StoreEntitySet="attendancep">
+          <ScalarProperty Name="Att_date" ColumnName="Att_date" />
+          <ScalarProperty Name="C_IID" ColumnName="C_IID" />
+          <ScalarProperty Name="S_IID" ColumnName="S_IID" />
+          <ScalarProperty Name="T_ID" ColumnName="T_ID" />
+          <ScalarProperty Name="Att_ID" ColumnName="Att_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="attendances">
+      <EntityTypeMapping TypeName="testdbModel.attendance">
+        <MappingFragment StoreEntitySet="attendances">
+          <ScalarProperty Name="A_status" ColumnName="A_status" />
+          <ScalarProperty Name="Studnt_NAME" ColumnName="Studnt_NAME" />
+          <ScalarProperty Name="Studnt_ID" ColumnName="Studnt_ID" />
+          <ScalarProperty Name="A_ID" ColumnName="A_ID" />
+          <ScalarProperty Name="Att_Pkey" ColumnName="Att_Pkey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="marksps">
+      <EntityTypeMapping TypeName="testdbModel.marksp">
+        <MappingFragment StoreEntitySet="marksp">
+          <ScalarProperty Name="Mdate" ColumnName="Mdate" />
+          <ScalarProperty Name="Mname" ColumnName="Mname" />
+          <ScalarProperty Name="Mclas_ID" ColumnName="Mclas_ID" />
+          <ScalarProperty Name="Msubj_ID" ColumnName="Msubj_ID" />
+          <ScalarProperty Name="Mtchr_ID" ColumnName="Mtchr_ID" />
+          <ScalarProperty Name="Marks_ID" ColumnName="Marks_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="marksses">
+      <EntityTypeMapping TypeName="testdbModel.markss">
+        <MappingFragment StoreEntitySet="markss">
+          <ScalarProperty Name="Mstd_marks" ColumnName="Mstd_marks" />
+          <ScalarProperty Name="Mstd_NAME" ColumnName="Mstd_NAME" />
+          <ScalarProperty Name="Mstd_ID" ColumnName="Mstd_ID" />
+          <ScalarProperty Name="Mrk_ID" ColumnName="Mrk_ID" />
+          <ScalarProperty Name="Mpk_ID" ColumnName="Mpk_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="markstotals">
+      <EntityTypeMapping TypeName="testdbModel.markstotal">
+        <MappingFragment StoreEntitySet="markstotal">
+          <ScalarProperty Name="Mtotal" ColumnName="Mtotal" />
+          <ScalarProperty Name="Mforgn_ID" ColumnName="Mforgn_ID" />
+          <ScalarProperty Name="Mtotal_ID" ColumnName="Mtotal_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tchrfsubjects">
+      <EntityTypeMapping TypeName="testdbModel.tchrfsubject">
+        <MappingFragment StoreEntitySet="tchrfsubjects">
+          <ScalarProperty Name="Subjj_ID" ColumnName="Subjj_ID" />
+          <ScalarProperty Name="Tchrr_ID" ColumnName="Tchrr_ID" />
+          <ScalarProperty Name="TS_PKey" ColumnName="TS_PKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

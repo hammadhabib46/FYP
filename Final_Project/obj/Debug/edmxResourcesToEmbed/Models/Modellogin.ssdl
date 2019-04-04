@@ -20,6 +20,26 @@
     <Property Name="AccF_userNumber" Type="varchar" MaxLength="255" />
     <Property Name="AccF_password" Type="varchar" MaxLength="255" />
   </EntityType>
+  <EntityType Name="attendancep">
+    <Key>
+      <PropertyRef Name="Att_ID" />
+    </Key>
+    <Property Name="Att_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="T_ID" Type="int" Nullable="false" />
+    <Property Name="S_IID" Type="int" Nullable="false" />
+    <Property Name="C_IID" Type="int" Nullable="false" />
+    <Property Name="Att_date" Type="date" />
+  </EntityType>
+  <EntityType Name="attendances">
+    <Key>
+      <PropertyRef Name="Att_Pkey" />
+    </Key>
+    <Property Name="Att_Pkey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="A_ID" Type="int" Nullable="false" />
+    <Property Name="Studnt_ID" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Studnt_NAME" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="A_status" Type="bool" Nullable="false" />
+  </EntityType>
   <EntityType Name="classes">
     <Key>
       <PropertyRef Name="Class_ID" />
@@ -58,6 +78,35 @@
     <Property Name="HrF_Qualification" Type="varchar" MaxLength="255" />
     <Property Name="HrF_userNumber" Type="varchar" MaxLength="255" />
     <Property Name="HrF_password" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="marksp">
+    <Key>
+      <PropertyRef Name="Marks_ID" />
+    </Key>
+    <Property Name="Marks_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Mtchr_ID" Type="int" Nullable="false" />
+    <Property Name="Msubj_ID" Type="int" Nullable="false" />
+    <Property Name="Mclas_ID" Type="int" Nullable="false" />
+    <Property Name="Mname" Type="varchar" MaxLength="255" />
+    <Property Name="Mdate" Type="date" />
+  </EntityType>
+  <EntityType Name="markss">
+    <Key>
+      <PropertyRef Name="Mpk_ID" />
+    </Key>
+    <Property Name="Mpk_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Mrk_ID" Type="int" Nullable="false" />
+    <Property Name="Mstd_ID" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Mstd_NAME" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Mstd_marks" Type="double" />
+  </EntityType>
+  <EntityType Name="markstotal">
+    <Key>
+      <PropertyRef Name="Mtotal_ID" />
+    </Key>
+    <Property Name="Mtotal_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Mforgn_ID" Type="int" Nullable="false" />
+    <Property Name="Mtotal" Type="double" />
   </EntityType>
   <EntityType Name="ms">
     <Key>
@@ -176,6 +225,14 @@
     <Property Name="Subj_name" Type="varchar" MaxLength="255" />
     <Property Name="Cls_id" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="tchrfsubjects">
+    <Key>
+      <PropertyRef Name="TS_PKey" />
+    </Key>
+    <Property Name="TS_PKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tchrr_ID" Type="int" />
+    <Property Name="Subjj_ID" Type="int" />
+  </EntityType>
   <EntityType Name="tchrfunctional">
     <Key>
       <PropertyRef Name="TchrF_ID" />
@@ -196,6 +253,54 @@
     <Property Name="TchrF_RollID" Type="varchar" MaxLength="255" />
     <Property Name="TchrF_password" Type="varchar" MaxLength="255" />
   </EntityType>
+  <Association Name="attendancep_ibfk_1">
+    <End Role="tchrfunctional" Type="Self.tchrfunctional" Multiplicity="1" />
+    <End Role="attendancep" Type="Self.attendancep" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tchrfunctional">
+        <PropertyRef Name="TchrF_ID" />
+      </Principal>
+      <Dependent Role="attendancep">
+        <PropertyRef Name="T_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="attendancep_ibfk_2">
+    <End Role="subjects" Type="Self.subjects" Multiplicity="1" />
+    <End Role="attendancep" Type="Self.attendancep" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="subjects">
+        <PropertyRef Name="Subj_ID" />
+      </Principal>
+      <Dependent Role="attendancep">
+        <PropertyRef Name="S_IID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="attendancep_ibfk_3">
+    <End Role="classes" Type="Self.classes" Multiplicity="1" />
+    <End Role="attendancep" Type="Self.attendancep" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="classes">
+        <PropertyRef Name="Class_ID" />
+      </Principal>
+      <Dependent Role="attendancep">
+        <PropertyRef Name="C_IID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="attendances_ibfk_1">
+    <End Role="attendancep" Type="Self.attendancep" Multiplicity="1" />
+    <End Role="attendances" Type="Self.attendances" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="attendancep">
+        <PropertyRef Name="Att_ID" />
+      </Principal>
+      <Dependent Role="attendances">
+        <PropertyRef Name="A_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fik">
     <End Role="ms" Type="Self.ms" Multiplicity="1" />
     <End Role="roledata" Type="Self.roledata" Multiplicity="*" />
@@ -280,6 +385,66 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="marksp_ibfk_1">
+    <End Role="tchrfunctional" Type="Self.tchrfunctional" Multiplicity="1" />
+    <End Role="marksp" Type="Self.marksp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tchrfunctional">
+        <PropertyRef Name="TchrF_ID" />
+      </Principal>
+      <Dependent Role="marksp">
+        <PropertyRef Name="Mtchr_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="marksp_ibfk_2">
+    <End Role="subjects" Type="Self.subjects" Multiplicity="1" />
+    <End Role="marksp" Type="Self.marksp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="subjects">
+        <PropertyRef Name="Subj_ID" />
+      </Principal>
+      <Dependent Role="marksp">
+        <PropertyRef Name="Msubj_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="marksp_ibfk_3">
+    <End Role="classes" Type="Self.classes" Multiplicity="1" />
+    <End Role="marksp" Type="Self.marksp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="classes">
+        <PropertyRef Name="Class_ID" />
+      </Principal>
+      <Dependent Role="marksp">
+        <PropertyRef Name="Mclas_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="markss_ibfk_1">
+    <End Role="marksp" Type="Self.marksp" Multiplicity="1" />
+    <End Role="markss" Type="Self.markss" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="marksp">
+        <PropertyRef Name="Marks_ID" />
+      </Principal>
+      <Dependent Role="markss">
+        <PropertyRef Name="Mrk_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="markstotal_ibfk_1">
+    <End Role="marksp" Type="Self.marksp" Multiplicity="1" />
+    <End Role="markstotal" Type="Self.markstotal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="marksp">
+        <PropertyRef Name="Marks_ID" />
+      </Principal>
+      <Dependent Role="markstotal">
+        <PropertyRef Name="Mforgn_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="studfee_ibfk_1">
     <End Role="ms" Type="Self.ms" Multiplicity="0..1" />
     <End Role="studfee" Type="Self.studfee" Multiplicity="*" />
@@ -316,6 +481,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="tchrfsubjects_ibfk_1">
+    <End Role="tchrfunctional" Type="Self.tchrfunctional" Multiplicity="0..1" />
+    <End Role="tchrfsubjects" Type="Self.tchrfsubjects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tchrfunctional">
+        <PropertyRef Name="TchrF_ID" />
+      </Principal>
+      <Dependent Role="tchrfsubjects">
+        <PropertyRef Name="Tchrr_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="tchrfsubjects_ibfk_2">
+    <End Role="subjects" Type="Self.subjects" Multiplicity="0..1" />
+    <End Role="tchrfsubjects" Type="Self.tchrfsubjects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="subjects">
+        <PropertyRef Name="Subj_ID" />
+      </Principal>
+      <Dependent Role="tchrfsubjects">
+        <PropertyRef Name="Subjj_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="tchrfunctional_ibfk_1">
     <End Role="ms" Type="Self.ms" Multiplicity="1" />
     <End Role="tchrfunctional" Type="Self.tchrfunctional" Multiplicity="*" />
@@ -330,9 +519,14 @@
   </Association>
   <EntityContainer Name="testdbModelStoreContainer">
     <EntitySet Name="accfuctional" EntityType="Self.accfuctional" Schema="testdb" store:Type="Tables" />
+    <EntitySet Name="attendancep" EntityType="Self.attendancep" Schema="testdb" store:Type="Tables" />
+    <EntitySet Name="attendances" EntityType="Self.attendances" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="classes" EntityType="Self.classes" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="creator" EntityType="Self.creator" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="hrfuctional" EntityType="Self.hrfuctional" Schema="testdb" store:Type="Tables" />
+    <EntitySet Name="marksp" EntityType="Self.marksp" Schema="testdb" store:Type="Tables" />
+    <EntitySet Name="markss" EntityType="Self.markss" Schema="testdb" store:Type="Tables" />
+    <EntitySet Name="markstotal" EntityType="Self.markstotal" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="ms" EntityType="Self.ms" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="notification" EntityType="Self.notification" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="role_funcdata" EntityType="Self.role_funcdata" Schema="testdb" store:Type="Tables" />
@@ -340,7 +534,24 @@
     <EntitySet Name="studfee" EntityType="Self.studfee" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="studfuctional" EntityType="Self.studfuctional" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="subjects" EntityType="Self.subjects" Schema="testdb" store:Type="Tables" />
+    <EntitySet Name="tchrfsubjects" EntityType="Self.tchrfsubjects" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="tchrfunctional" EntityType="Self.tchrfunctional" Schema="testdb" store:Type="Tables" />
+    <AssociationSet Name="attendancep_ibfk_1" Association="Self.attendancep_ibfk_1">
+      <End Role="tchrfunctional" EntitySet="tchrfunctional" />
+      <End Role="attendancep" EntitySet="attendancep" />
+    </AssociationSet>
+    <AssociationSet Name="attendancep_ibfk_2" Association="Self.attendancep_ibfk_2">
+      <End Role="subjects" EntitySet="subjects" />
+      <End Role="attendancep" EntitySet="attendancep" />
+    </AssociationSet>
+    <AssociationSet Name="attendancep_ibfk_3" Association="Self.attendancep_ibfk_3">
+      <End Role="classes" EntitySet="classes" />
+      <End Role="attendancep" EntitySet="attendancep" />
+    </AssociationSet>
+    <AssociationSet Name="attendances_ibfk_1" Association="Self.attendances_ibfk_1">
+      <End Role="attendancep" EntitySet="attendancep" />
+      <End Role="attendances" EntitySet="attendances" />
+    </AssociationSet>
     <AssociationSet Name="fik" Association="Self.fik">
       <End Role="ms" EntitySet="ms" />
       <End Role="roledata" EntitySet="roledata" />
@@ -369,6 +580,26 @@
       <End Role="roledata" EntitySet="roledata" />
       <End Role="role_funcdata" EntitySet="role_funcdata" />
     </AssociationSet>
+    <AssociationSet Name="marksp_ibfk_1" Association="Self.marksp_ibfk_1">
+      <End Role="tchrfunctional" EntitySet="tchrfunctional" />
+      <End Role="marksp" EntitySet="marksp" />
+    </AssociationSet>
+    <AssociationSet Name="marksp_ibfk_2" Association="Self.marksp_ibfk_2">
+      <End Role="subjects" EntitySet="subjects" />
+      <End Role="marksp" EntitySet="marksp" />
+    </AssociationSet>
+    <AssociationSet Name="marksp_ibfk_3" Association="Self.marksp_ibfk_3">
+      <End Role="classes" EntitySet="classes" />
+      <End Role="marksp" EntitySet="marksp" />
+    </AssociationSet>
+    <AssociationSet Name="markss_ibfk_1" Association="Self.markss_ibfk_1">
+      <End Role="marksp" EntitySet="marksp" />
+      <End Role="markss" EntitySet="markss" />
+    </AssociationSet>
+    <AssociationSet Name="markstotal_ibfk_1" Association="Self.markstotal_ibfk_1">
+      <End Role="marksp" EntitySet="marksp" />
+      <End Role="markstotal" EntitySet="markstotal" />
+    </AssociationSet>
     <AssociationSet Name="studfee_ibfk_1" Association="Self.studfee_ibfk_1">
       <End Role="ms" EntitySet="ms" />
       <End Role="studfee" EntitySet="studfee" />
@@ -380,6 +611,14 @@
     <AssociationSet Name="subjects_ibfk_1" Association="Self.subjects_ibfk_1">
       <End Role="classes" EntitySet="classes" />
       <End Role="subjects" EntitySet="subjects" />
+    </AssociationSet>
+    <AssociationSet Name="tchrfsubjects_ibfk_1" Association="Self.tchrfsubjects_ibfk_1">
+      <End Role="tchrfunctional" EntitySet="tchrfunctional" />
+      <End Role="tchrfsubjects" EntitySet="tchrfsubjects" />
+    </AssociationSet>
+    <AssociationSet Name="tchrfsubjects_ibfk_2" Association="Self.tchrfsubjects_ibfk_2">
+      <End Role="subjects" EntitySet="subjects" />
+      <End Role="tchrfsubjects" EntitySet="tchrfsubjects" />
     </AssociationSet>
     <AssociationSet Name="tchrfunctional_ibfk_1" Association="Self.tchrfunctional_ibfk_1">
       <End Role="ms" EntitySet="ms" />

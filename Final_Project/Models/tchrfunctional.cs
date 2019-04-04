@@ -14,6 +14,13 @@ namespace Final_Project.Models
     
     public partial class tchrfunctional
     {
+        public tchrfunctional()
+        {
+            this.attendanceps = new HashSet<attendancep>();
+            this.marksps = new HashSet<marksp>();
+            this.tchrfsubjects = new HashSet<tchrfsubject>();
+        }
+    
         public int TchrF_ID { get; set; }
         public int TchrF_MSID { get; set; }
         public string TchrF_FName { get; set; }
@@ -31,5 +38,8 @@ namespace Final_Project.Models
         public string TchrF_password { get; set; }
     
         public virtual m m { get; set; }
+        public virtual ICollection<attendancep> attendanceps { get; set; }
+        public virtual ICollection<marksp> marksps { get; set; }
+        public virtual ICollection<tchrfsubject> tchrfsubjects { get; set; }
     }
 }

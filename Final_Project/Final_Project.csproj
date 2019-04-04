@@ -457,13 +457,22 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HRController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\accfuctional.cs">
       <DependentUpon>Modellogin.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Acheck.cs" />
+    <Compile Include="Models\attendance.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\attendancep.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\check.cs" />
+    <Compile Include="Models\checkHelper.cs" />
     <Compile Include="Models\class.cs">
       <DependentUpon>Modellogin.tt</DependentUpon>
     </Compile>
@@ -479,6 +488,17 @@
       <DependentUpon>Modellogin.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\manageFee.cs" />
+    <Compile Include="Models\marksHelper.cs" />
+    <Compile Include="Models\marksp.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\markss.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\markstotal.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mobtained.cs" />
     <Compile Include="Models\Modellogin.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -514,9 +534,13 @@
     <Compile Include="Models\subject.cs">
       <DependentUpon>Modellogin.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tchrfsubject.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tchrfunctional.cs">
       <DependentUpon>Modellogin.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tchrsubdata.cs" />
     <Compile Include="Models\teacherSaverCheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -573,6 +597,14 @@
     <Content Include="Views\Accountant\AddFee.cshtml" />
     <Content Include="Views\Accountant\ViewFeeRecords.cshtml" />
     <Content Include="Views\HR\Notifications.cshtml" />
+    <Content Include="Views\Shared\_teacherLayout.cshtml" />
+    <Content Include="Views\Teacher\Attendance.cshtml" />
+    <Content Include="Views\Teacher\Index.cshtml" />
+    <Content Include="Views\Teacher\Marks.cshtml" />
+    <Content Include="Views\Teacher\Notifications.cshtml" />
+    <Content Include="Views\Admin\AssignSubjects.cshtml" />
+    <Content Include="Views\Admin\AssignS_Classes.cshtml" />
+    <Content Include="Views\Admin\AssignS_Subjects.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

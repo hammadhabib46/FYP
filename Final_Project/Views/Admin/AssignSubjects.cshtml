@@ -1,0 +1,50 @@
+﻿@using Final_Project.Models;
+
+@{
+    ViewBag.Title = "AssignSubjects";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+
+    List<tchrfunctional>alltch=(List<tchrfunctional>) Session["allTeach"];
+
+    List<string> TcherNameList = new List<string>();
+    
+
+}
+
+<h2>Assign Subjects</h2>
+
+<div class="col-xl-6">
+    <!-- Block Buttons -->
+    <div class="widget has-shadow">
+        <div class="widget-header bordered no-actions d-flex align-items-center">
+            <h4>Block Buttons</h4>
+        </div>
+        @{ if (ViewBag.subA == null)
+            {
+                <p></p>
+            }
+            else
+            {
+                <div class="alert alert-success">
+                    <strong>Success! @ViewBag.subA</strong>
+                </div>
+                ViewBag.subA = null;
+            }
+        }
+        @foreach (tchrfunctional teacher in alltch)
+        {
+
+
+            int teaid = teacher.TchrF_ID;
+
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-xl-6 center">
+                        <button class="btn btn-primary btn-square mb-2" type="button" onclick="location.href='@Url.Action("AssignS_Classes", "Admin", new { t_id = teaid})'">@teacher.TchrF_FName  @teacher.TchrF_LName</button>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- End Block Buttons -->
+    </div>
