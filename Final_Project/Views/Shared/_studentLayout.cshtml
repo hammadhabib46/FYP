@@ -19,6 +19,7 @@
     }
     DateTime datenow = DateTime.Now;
 
+
     // Noti = (int)TempData["Noti"];
 }
 
@@ -49,9 +50,9 @@ Author: SAEROX
         });
     </script>
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="~/Content/assets/img/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/img/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Content/assets/img/logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/img/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/img/logo.png">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="~/Content/assets/vendors/css/base/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/assets/vendors/css/base/elisyam-1.2.min.css">
@@ -87,7 +88,6 @@ Author: SAEROX
                                 <img src="~/Content/assets/img/logo.png" alt="logo" class="logo-small">
                             </div>
                         </a>
-
                     </div>
                     <!-- End Logo -->
                     <!-- Begin Navbar Menu -->
@@ -134,7 +134,7 @@ Author: SAEROX
                                         </div>
                                     </a>
                                 </li>
-                                    }
+                                                }
                                 }
                                 <li>
                                     <a rel="nofollow" href="@Url.Action("MarkallAsRead", "Student")" class="dropdown-item all-notifications text-center">View All and Mark as Read</a>
@@ -171,25 +171,54 @@ Author: SAEROX
                 <nav class="side-navbar box-scroll sidebar-scroll">
                     <!-- Begin Main Navigation -->
                     <ul class="list-unstyled">
-                        <li>@Html.ActionLink("Home", "Index", "Student")</li>
-                        @{
-                            if (Noti == 1)
-                            {
+                             <li>@Html.ActionLink("Home", "Index", "Student")</li>
+                          @{
+                              if (Noti == 1)
+                              {
                                 <li>@Html.ActionLink("Notifications", "Notifications", "Student")</li>
-                            }
-                            if (Chal == 1)
-                            {
+                              }
+                              if (Chal == 1)
+                              {
                                 <li>@Html.ActionLink("Fees record", "Index", "Student")</li>
-                            }
-                            if (teacherP == true)
-                            {
-                                <li>@Html.ActionLink("Marks", "Index", "Student")</li>
-                                <li>@Html.ActionLink("Attendance", "Index", "Student")</li>
-                            }
+                              }
+                              if ((bool)TempData["Teach_Present"]) {
+                                  if ((bool)TempData["Attendance_Present"] == true)
+                                  {
+                                <li class="active">
+                                    <a href="#dropdown-tabless" aria-expanded="true" data-toggle="collapse"><i class="la la-th-large"></i><span>Attendance</span></a>
+                                    <ul id="dropdown-tabless" class="collapse list-unstyled show pt-0">
+                                        @{  
+                                            List<subject> subs = (List<subject>)TempData["subjs"];
+                                            foreach (var item in subs)
+                                            {
+                                                Nullable<int> x = item.Subj_ID;
+                                                <li><a href="@Url.Action("Attendence", "Student", new { data = x})">@item.Subj_name </a></li>
+                                            }
 
-                        }
+                                        }
+                                    </ul>
+                                </li>
+                                  }
+                                  if ((bool)TempData["Marks_Present"] == true)
+                                  {
+                                <li class="active">
+                                    <a href="#dropdown-tabless" aria-expanded="true" data-toggle="collapse"><i class="la la-th-large"></i><span>Marks</span></a>
+                                    <ul id="dropdown-tabless" class="collapse list-unstyled show pt-0">
+                                        @{
+                                            List<subject> subs = (List<subject>)TempData["subjs"];
+                                            foreach (var item in subs)
+                                            {
+                                                Nullable<int> x = item.Subj_ID;
+                                                <li><a href="@Url.Action("Marks", "Student", new { data = x})">@item.Subj_name </a></li>
+                                            }
 
-                    </ul>
+                                        }
+                                    </ul>
+                                </li>
+                                      }
+                                  }
+                              }
+                        </ul>
 
                     <!-- End Main Navigation -->
                 </nav>

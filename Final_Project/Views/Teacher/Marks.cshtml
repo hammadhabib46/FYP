@@ -66,7 +66,13 @@
                             <label class="col-lg-8 form-control-label">Total Marks</label>
                             <input type="text" required="required" name="totalMs" value=@Session["gettotal"]>
                         </div>
-
+                        {
+                            if (ViewBag.MarksError != null)
+                            {
+                                <h3>@ViewBag.MarksError</h3>
+                                ViewBag.MarksError = null;
+                            }
+                        }
 
                         <div class="widget-body">
                             <div class="table-responsive">
@@ -91,7 +97,7 @@
                                                         {
                                                             <td>
                                                                 @Html.TextBoxFor(model => model.mrksList[i].obtainedMarks, new { @placeholder = "-" })
-
+                                                                @Html.ValidationMessageFor(model => model.mrksList[i].obtainedMarks)
                                                             </td>
                                                         }
                                                         else
@@ -100,6 +106,7 @@
                                                             <td>
 
                                                                 @Html.TextBoxFor(model => model.mrksList[i].obtainedMarks, new { @Value = item.Mstd_marks })
+                                                                @Html.ValidationMessageFor(model => model.mrksList[i].obtainedMarks)
                                                             </td>
 
                                                         }

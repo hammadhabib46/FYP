@@ -18,14 +18,14 @@
 
             <div class="widget has-shadow mx-auto" style="width: 900px;">
                 <div class="widget-header bordered no-actions d-flex align-items-center justify-content-md-center">
-                    <h4>Delete student information</h4>
+                    <h4>Delete student</h4>
                 </div>
                 <div class="widget-body">
                     <form class="form-horizontal">
                         <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
                             <label class="col-lg-2 form-control-label">Roll Number</label>
                             <div class="col-lg-8">
-                                <input type="text" class="form-control" name="Teacher Userid">
+                                <input type="text" class="form-control" name="Roll_number">
                             </div>
                         </div>
 
@@ -34,12 +34,15 @@
                         </div>
                        @{ if (@ViewBag.deleteStudent == null)
                            {
-                        <p></p>
+                              <p></p>
                            }
                            else
                            {
                         <div class="alert alert-success">
-                            <strong>Failed! @ViewBag.deleteStudent</strong>.
+                            <strong> @ViewBag.deleteStudent</strong>.
+                            @{
+                                ViewBag.deleteStudent = null;
+                             }
                         </div>
                                }
                            }

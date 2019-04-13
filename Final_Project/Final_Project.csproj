@@ -605,6 +605,8 @@
     <Content Include="Views\Admin\AssignSubjects.cshtml" />
     <Content Include="Views\Admin\AssignS_Classes.cshtml" />
     <Content Include="Views\Admin\AssignS_Subjects.cshtml" />
+    <Content Include="Views\Student\Marks.cshtml" />
+    <Content Include="Views\Student\Attendence.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

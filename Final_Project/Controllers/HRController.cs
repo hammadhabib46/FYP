@@ -273,7 +273,7 @@ namespace Final_Project.Controllers
                     obj.SaveChanges();
                 }
                 ModelState.Clear();
-                ViewBag.msg1 = "Successfully Added! User Name :" + rol + "Password is " + rol;
+                ViewBag.msg1 = "Successfully Added! User Name :" + rol +"  "+ "Password is " + rol;
             }
             return View();
         }
@@ -362,7 +362,7 @@ namespace Final_Project.Controllers
                     obj.SaveChanges();
                 }
                 ModelState.Clear();
-                ViewBag.msg1 = "Successfully Added! User Name :" + rol + "Password is " + rol;
+                ViewBag.msg1 = "Successfully Added! User Name :" + rol + "  Password is " + rol;
             }
             return View();
         }

@@ -24,10 +24,7 @@ namespace Final_Project.Controllers
 
         public ActionResult Index()
         {
-
-            Session["M_ID"] = 86;
-            TempData["Cr_ID"] = 22;
-
+           
             ////////////////////// up is the testing area attributes
             string name = "Admin";
             int MS_id = (int)Session["M_ID"];
@@ -75,7 +72,8 @@ namespace Final_Project.Controllers
 
                 TempData["Teach_Present"] = false;
                 TempData["HR_Present"] = false;
-                TempData["Acc_Present"] = true;
+                TempData["Acc_Present"] = true;   // testing
+
                 foreach (var x in clz)
                 {
                     classList.Add(x.Role_Name);
@@ -353,9 +351,19 @@ namespace Final_Project.Controllers
 
         public ActionResult AssignS_Classes(int t_id)
         {
+            int MS_id = (int)Session["M_ID"];
             Session["Tcch_id"] = t_id;
 
-            
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                
+                    var clz = objj.classes.SqlQuery("Select * from classes where MS_id ='" + MS_id + "'").ToList<@class>();
+
+                    Session["clz"] = clz;
+
+             }
+
+
             return View();
         }
         
@@ -367,7 +375,6 @@ namespace Final_Project.Controllers
                 List<subject> subs = objj.subjects.Where(u=> u.Cls_id == c_id).ToList<subject>();
                 Session["subss"] = subs;
             }
-
                 return View();
         }
 
@@ -495,7 +502,7 @@ namespace Final_Project.Controllers
             stu_add.studF_PendingFee = 0;
             ///
 
-            if (ModelState.IsValid)
+           if (ModelState.IsValid)
             {
                 using (testdbEntiies obj = new testdbEntiies())
                 {
@@ -511,8 +518,8 @@ namespace Final_Project.Controllers
         [HttpPost]
         public ActionResult DeleteStudent(string Roll_number)
         {
-            //    int MS_id = (int)Session["M_ID"];
-            int MS_id = 72;
+           int MS_id = (int)Session["M_ID"];
+         
             TempData.Keep();
             bool del = false;
             using (testdbEntiies objj = new testdbEntiies())
@@ -520,7 +527,6 @@ namespace Final_Project.Controllers
 
                 try
                 {
-
                     var usr = objj.studfuctionals.First(u => u.studF_RollNO == Roll_number && u.studF_MSID == MS_id);
                     if (usr != null)
                     {
@@ -592,7 +598,8 @@ namespace Final_Project.Controllers
                     obj.SaveChanges();
                 }
                 ModelState.Clear();
-                ViewBag.msg1 = "Successfully Added";
+                ViewBag.msg1 = "Successfully Added " + " User Number = " + tch_add.TchrF_RollID + "  " + " User Password = " + tch_add.TchrF_password + "  ";
+
             }
             return View();
         }
@@ -600,8 +607,8 @@ namespace Final_Project.Controllers
         [HttpPost]
         public ActionResult DeleteTeacher(string Roll_number)
         {
-            //   int MS_id = (int)Session["M_ID"];
-            int MS_id = 72;
+              int MS_id = (int)Session["M_ID"];
+          
             TempData.Keep();
             bool del = false;
             using (testdbEntiies objj = new testdbEntiies())
@@ -786,7 +793,13 @@ namespace Final_Project.Controllers
         [HttpPost]
         public ActionResult Notification_Teacher(teacherSaverCheck objj,string notification_text)
         {
-            List<tchrfunctional> tchrList = (List<tchrfunctional>)Session["All_Teachers"];
+            List<tchrfunctional> tch = new List<tchrfunctional>();
+            int MS_id = (int)Session["M_ID"];
+            using (testdbEntiies objx = new testdbEntiies())
+            {
+                tch = objx.tchrfunctionals.SqlQuery("Select * from tchrfunctional where TchrF_MSID ='" + MS_id + "'").ToList<tchrfunctional>();
+            }
+            List<tchrfunctional> tchrList = tch;
             bool Cvalue = false;
             List<int> tid_list = new List<int>();
 
@@ -830,7 +843,13 @@ namespace Final_Project.Controllers
         [HttpPost]
         public ActionResult Notification_Hr(string notification_text)
         {
-            hrfuctional hrdata = (hrfuctional)Session["All_Hr"];
+            hrfuctional hr = new hrfuctional();
+            int MS_id = (int)Session["M_ID"];
+            using (testdbEntiies objx = new testdbEntiies())
+            {
+                hr = objx.hrfuctionals.SqlQuery("Select * from hrfuctional where HrF_MsID ='" + MS_id + "'").FirstOrDefault();
+            }
+            hrfuctional hrdata = hr;
             
                 int userid = (int)Session["Cr_IDD"];
                 NotificationModel nf = new NotificationModel();
@@ -885,8 +904,7 @@ namespace Final_Project.Controllers
                 acdata.AccF_MsID = MS_d;
                 acdata.AccF_userNumber = rol;
 
-                if ((bool)TempData["Aportal"] == true)
-                    acdata.AccF_userNumber = rol;
+                acdata.AccF_password = rol;
             }
 
             if (ModelState.IsValid)
@@ -906,11 +924,16 @@ namespace Final_Project.Controllers
         [HttpPost]
         public ActionResult Notification_Accountant(string notification_text)
         {
-            accfuctional acdata = (accfuctional)Session["All_Ac"];
-
+            accfuctional ac = new accfuctional();
+            int MS_id = (int)Session["M_ID"];
+            using (testdbEntiies objx = new testdbEntiies())
+            {
+                 ac = objx.accfuctionals.SqlQuery("Select * from accfuctional where AccF_id ='" + MS_id + "'").FirstOrDefault();
+            }
+            
             int userid = (int)Session["Cr_IDD"];
             NotificationModel nf = new NotificationModel();
-            bool resutl = nf.sendNotificationsHr(acdata.AccF_ID, notification_text, userid);
+            bool resutl = nf.sendNotificationsAcc(ac.AccF_ID, notification_text, userid);
 
             if (resutl == true)
             {

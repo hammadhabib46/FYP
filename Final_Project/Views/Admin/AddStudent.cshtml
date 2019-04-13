@@ -2,8 +2,8 @@
 @{
     ViewBag.Title = "AddStudent";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
-    
-    
+
+
     TempData["DOB_A"] = (bool)TempData["Sdon"];
     TempData.Keep();
     TempData["CNIC_A"] =(bool)TempData["Scnic"];
@@ -25,16 +25,17 @@
 
 
     List<string> list = new List<string>();
-    
+
     if((bool)TempData["ClassBool"] == true)
-    { 
-        list = (List<string>)TempData["classL"];
+    {
+        
+          list = (List<string>)TempData["classL"];
         TempData.Keep();
 
     }
     TempData.Keep();
 
-        List<string> genderList = new List<string>()
+    List<string> genderList = new List<string>()
         {
             "Male",
             "Female"
@@ -60,7 +61,7 @@
                         <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
                             <label class="col-lg-2 form-control-label">First Name</label>
                             <div class="col-lg-8">
-                                @Html.TextBoxFor(model => model.studF_FName, new { @class = "form-control" , @required = "required"})
+                                @Html.TextBoxFor(model => model.studF_FName, new { @class = "form-control", @required = "required" })
                                 @Html.ValidationMessageFor(model => model.studF_FName)
                             </div>
                         </div>
@@ -82,100 +83,111 @@
                                     </div>
                                 </div>
                             }
+                            if ((bool)TempData["EMAIL"] == true)
+                            {
+                                <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
+                                    <label class="col-lg-2 form-control-label">Email</label>
+                                    <div class="col-lg-8">
+                                        @Html.TextBoxFor(model => model.studF_Email, new { @class = "form-control", @required = "required", @type = "email" })
+                                        @Html.ValidationMessageFor(model => model.studF_Email)
+                                    </div>
+                                </div>
+                            }
+                           
                             if ((bool)TempData["GENDER"] == true)
                             {
-                            <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
-                                <label class="col-lg-2 form-control-label">Gender</label>
-                                <div class="col-lg-8">
-                                    @Html.DropDownListFor(model => model.studF_Gender, new SelectList(genderList), new { @class = "form-control", aria_describedby = "dropdownMenu2" })
-                                </div>
-                            </div>
-                        }
-                            if ((bool)TempData["CNIC_A"] == true)
-                            {
-                                <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
-                                    <label class="col-lg-2 form-control-label">CNIC</label>
-                                    <div class="col-lg-8">
-                                        @Html.TextBoxFor(model => model.studF_CNIC, new { @class = "form-control", @required = "required", @type = "Number" })
-                                        @Html.ValidationMessageFor(model => model.studF_CNIC)
-                                    </div>
-                                </div>
-                            }
-                            if ((bool)TempData["PHONE"] == true)
-                            {
-                            <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
-                                <label class="col-lg-2 form-control-label">Phone Number</label>
-                                <div class="col-lg-8">
-                                    @Html.TextBoxFor(model => model.studF_Phone, new { @class = "form-control", @required = "required" ,@type = "Number" })
+                                        <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
+                                            <label class="col-lg-2 form-control-label">Gender</label>
+                                            <div class="col-lg-8">
+                                                @Html.DropDownListFor(model => model.studF_Gender, new SelectList(genderList), new { @class = "form-control", aria_describedby = "dropdownMenu2" })
+                                            </div>
+                                        </div>
+                                    }
+                                        if ((bool) TempData["CNIC_A"] == true)
+                                        {
+                                            <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
+                                                <label class="col-lg-2 form-control-label">CNIC</label>
+                                                <div class="col-lg-8">
+                                                    @Html.TextBoxFor(model => model.studF_CNIC, new { @class = "form-control", @required = "required", @type = "Number" })
+                                                    @Html.ValidationMessageFor(model => model.studF_CNIC)
+                                                </div>
+                                            </div>
+                                        }
+                                        if ((bool) TempData["PHONE"] == true)
+                                        {
+                                        <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
+                                            <label class="col-lg-2 form-control-label">Phone Number</label>
+                                            <div class="col-lg-8">
+                                                @Html.TextBoxFor(model => model.studF_Phone, new { @class = "form-control", @required = "required" ,@type = "Number" })
 @Html.ValidationMessageFor(model => model.studF_Phone)
-                                </div>
-                            </div>
-                        }
-                        if ((bool)TempData["ADDRESS"] == true)
-                            {
-                            <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
-                                <label class="col-lg-2 form-control-label">Address</label>
-                                <div class="col-lg-8">
-                                    @Html.TextBoxFor(model => model.studF_Address, new { @class = "form-control", @required = "required" })
+                                            </div>
+                                        </div>
+                                    }
+                                    if ((bool) TempData["ADDRESS"] == true)
+                                        {
+                                        <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
+                                            <label class="col-lg-2 form-control-label">Address</label>
+                                            <div class="col-lg-8">
+                                                @Html.TextBoxFor(model => model.studF_Address, new { @class = "form-control", @required = "required" })
 @Html.ValidationMessageFor(model => model.studF_Address)
-                                </div>
-                            </div>
-                            }
-                          if ((bool)TempData["ClassBool"] == true)
-                          { 
-                            <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
-                                <label class="col-lg-2 form-control-label">Class</label>
-                                <div class="col-lg-8">
-                                 
-                                    @Html.DropDownListFor(model => model.studF_ClassName ,new SelectList (list),  new { @class = "form-control", aria_describedby = "dropdownMenu1" })
-                                </div>
-                            </div>
-                          }  
-                           
-                                <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
-                                    <label class="col-lg-2 form-control-label">Father/Guardian Name</label>
-                                    <div class="col-lg-8">
-                                        @Html.TextBoxFor(model => model.studF_GuardName, new { @class = "form-control", @required = "required" })
-@Html.ValidationMessageFor(model => model.studF_GuardName)
-                                    </div>
-                                </div>
-                           
-                            if ((bool)TempData["G_CNIC_A"] == true)
-                            {
-                                <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
-                                    <label class="col-lg-2 form-control-label">Guardian CNIC</label>
-                                    <div class="col-lg-8">
-                                        @Html.TextBoxFor(model => model.studF_GuardCNIC, new { @class = "form-control", @required = "required", @type = "Number" })
-@Html.ValidationMessageFor(model => model.studF_GuardCNIC)
-                                    </div>
-                                </div>
-                            }
-                            
-                            if ((bool)TempData["G_CONTACT"] == true)
-                            {
-                                <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
-                                    <label class="col-lg-2 form-control-label">Guardian Contact Number</label>
-                                    <div class="col-lg-8">
-                                        @Html.TextBoxFor(model => model.studF_GuardContact, new { @class = "form-control", @required = "required", @type = "phone", @min = "01000000000"  })
-@Html.ValidationMessageFor(model => model.studF_GuardContact)
-                                    </div>
-                                </div>
-                            }
+                                            </div>
+                                        </div>
+                                        }
+                                      if ((bool) TempData["ClassBool"] == true)
+                                      {
+                                        <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
+                                            <label class="col-lg-2 form-control-label">Class</label>
+                                            <div class="col-lg-8">
+
+                                                @Html.DropDownListFor(model => model.studF_ClassName ,new SelectList(list),  new { @class = "form-control", aria_describedby = "dropdownMenu1" })
+                                            </div>
+                                        </div>
+                                      }
+
+                    <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
+                        <label class="col-lg-2 form-control-label">Father/Guardian Name</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.studF_GuardName, new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.studF_GuardName)
+                        </div>
+                    </div>
+
+                                                if ((bool) TempData["G_CNIC_A"] == true)
+                                                {
+                    <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
+                        <label class="col-lg-2 form-control-label">Guardian CNIC</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.studF_GuardCNIC, new { @class = "form-control", @required = "required", @type = "Number" })
+                            @Html.ValidationMessageFor(model => model.studF_GuardCNIC)
+                        </div>
+                    </div>
+                                                }
+
+                                                if ((bool) TempData["G_CONTACT"] == true)
+                                                {
+                    <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center">
+                        <label class="col-lg-2 form-control-label">Guardian Contact Number</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.studF_GuardContact, new { @class = "form-control", @required = "required", @type = "phone", @min = "01000000000"  })
+                            @Html.ValidationMessageFor(model => model.studF_GuardContact)
+                        </div>
+                    </div>
+                                                }
                         }
                         <div class="sign-btn text-center ">
                             <input type="submit" value="Add Student" class="btn btn-lg btn-gradient-03" />
                         </div>
                         @{ if (ViewBag.msg1 == null)
-                         {
+                                                     {
                             <p></p>
-                         }
-                         else
-                         {
+                                                     }
+                                                     else
+                                                     {
                             <div class="alert alert-success">
                                 <strong>Success! @ViewBag.msg1</strong>.
                             </div>
-                         }
-                            }
+                                                     }
+                        }
 
 
                     </form>

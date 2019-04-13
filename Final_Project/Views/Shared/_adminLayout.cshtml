@@ -7,6 +7,7 @@
     TempData.Keep();
     bool HRP = (bool)TempData["HR_Present"];
     TempData.Keep();
+  
 
     var classData = (List<@class>)Session["clz"];
 
@@ -71,6 +72,16 @@
                 <!-- Begin Topbar -->
                 <div class="navbar-holder d-flex align-items-center align-middle justify-content-between">
                     <!-- Begin Logo -->
+                    <div class="navbar-header">
+                        <a href="db-default.html" class="navbar-brand">
+                            <div class="brand-image brand-big">
+                                <img src="~/Content/assets/img/logo-big.png" alt="logo" class="logo-big">
+                            </div>
+                            <div class="brand-image brand-small">
+                                <img src="~/Content/assets/img/logo.png" alt="logo" class="logo-small">
+                            </div>
+                        </a>
+                    </div>
                     <!-- End Logo -->
                     <!-- Begin Navbar Menu -->
                     <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center pull-right">
@@ -108,7 +119,6 @@
                         <li>@Html.ActionLink("Home", "Index", "Admin")</li>
                         <li>@Html.ActionLink("Add Student", "AddStudent", "Admin")</li>
                         <li>@Html.ActionLink("Delete Student", "DeleteStudent", "Admin")</li>
-                        <li>@Html.ActionLink("Update Student", "UpdateStudent", "Admin")</li>
 
                         @{
                             if (teacherP == true)
@@ -121,12 +131,10 @@
                             if (HRP == true)
                             {
                                 <li>@Html.ActionLink("Add HR", "AddHR", "Admin")</li>
-                                <li>@Html.ActionLink("Delete HR", "DeleteHR", "Admin")</li>
                             }
                             if ((bool)TempData["Acc_Present"] == true)
                             {
                                 <li>@Html.ActionLink("Add Accountant", "AddAccountant", "Admin")</li>
-                                <li>@Html.ActionLink("Delete Accountant", "DeleteAccountant", "Admin")</li>
                             }
 
                             if ((bool)Session["fee"] == true)
@@ -150,6 +158,11 @@
                                         @if (HRP == true)
                                         {
                                             <li> @Html.ActionLink("Hr", "Notification_Hr", "Admin") </li>
+                                        }
+                                        @if ((bool)TempData["Acc_Present"] == true)
+                                        {
+                                            <li> @Html.ActionLink("Accountant", "Notification_Accountant", "Admin") </li>
+
                                         }
                                     </ul>
                                 </li>

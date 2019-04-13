@@ -47,9 +47,7 @@ namespace Final_Project.Controllers
             {
 
                 var clz = objj.roledatas.SqlQuery("Select * from roledata where MS_iid ='" + MS_id + "'").ToList<roledata>();
-
                 List<string> roleList = new List<string>();
-                
                 foreach (var x in clz)
                 {
                     roleList.Add(x.Role_Name);

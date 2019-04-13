@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Attendence";
+    Layout = "~/Views/Shared/_studentLayout.cshtml";
+    List<string> data = (List<string>)Session["att_output"];
+}
+
+<h2>Attendence</h2>
+
+
+
+    <!-- Border -->
+<div class="widget has-shadow">
+    @{
+        <div class="widget-header bordered no-actions d-flex align-items-center">
+            <h4>Notifications</h4>
+        </div>
+
+        if (data.Count == 0)
+        {
+            <div class="widget-header bordered no-actions d-flex align-items-center">
+                 <h4>Class is Empty</h4>
+            </div>
+        }
+        else
+        {
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                for (int i = 0; i < data.Count ; i=i+2)
+                                {
+                            <tr>
+                                <td>@data[i]</td>
+                                @{
+                                    if (data[i + 1] == "True")
+                                    {
+                                        <td>Present</td>
+                                    }
+                                    if (data[i + 1] == "False")
+                                    {
+                                        <td>Absent</td>
+                                    }
+                                }
+
+                            </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    }
+</div>
+    <!-- End Border -->
+
+
+
+

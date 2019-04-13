@@ -68,7 +68,7 @@
                                     <label class="col-lg-2 form-control-label">Class Fee</label>
                                     <div class="col-lg-8">
                                         <div>
-                                            <input type="number" min="20" max="99999"  class="form-control" name="Fee" required >
+                                            <input type="number" min="20" max="99999" class="form-control" name="Fee" required>
                                         </div>
                                     </div>
                                 </div>
@@ -84,10 +84,25 @@
                                         <input type="submit" value="+ Add" class="btn btn-lg btn-gradient-03" />
 
                                     </div>
+                                   
                                     <div class="col-sm-2">
                                         <p class="btn btn-sm btn-gradient-03">@Html.ActionLink("Next", "ManageRoles", "Creator")</p>
                                     </div>
+                                       
                                 </div>
+
+                                @{ if (ViewBag.doublesub == null)
+                                    {
+                                        <p></p>
+                                    }
+                                    else
+                                    {
+                                        <div class="alert alert-success">
+                                            <strong>@ViewBag.doublesub</strong>.
+                                        </div>
+                                    }
+                                }
+
                             </form>
                         </div>
 

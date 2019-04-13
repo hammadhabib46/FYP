@@ -7,7 +7,7 @@
     accfuctional hrData = (accfuctional)Session["All_Ac"];
 
 }
-<h1 class="text-center">Send Notification To Student </h1>
+<h1 class="text-center">Send Notification To Accountant </h1>
 
 @using (Html.BeginForm("Notification_Accountant", "Admin", FormMethod.Post))
 {
@@ -43,7 +43,7 @@
                                         <input type="submit" value="Send" class="btn btn-lg btn-gradient-01 " />
                                     </div>
 
-                                    @{ if (ViewBag.noti_H == null)
+                                    @{ if (ViewBag.noti_A == null)
                                         {
                                             <p></p>
                                         }
@@ -53,11 +53,12 @@
                                                 <strong> @ViewBag.noti_A</strong>.
                                             </div>
                                         }
+                                        ViewBag.noti_A = null;
                                     }
                                 </div>
                             </div>
                         </div>
-                    }
+                                        }
                 }
             </div>
         </div>

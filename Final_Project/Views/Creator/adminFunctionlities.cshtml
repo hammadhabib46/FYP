@@ -62,10 +62,6 @@
                                 </div>
 
 
-                                <div class="styled-checkbox">
-                                    <input type="checkbox" name="Student" id="remeberStudent" checked="checked" class="form-control" readonly>
-                                    <label for="remeber">Update Student</label>
-                                </div>
 
                                 @{
                                     if ((bool)TempData["HR_Manager"] == true)
@@ -75,34 +71,49 @@
                                             <label for="remeber">Add HR</label>
                                         </div>
 
+                                    }
+                                    if ((bool)TempData["Acc_Manager"] == true)
+                                    {
                                         <div class="styled-checkbox">
-                                            <input type="checkbox" name="Student" id="updatehrid" checked="checked" class="form-control" readonly>
-                                            <label for="remeber">Delete HR</label>
+                                            <input type="checkbox" name="Student" id="addhrid" checked="checked" class="form-control" readonly>
+                                            <label for="remeber">Add Accountant</label>
                                         </div>
+
                                     }
 
+                                    if ((bool)TempData["Teacher"] == true)
+                                    {
+                                        <div class="styled-checkbox">
+                                            <input type="checkbox" name="Student" id="addhrid" checked="checked" class="form-control" readonly>
+                                            <label for="remeber">Add Teacher</label>
+                                        </div>
+                                        <div class="styled-checkbox">
+                                            <input type="checkbox" name="Student" id="addhrid" checked="checked" class="form-control" readonly>
+                                            <label for="remeber">Delete Teacher</label>
+                                        </div>
+                                    }
                                 }
 
-                                <div class="styled-checkbox">
-                                    <input type="checkbox" name="Student" id="updatehrpayid" checked="checked" class="form-control" readonly>
-                                    <label for="remeber">Update HR Pay</label>
-                                </div>
 
-                                <div class="styled-checkbox">
-                                    <input type="checkbox" name="Student" id="updateclassfeeid" checked="checked" class="form-control" readonly>
-                                    <label for="remeber">Update Class Fee</label>
-                                </div>
 
                                 <div class="styled-checkbox">
                                     <input type="checkbox" name="Nofi" value="true" id="Nofi_ID" class="form-control">
                                     <label for="Nofi_ID">Activate Notifications</label>
                                 </div>
-
-                                <div class="styled-checkbox">
-                                    <input type="checkbox" name="ManageFee" value="true" id="ManageFeeID" class="form-control">
-                                    <label for="ManageFeeID">ManageFee</label>
-                                </div>
-
+                                @if ((bool)TempData["Acc_Manager"] == true)
+                                {
+                                    <div class="styled-checkbox">
+                                        <input type="checkbox" name="ManageFee" value="true" id="ManageFeeID" class="form-control">
+                                        <label for="ManageFeeID">ManageFee</label>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="styled-checkbox">
+                                        <input type="checkbox" name="ManageFee" value="true" id="ManageFeeID" checked="checked" class="form-control" readonly>
+                                        <label for="ManageFee">ManageFee</label>
+                                    </div>
+                                }
 
                                 <div class="sign-btn text-center">
                                     <br>
@@ -114,7 +125,7 @@
                         </div>
                     </div>
                 <!-- End Form -->
-                }
+                                    }
             </div>
         </div>
 

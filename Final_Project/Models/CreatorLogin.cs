@@ -9,8 +9,7 @@ namespace Final_Project.Models
     public class CreatorLogin
     {
         public string role { get; set; }
-
-
+        
         [Required(ErrorMessage = "Username is required")]
         public string Name { get; set; }
 

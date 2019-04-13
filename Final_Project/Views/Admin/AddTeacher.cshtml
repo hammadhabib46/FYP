@@ -29,7 +29,7 @@
                 @Html.ValidationSummary(false)
                 <div class="widget has-shadow mx-auto" style="width: 900px;">
                     <div class="widget-header bordered no-actions d-flex align-items-center justify-content-md-center">
-                        <h4>Fill the form to add the Student</h4>
+                        <h4>Fill the form to add the Teacher</h4>
                     </div>
                     <div class="widget-body ">
                         <form class="form-horizontal ">
@@ -124,6 +124,7 @@
                                     <div class="alert alert-success">
                                         <strong>Success! @ViewBag.msg1</strong>.
                                     </div>
+                                    ViewBag.msg1 = null;
                                 }
                             }
                         </form>

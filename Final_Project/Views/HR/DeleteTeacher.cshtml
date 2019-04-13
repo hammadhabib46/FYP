@@ -19,7 +19,7 @@
 
                 <div class="widget has-shadow mx-auto" style="width: 900px;">
                     <div class="widget-header bordered no-actions d-flex align-items-center justify-content-md-center">
-                        <h4>Delete student information</h4>
+                        <h4>Delete Teacher information</h4>
                     </div>
                     <div class="widget-body">
                         <form class="form-horizontal">
@@ -33,7 +33,7 @@
                             <div class="sign-btn text-center ">
                                 <input type="submit" value="Delete Teacher" class="btn btn-lg btn-gradient-01" />
                             </div>
-                            @{ if (@ViewBag.deleteStudent == null)
+                            @{ if (ViewBag.deleteStudent == null)
                                 {
                                     <p></p>
                                 }
@@ -42,6 +42,7 @@
                                     <div class="alert alert-success">
                                         <strong> @ViewBag.deleteStudent</strong>.
                                     </div>
+                                    ViewBag.deleteStudent = null;
                                 }
                             }
                         </form>

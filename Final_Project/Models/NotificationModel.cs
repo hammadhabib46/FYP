@@ -92,7 +92,7 @@ namespace Final_Project.Models
         }
 
         // hr
-            public bool sendNotificationsHr(int Hrid, string notificationText, int senderid)
+        public bool sendNotificationsHr(int Hrid, string notificationText, int senderid)
         {
             notification noti_obj = new notification();
             TimeSpan ti = DateTime.UtcNow.TimeOfDay;
@@ -110,6 +110,41 @@ namespace Final_Project.Models
                         noti_obj.Time = ti;
                         noti_obj.Status = false;
                         noti_obj.type = "Hr";
+                        noti_obj.Date = da;
+
+                        obj.notifications.Add(noti_obj);
+                        obj.SaveChanges();
+                    }
+
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+
+        }
+
+
+        // accountant
+        public bool sendNotificationsAcc(int Acid, string notificationText, int senderid)
+        {
+            notification noti_obj = new notification();
+            TimeSpan ti = DateTime.UtcNow.TimeOfDay;
+            DateTime da = DateTime.Now;
+            try
+            {
+                using (testdbEntiies obj = new testdbEntiies())
+                {
+                    {
+                        /// adding objects to the notifcation table
+                        noti_obj.Message = notificationText;
+                        noti_obj.Sender_ID = senderid;
+                        noti_obj.Reciever_ID = Acid;
+                        noti_obj.Time = ti;
+                        noti_obj.Status = false;
+                        noti_obj.type = "Acc";
                         noti_obj.Date = da;
 
                         obj.notifications.Add(noti_obj);

@@ -81,6 +81,15 @@ namespace Final_Project.Controllers
 
             }
 
+
+            // gather all notifs
+            // gather all notifications
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+
+                List<notification> NotiList = objj.notifications.Where(u => u.Reciever_ID == T_id).ToList<notification>();
+                Session["NotiList"] = NotiList;
+            }
             return View();
         }
         public ActionResult Attendance(int? data, int? datt, String dattt)
@@ -105,8 +114,27 @@ namespace Final_Project.Controllers
         }
         public ActionResult Notifications()
         {
+
             return View();
         }
+
+        public ActionResult MarkallAsRead()
+        {
+            int st_id = (int)Session["TID"];
+           
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                List<notification> NotiList = objj.notifications.Where(u => u.Reciever_ID == st_id).ToList<notification>();
+
+                foreach (notification n in NotiList)
+                {
+                    n.Status = true;
+                    objj.SaveChanges();
+                }
+            }
+            return RedirectToAction("Notifications", "Teacher");
+        }
+
         public ActionResult ViewSubjects()
         {
             return View();
@@ -388,6 +416,15 @@ namespace Final_Project.Controllers
                 {
                     mtodblst[b].Mstd_marks = llm[a].obtainedMarks;
                     mtodblst[b].Mrk_ID = mid;
+                }
+
+                foreach (markss mar in mtodblst)
+                {
+                    if (mar.Mstd_marks > totalMs)
+                    {
+                        ViewBag.MarksError = "Obtained Marks Should be Less than Total Marks";
+                        return View();
+                    }
                 }
 
                 

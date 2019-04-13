@@ -8,6 +8,7 @@
     var subDatanm = (List<String>)Session["tchrdata"];
     var clssidData = (List<int>)Session["tchrdataid"];
     var subidData = (List<int>)Session["tchrdatasubiid"];
+
     if (Session["maintaintwoforms"] == null)
     {
         Session["maintaintwoforms"] = (Boolean)false;
@@ -16,6 +17,24 @@
     {
         Session["Mrkmaintaintwoforms"] = (Boolean)false;
     }
+
+    string sh;
+
+    ///// nofi
+    ///
+    List<notification> notis = (List<notification>)Session["NotiList"];
+    List<notification> nayi = new List<notification>();
+
+    foreach (notification not in notis)
+    {
+        if (not.Status == false)
+        {
+            nayi.Add(not);
+        }
+    }
+    DateTime datenow = DateTime.Now;
+    /// 
+    ///
 
 }
 
@@ -73,10 +92,69 @@
                 <!-- Begin Topbar -->
                 <div class="navbar-holder d-flex align-items-center align-middle justify-content-between">
                     <!-- Begin Logo -->
+                    <div class="navbar-header">
+                        <a href="db-default.html" class="navbar-brand">
+                            <div class="brand-image brand-big">
+                                <img src="~/Content/assets/img/logo-big.png" alt="logo" class="logo-big">
+                            </div>
+                            <div class="brand-image brand-small">
+                                <img src="~/Content/assets/img/logo.png" alt="logo" class="logo-small">
+                            </div>
+                        </a>
+
+                    </div>
                     <!-- End Logo -->
                     <!-- Begin Navbar Menu -->
                     <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center pull-right">
                         <!-- Begin Notifications -->
+                        <li class="nav-item dropdown">
+                            <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="la la-bell animated infinite swing"></i><span class="badge-pulse"></span></a>
+                            <ul aria-labelledby="notifications" class="dropdown-menu notification">
+                                <li>
+                                    <div class="notifications-header">
+                                        <div class="title">Notifications @nayi.Count</div>
+                                        <div class="notifications-overlay"></div>
+                                        <img src="assets/img/notifications/01.jpg" alt="..." class="img-fluid">
+                                    </div>
+                                </li>
+                                @{
+                                    foreach (notification not in nayi)
+                                    {
+                                        <li>
+
+                                            <a href="#">
+                                                <div class="message-icon">
+                                                    <i class="la la-history"></i>
+                                                </div>
+                                                <div class="message-body">
+                                                    <div class="message-body-heading">
+                                                        @{ sh = "";
+                                                            if (not.Message.Length < 50)
+                                                            { sh = not.Message; }
+                                                            else
+                                                            { sh = not.Message.Substring(0, 50); }
+                                                        }
+                                                        @sh
+
+                                                    </div>@{
+                                                        DateTime x = (DateTime)not.Date;
+                                                        int dayss = (int)x.Subtract(datenow).TotalDays;
+
+                                                        TimeSpan y = (TimeSpan)not.Time;
+                                                        TimeSpan nowd = DateTime.UtcNow.TimeOfDay;
+                                                        TimeSpan res = nowd - y;
+                                                    }
+                                                    <span class="date">@res.ToString(@"hh\:mm") minutes and   @dayss day/days ago</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    }
+                                }
+                                <li>
+                                    <a rel="nofollow" href="@Url.Action("MarkallAsRead", "Teacher")" class="dropdown-item all-notifications text-center">View All and Mark as Read</a>
+                                </li>
+                            </ul>
+                        </li>
                         <!-- End Notifications -->
                         <!-- User -->
                         <li class="nav-item dropdown">

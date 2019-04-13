@@ -4,6 +4,7 @@
     ViewBag.Title = "AssignSubjects";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 
+
     List<tchrfunctional>alltch=(List<tchrfunctional>) Session["allTeach"];
 
     List<string> TcherNameList = new List<string>();
@@ -33,8 +34,6 @@
         }
         @foreach (tchrfunctional teacher in alltch)
         {
-
-
             int teaid = teacher.TchrF_ID;
 
             <div class="widget-body">

@@ -1,8 +1,54 @@
-﻿
+﻿@using Final_Project.Models;
 @{
     ViewBag.Title = "Notifications";
     Layout = "~/Views/Shared/_teacherLayout.cshtml";
+    List<notification> notis = (List<notification>)Session["NotiList"];
+
 }
 
 <h2>Notifications</h2>
 
+<!-- Border -->
+<div class="widget has-shadow">
+    @{
+        <div class="widget-header bordered no-actions d-flex align-items-center">
+            <h4>Notifications</h4>
+        </div>
+
+        if (notis.Count == 0)
+        {
+            <div class="widget-header bordered no-actions d-flex align-items-center">
+
+                <h1>No Notification Here</h1>
+            </div>
+        }
+        else
+        {
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                        <thead>
+                            <tr>
+                                <th>Date </th>
+                                <th>Content</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var NData in notis)
+                                {
+                                    <tr>
+                                        <td>@NData.Date</td>
+                                        <td>@NData.Message</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    }
+</div>
+<!-- End Border -->
