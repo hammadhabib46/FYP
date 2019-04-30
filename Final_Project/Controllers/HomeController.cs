@@ -170,8 +170,7 @@ namespace Final_Project.Controllers
             {
                 throw;
             }
-
-
+            
         }
 
         //sign up creator mode

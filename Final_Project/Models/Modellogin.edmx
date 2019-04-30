@@ -124,6 +124,17 @@
           <Property Name="Role_PendingFee" Type="bool" />
           <Property Name="MS_iid" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="studfee">
+          <Key>
+            <PropertyRef Name="Fee_ID" />
+          </Key>
+          <Property Name="Fee_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeeMs_ID" Type="int" />
+          <Property Name="FeeStud_ID" Type="int" />
+          <Property Name="Fee_date" Type="date" />
+          <Property Name="Fee_amount" Type="double" />
+          <Property Name="Fee_status" Type="bool" />
+        </EntityType>
         <EntityType Name="studfuctional">
           <Key>
             <PropertyRef Name="studF_ID" />
@@ -261,6 +272,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="studfee_ibfk_1">
+          <End Role="ms" Type="Self.ms" Multiplicity="0..1" />
+          <End Role="studfee" Type="Self.studfee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ms">
+              <PropertyRef Name="MS_ID" />
+            </Principal>
+            <Dependent Role="studfee">
+              <PropertyRef Name="FeeMs_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="studfee_ibfk_2">
+          <End Role="studfuctional" Type="Self.studfuctional" Multiplicity="0..1" />
+          <End Role="studfee" Type="Self.studfee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="studfuctional">
+              <PropertyRef Name="studF_ID" />
+            </Principal>
+            <Dependent Role="studfee">
+              <PropertyRef Name="FeeStud_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="subjects_ibfk_1">
           <End Role="classes" Type="Self.classes" Multiplicity="1" />
           <End Role="subjects" Type="Self.subjects" Multiplicity="*" />
@@ -293,6 +328,7 @@
           <EntitySet Name="ms" EntityType="Self.ms" Schema="testdb" store:Type="Tables" />
           <EntitySet Name="role_funcdata" EntityType="Self.role_funcdata" Schema="testdb" store:Type="Tables" />
           <EntitySet Name="roledata" EntityType="Self.roledata" Schema="testdb" store:Type="Tables" />
+          <EntitySet Name="studfee" EntityType="Self.studfee" Schema="testdb" store:Type="Tables" />
           <EntitySet Name="studfuctional" EntityType="Self.studfuctional" Schema="testdb" store:Type="Tables" />
           <EntitySet Name="subjects" EntityType="Self.subjects" Schema="testdb" store:Type="Tables" />
           <EntitySet Name="tchrfunctional" EntityType="Self.tchrfunctional" Schema="testdb" store:Type="Tables" />
@@ -323,6 +359,14 @@
           <AssociationSet Name="fook" Association="Self.fook">
             <End Role="roledata" EntitySet="roledata" />
             <End Role="role_funcdata" EntitySet="role_funcdata" />
+          </AssociationSet>
+          <AssociationSet Name="studfee_ibfk_1" Association="Self.studfee_ibfk_1">
+            <End Role="ms" EntitySet="ms" />
+            <End Role="studfee" EntitySet="studfee" />
+          </AssociationSet>
+          <AssociationSet Name="studfee_ibfk_2" Association="Self.studfee_ibfk_2">
+            <End Role="studfuctional" EntitySet="studfuctional" />
+            <End Role="studfee" EntitySet="studfee" />
           </AssociationSet>
           <AssociationSet Name="subjects_ibfk_1" Association="Self.subjects_ibfk_1">
             <End Role="classes" EntitySet="classes" />
@@ -394,6 +438,15 @@
           <AssociationSet Name="tchrfunctional_ibfk_1" Association="testdbModel.tchrfunctional_ibfk_1">
             <End Role="m" EntitySet="ms" />
             <End Role="tchrfunctional" EntitySet="tchrfunctionals" />
+          </AssociationSet>
+          <EntitySet Name="studfees" EntityType="testdbModel.studfee" />
+          <AssociationSet Name="studfee_ibfk_1" Association="testdbModel.studfee_ibfk_1">
+            <End Role="m" EntitySet="ms" />
+            <End Role="studfee" EntitySet="studfees" />
+          </AssociationSet>
+          <AssociationSet Name="studfee_ibfk_2" Association="testdbModel.studfee_ibfk_2">
+            <End Role="studfuctional" EntitySet="studfuctionals" />
+            <End Role="studfee" EntitySet="studfees" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="accfuctional">
@@ -467,6 +520,7 @@
           <NavigationProperty Name="roledatas" Relationship="testdbModel.fik" FromRole="m" ToRole="roledata" />
           <NavigationProperty Name="studfuctionals" Relationship="testdbModel.foMS" FromRole="m" ToRole="studfuctional" />
           <NavigationProperty Name="tchrfunctionals" Relationship="testdbModel.tchrfunctional_ibfk_1" FromRole="m" ToRole="tchrfunctional" />
+          <NavigationProperty Name="studfees" Relationship="testdbModel.studfee_ibfk_1" FromRole="m" ToRole="studfee" />
         </EntityType>
         <EntityType Name="roledata">
           <Key>
@@ -580,6 +634,7 @@
           <Property Name="studF_RollNO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="studF_password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="m" Relationship="testdbModel.foMS" FromRole="studfuctional" ToRole="m" />
+          <NavigationProperty Name="studfees" Relationship="testdbModel.studfee_ibfk_2" FromRole="studfuctional" ToRole="studfee" />
         </EntityType>
         <Association Name="foMS">
           <End Type="testdbModel.m" Role="m" Multiplicity="1" />
@@ -680,6 +735,43 @@
             </Principal>
             <Dependent Role="tchrfunctional">
               <PropertyRef Name="TchrF_MSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="studfee">
+          <Key>
+            <PropertyRef Name="Fee_ID" />
+          </Key>
+          <Property Name="Fee_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeeMs_ID" Type="Int32" />
+          <Property Name="FeeStud_ID" Type="Int32" />
+          <Property Name="Fee_date" Type="DateTime" />
+          <Property Name="Fee_amount" Type="Double" />
+          <Property Name="Fee_status" Type="Boolean" />
+          <NavigationProperty Name="m" Relationship="testdbModel.studfee_ibfk_1" FromRole="studfee" ToRole="m" />
+          <NavigationProperty Name="studfuctional" Relationship="testdbModel.studfee_ibfk_2" FromRole="studfee" ToRole="studfuctional" />
+        </EntityType>
+        <Association Name="studfee_ibfk_1">
+          <End Type="testdbModel.m" Role="m" Multiplicity="0..1" />
+          <End Type="testdbModel.studfee" Role="studfee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m">
+              <PropertyRef Name="MS_ID" />
+            </Principal>
+            <Dependent Role="studfee">
+              <PropertyRef Name="FeeMs_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="studfee_ibfk_2">
+          <End Type="testdbModel.studfuctional" Role="studfuctional" Multiplicity="0..1" />
+          <End Type="testdbModel.studfee" Role="studfee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="studfuctional">
+              <PropertyRef Name="studF_ID" />
+            </Principal>
+            <Dependent Role="studfee">
+              <PropertyRef Name="FeeStud_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -868,6 +960,18 @@
                 <ScalarProperty Name="TchrF_FName" ColumnName="TchrF_FName" />
                 <ScalarProperty Name="TchrF_MSID" ColumnName="TchrF_MSID" />
                 <ScalarProperty Name="TchrF_ID" ColumnName="TchrF_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="studfees">
+            <EntityTypeMapping TypeName="testdbModel.studfee">
+              <MappingFragment StoreEntitySet="studfee">
+                <ScalarProperty Name="Fee_status" ColumnName="Fee_status" />
+                <ScalarProperty Name="Fee_amount" ColumnName="Fee_amount" />
+                <ScalarProperty Name="Fee_date" ColumnName="Fee_date" />
+                <ScalarProperty Name="FeeStud_ID" ColumnName="FeeStud_ID" />
+                <ScalarProperty Name="FeeMs_ID" ColumnName="FeeMs_ID" />
+                <ScalarProperty Name="Fee_ID" ColumnName="Fee_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

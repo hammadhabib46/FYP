@@ -68,18 +68,18 @@
                                 </div>
 
                                 @{
-                                   if( (bool)TempData["HR_Manager"] == true)
-                                   { 
-                                <div class="styled-checkbox">
-                                    <input type="checkbox" name="Student" id="addhrid" checked="checked" class="form-control" readonly>
-                                    <label for="remeber">Add HR</label>
-                                </div>
+                                    if ((bool)TempData["HR_Manager"] == true)
+                                    {
+                                        <div class="styled-checkbox">
+                                            <input type="checkbox" name="Student" id="addhrid" checked="checked" class="form-control" readonly>
+                                            <label for="remeber">Add HR</label>
+                                        </div>
 
-                                <div class="styled-checkbox">
-                                    <input type="checkbox" name="Student" id="updatehrid" checked="checked" class="form-control" readonly>
-                                    <label for="remeber">Update HR</label>
-                                </div>
-                                }
+                                        <div class="styled-checkbox">
+                                            <input type="checkbox" name="Student" id="updatehrid" checked="checked" class="form-control" readonly>
+                                            <label for="remeber">Delete HR</label>
+                                        </div>
+                                    }
 
                                 }
 
@@ -98,6 +98,10 @@
                                     <label for="Nofi_ID">Activate Notifications</label>
                                 </div>
 
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="ManageFee" value="true" id="ManageFeeID" class="form-control">
+                                    <label for="ManageFeeID">ManageFee</label>
+                                </div>
 
 
                                 <div class="sign-btn text-center">

@@ -110,12 +110,19 @@
                             {
                                 <li>@Html.ActionLink("Add Teacher", "AddTeacher", "Admin")</li>
                                 <li>@Html.ActionLink("Delete Teacher", "DeleteTeacher", "Admin")</li>
+                              
 
                             }
                             if (HRP == true)
                             {
                                 <li>@Html.ActionLink("Add HR", "AddHR", "Admin")</li>
                                 <li>@Html.ActionLink("Delete HR", "DeleteHR", "Admin")</li>
+                            }
+
+                            if ((bool)Session["fee"] == true)
+                            {
+                                <li> @Html.ActionLink("Submit Fee", "AddFee", "Admin") </li>
+                                <li> @Html.ActionLink("Fee Records", "ViewFeeRecords", "Admin") </li>
                             }
                         }
 
@@ -125,7 +132,7 @@
                                 @{
                                     foreach (var item in classData)
                                     {
-                                         Nullable<int> x = item.Class_ID;
+                                        Nullable<int> x = item.Class_ID;
                                         <li><a href="@Url.Action("ClassDetails", "Admin", new { data = x})">@item.Class_Name </a></li>
                                     }
 
@@ -143,10 +150,10 @@
             <!-- End Left Sidebar -->
             <div class="content-inner">
                 <!-- Begin Container -->
-                <div class="container-fluid calendar">
+             
                     <!-- Begin Page Header-->
                     @RenderBody()
-                </div>
+               
                 <!-- End Container -->
                 <!-- Begin Page Footer-->
                 <!-- End Page Footer -->

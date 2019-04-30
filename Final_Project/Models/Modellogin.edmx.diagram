@@ -24,6 +24,9 @@
         <AssociationConnector Association="testdbModel.fook" />
         <EntityTypeShape EntityType="testdbModel.tchrfunctional" Width="1.5" PointX="13" PointY="2.125" />
         <AssociationConnector Association="testdbModel.tchrfunctional_ibfk_1" />
+        <EntityTypeShape EntityType="testdbModel.studfee" Width="1.5" PointX="11.125" PointY="9.75" />
+        <AssociationConnector Association="testdbModel.studfee_ibfk_1" />
+        <AssociationConnector Association="testdbModel.studfee_ibfk_2" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

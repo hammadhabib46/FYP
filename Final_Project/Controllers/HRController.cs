@@ -218,7 +218,7 @@ namespace Final_Project.Controllers
                 stu_add.studF_password = rol;
             }
 
-
+            stu_add.studF_PendingFee = 0;
             /////////////sending Class ID to Table instead of Class Name
 
             using (testdbEntiies objj = new testdbEntiies())

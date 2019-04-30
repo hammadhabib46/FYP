@@ -14,6 +14,11 @@ namespace Final_Project.Models
     
     public partial class studfuctional
     {
+        public studfuctional()
+        {
+            this.studfees = new HashSet<studfee>();
+        }
+    
         public int studF_ID { get; set; }
         public Nullable<int> studF_FamilyID { get; set; }
         public int studF_MSID { get; set; }
@@ -36,5 +41,6 @@ namespace Final_Project.Models
         public string studF_password { get; set; }
     
         public virtual m m { get; set; }
+        public virtual ICollection<studfee> studfees { get; set; }
     }
 }

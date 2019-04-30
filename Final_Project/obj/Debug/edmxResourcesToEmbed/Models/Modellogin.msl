@@ -183,5 +183,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="studfees">
+      <EntityTypeMapping TypeName="testdbModel.studfee">
+        <MappingFragment StoreEntitySet="studfee">
+          <ScalarProperty Name="Fee_status" ColumnName="Fee_status" />
+          <ScalarProperty Name="Fee_amount" ColumnName="Fee_amount" />
+          <ScalarProperty Name="Fee_date" ColumnName="Fee_date" />
+          <ScalarProperty Name="FeeStud_ID" ColumnName="FeeStud_ID" />
+          <ScalarProperty Name="FeeMs_ID" ColumnName="FeeMs_ID" />
+          <ScalarProperty Name="Fee_ID" ColumnName="Fee_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

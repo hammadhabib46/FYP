@@ -243,8 +243,7 @@ namespace Final_Project.Controllers
         public ActionResult StudentAttributes(roledata obj_R, bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false, bool pic = false, bool FatherCNIC = false, bool GuardianContact = false, bool email = false, bool StudPortal = false)
         {
         //    TempData["MS_ID"] = 73;
-
-
+        
             obj_R.MS_iid = (int)TempData["MS_ID"];
             TempData.Keep();
             //	obj_R.MS_iid = 5;
@@ -305,8 +304,7 @@ namespace Final_Project.Controllers
                 return RedirectToAction("TeacherAttributes", "Creator");
             }
 
-
-
+            
             return RedirectToAction("adminFunctionlities", "Creator");
         }
 
@@ -316,7 +314,7 @@ namespace Final_Project.Controllers
         {
             roledata obj_R = new roledata();
             obj_R.MS_iid = (int)TempData["MS_ID"];
-            //	obj_R.MS_iid = 5;
+           
             obj_R.Role_Name = "Accountant";
 
             obj_R.Role_Qualif = Qualification;
@@ -480,7 +478,7 @@ namespace Final_Project.Controllers
 
         
         [HttpPost]
-        public ActionResult adminFunctionlities(bool Nofi = false)
+        public ActionResult adminFunctionlities(bool Nofi = false, bool ManageFee = false)
         {
             /////////////// Saving Admin TO Role Data
             roledata obj_R = new roledata();
@@ -499,9 +497,7 @@ namespace Final_Project.Controllers
                 {
                     obj.roledatas.Add(obj_R);
                     obj.SaveChanges();
-
                 }
-
                 ModelState.Clear();
             }
 
@@ -514,7 +510,7 @@ namespace Final_Project.Controllers
             ////////////////////////////////////////
             role_funcdata obj_RF = new role_funcdata();
 
-
+            obj_RF.TrackAccProgress = ManageFee;
 
             obj_RF.Role_ID = (int)TempData["Admin_Role_ID"];
             TempData.Keep();

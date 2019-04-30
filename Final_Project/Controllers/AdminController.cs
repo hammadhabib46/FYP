@@ -104,7 +104,24 @@ namespace Final_Project.Controllers
 
             }
 
-                return View();
+            // getting either the system has fee fucntionality or not
+    //        using (testdbEntiies objj = new testdbEntiies())
+      //      {
+
+   //             try
+       //         {
+            //        var role_Id = objj.role_funcdata.Where(u => u.Role_ID == creatorid).Select(u => u.TrackAccProgress).FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
+                    Session["fee"] = true;
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                Session["fee"] = false;
+            //          }
+
+            //     }
+
+        
+            return View();
 		}
 
 		public ActionResult AddStudent()
@@ -229,6 +246,12 @@ namespace Final_Project.Controllers
             return View();
         }
 
+        public ActionResult AddFee()
+        {
+            Session["ShowInvoice"] = false;
+            return View();
+        }
+
         public ActionResult ClassDetails(int data)
         {
              Session["Class_Name"] = data;
@@ -257,6 +280,11 @@ namespace Final_Project.Controllers
 			return View();
 		}
 
+        public ActionResult ViewFeeRecords()
+        {
+            Session["ViewData"] = false;
+            return View();
+        }
 
 
         public ActionResult DeleteTeacher()
@@ -320,15 +348,11 @@ namespace Final_Project.Controllers
             {
                 var Data = objj.classes.SqlQuery("Select * from classes where ms_id = '" + MS_d + "' and Class_Name = '"+ stu_add.studF_ClassName +"' ").FirstOrDefault<@class>();
                 stu_add.studF_ClassName = (string)Data.Class_ID.ToString();
-                
             }
-
-
-
+            
+            stu_add.studF_PendingFee = 0;
             ///
-
-
-
+            
             if (ModelState.IsValid)
 			{
 				using (testdbEntiies obj = new testdbEntiies())
@@ -518,6 +542,63 @@ namespace Final_Project.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        public ActionResult AddFee(manageFee Fee_obj)
+        {
+            int msid = (int)Session["M_ID"];
+            /////////// checking is the record of current month is not put in the Table && putting it
+            if (Fee_obj.RecordUpdated((int)Session["M_ID"])==true)
+            {
+                List<string> Sdata=Fee_obj.UpdateStudentFee(Fee_obj, (int)Session["M_ID"]);
+                if (Sdata[0] == "Success")
+                {
+                    Session["ShowInvoice"] = true;
+                    
+                    using (testdbEntiies objx = new testdbEntiies())
+                    {
+                        var msData = objx.ms.Where(u => u.MS_ID == msid).FirstOrDefault();
+                        Sdata.Add(msData.MS_InstName);
+                        Sdata.Add(msData.MS_InstAddress);
+                        Sdata.Add(msData.MS_InstPhone);
+                        Sdata.Add(msData.MS_InstBranch);
+                        Sdata.Add(DateTime.Now.ToString("MMMM dd yy"));
+                        Sdata.Add(Fee_obj.rollnumber);
+                    }
+
+                    
+                    Session["DataInvoice"] = Sdata;
+
+                }
+                else if (Sdata[0] == "RollNumberError")
+                {
+                    ModelState.AddModelError("rollnumber","ERROR DUE TO ROLL NUMBER MISMATCH");
+                }
+                else if (Sdata[0] == "AlreadySubmitedFee")
+                {
+                    ModelState.AddModelError("rollnumber", "ERROR DUE TO SUbmitted Fee");
+                }
+                else if (Sdata[0] == "Wrong Date")
+                {
+                    ModelState.AddModelError("rollnumber", "ERROR DUE TO Wrong Date");
+                }
+                
+            }
+
+            
+        
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ViewFeeRecords(manageFee Fee_obj)
+        {
+            int ms_id = (int)Session["M_ID"];
+            Session["ViewData"] = true;
+            Session["FeeRecords"] = Fee_obj.viewFeeData(Fee_obj,ms_id);
+            
+            return View();
+        }
 
 
     }

@@ -35,5 +35,6 @@ namespace Final_Project.Models
         public virtual DbSet<role_funcdata> role_funcdata { get; set; }
         public virtual DbSet<subject> subjects { get; set; }
         public virtual DbSet<tchrfunctional> tchrfunctionals { get; set; }
+        public virtual DbSet<studfee> studfees { get; set; }
     }
 }

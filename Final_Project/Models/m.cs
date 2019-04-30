@@ -22,6 +22,7 @@ namespace Final_Project.Models
             this.roledatas = new HashSet<roledata>();
             this.studfuctionals = new HashSet<studfuctional>();
             this.tchrfunctionals = new HashSet<tchrfunctional>();
+            this.studfees = new HashSet<studfee>();
         }
     
         public int MS_ID { get; set; }
@@ -39,5 +40,6 @@ namespace Final_Project.Models
         public virtual ICollection<roledata> roledatas { get; set; }
         public virtual ICollection<studfuctional> studfuctionals { get; set; }
         public virtual ICollection<tchrfunctional> tchrfunctionals { get; set; }
+        public virtual ICollection<studfee> studfees { get; set; }
     }
 }

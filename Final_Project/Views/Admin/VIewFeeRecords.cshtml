@@ -1,0 +1,108 @@
+﻿@model Final_Project.Models.manageFee
+@{
+    ViewBag.Title = "VIewFeeRecords";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+    List<string> months = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec" };
+    int currentYear = int.Parse(DateTime.Now.Year.ToString());
+    List<int> years = new List<int>();
+    for (int i = 2017; i <= currentYear; i++)
+    { years.Add(i); }
+
+    bool V_data = (bool)Session["ViewData"];
+
+    List<Final_Project.Models.manageFee.ViewData> feeRecord = (List<Final_Project.Models.manageFee.ViewData>)Session["FeeRecords"];
+   
+}
+
+<h2>VIewFeeRecords</h2>
+@if (V_data == false)
+{
+
+    using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(false)
+        {
+
+            <div class="widget has-shadow mx-auto" style="width: 1400px;  padding-right:120px; ">
+                <div class="widget-header bordered no-actions d-flex align-items-center justify-content-md-center">
+                    <h3>Submit Fee</h3>
+                </div>
+                <div class="form-group row d-flex align-items-center mb-5 justify-content-md-center " style="padding-top: 60px;">
+                    <label class="col-lg-3 form-control-label text-right">Select Month</label>
+                    <div class="col-lg-3">
+                        @Html.DropDownListFor(model => model.month, new SelectList(months), new { @class = "form-control", aria_describedby = "dropdownMenu1" })
+                    </div>
+                    <label class="col-lg-3 form-control-label text-right">Select Year</label>
+                    <div class="col-lg-3">
+                        @Html.DropDownListFor(model => model.year, new SelectList(years), new { @class = "form-control", aria_describedby = "dropdownMenu1" })
+                    </div>
+                </div>
+
+
+                <div class="form-group row d-flex ">
+                   
+                    <div class="sign-btn text-center col-lg-2 ">
+                        <input type="submit" value="Submit Fee" class="btn btn-lg btn-gradient-03" />
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+@if (V_data == true)
+{
+    <!-- Border -->
+    <div class="widget has-shadow">
+        @{
+            <div class="widget-header bordered no-actions d-flex align-items-center">
+                <h4>Student Data</h4>
+            </div>
+
+            if (feeRecord == null)
+            {
+                <div class="widget-header bordered no-actions d-flex align-items-center">
+
+                    <h4>Class is Empty</h4>
+                </div>
+            }
+            else
+            {
+                <div class="widget-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Roll Number </th>
+                                    <th>Name</th>
+                                    <th>Class</th>
+                                    <th>Fee Status</th>
+                                    <th>Pending Fee</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var studentData in feeRecord)
+                                    {
+                                <tr>
+                                    <td>@studentData.rollnumber</td>
+                                    <td>@studentData.name</td>
+                                    <td>@studentData.classname</td>
+                                    <td>@studentData.feestatus</td>
+                                    <td>@studentData.pendingfee</td>
+
+                                </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <!-- End Border -->
+
+}
+
+

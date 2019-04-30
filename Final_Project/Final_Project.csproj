@@ -476,6 +476,7 @@
     <Compile Include="Models\m.cs">
       <DependentUpon>Modellogin.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\manageFee.cs" />
     <Compile Include="Models\Modellogin.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -496,6 +497,9 @@
     </Compile>
     <Compile Include="Models\Rolevalues.cs" />
     <Compile Include="Models\role_funcdata.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\studfee.cs">
       <DependentUpon>Modellogin.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\studfuctional.cs">
@@ -548,6 +552,8 @@
     <Content Include="Views\Admin\View.cshtml" />
     <Content Include="Views\Admin\ClassDetails.cshtml" />
     <Content Include="Views\Home\verifyEmail.cshtml" />
+    <Content Include="Views\Admin\AddFee.cshtml" />
+    <Content Include="Views\Admin\VIewFeeRecords.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
