@@ -43,5 +43,6 @@ namespace Final_Project.Models
         public virtual DbSet<markss> marksses { get; set; }
         public virtual DbSet<markstotal> markstotals { get; set; }
         public virtual DbSet<tchrfsubject> tchrfsubjects { get; set; }
+        public virtual DbSet<theme> themes { get; set; }
     }
 }

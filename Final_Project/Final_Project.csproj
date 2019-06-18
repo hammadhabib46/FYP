@@ -481,12 +481,15 @@
     </Compile>
     <Compile Include="Models\CreatorLogin.cs" />
     <Compile Include="Models\CreatorSignUp.cs" />
+    <Compile Include="Models\Editor.cs" />
+    <Compile Include="Models\HomeDatabaseConnections.cs" />
     <Compile Include="Models\hrfuctional.cs">
       <DependentUpon>Modellogin.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\m.cs">
       <DependentUpon>Modellogin.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\mainmenuCreator.cs" />
     <Compile Include="Models\manageFee.cs" />
     <Compile Include="Models\marksHelper.cs" />
     <Compile Include="Models\marksp.cs">
@@ -542,6 +545,9 @@
     </Compile>
     <Compile Include="Models\tchrsubdata.cs" />
     <Compile Include="Models\teacherSaverCheck.cs" />
+    <Compile Include="Models\theme.cs">
+      <DependentUpon>Modellogin.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -607,6 +613,10 @@
     <Content Include="Views\Admin\AssignS_Subjects.cshtml" />
     <Content Include="Views\Student\Marks.cshtml" />
     <Content Include="Views\Student\Attendence.cshtml" />
+    <Content Include="Views\Creator\successfullyCreated.cshtml" />
+    <Content Include="Views\Creator\ChooseTheme.cshtml" />
+    <Content Include="Views\Creator\EditMS.cshtml" />
+    <Content Include="Views\Creator\editAddClasses.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

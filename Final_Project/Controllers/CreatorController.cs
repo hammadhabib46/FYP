@@ -30,6 +30,12 @@ namespace Final_Project.Controllers
         //GET: / Creator / Define Classes + add new class in MS
         public ActionResult ManageClass()
         {
+
+            return View();
+        }
+
+        public ActionResult ChooseTheme()
+        {
             return View();
         }
 
@@ -42,20 +48,48 @@ namespace Final_Project.Controllers
         //GET: / Creator / Choose Student Attributes for MS
         public ActionResult StudentAttributes()
         {
+
             return View();
         }
 
+        public ActionResult EditMS(marksHelper chose)
+        {
+            int msid = 40; // not causing worry
+            string x=chose.Choose;
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                var msData = objj.ms.Where(u => u.MS_InstName == x).FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
+                msid = msData.MS_ID;
+                TempData["MS_ID"] = msid;
+                Session["MS_ID"] = msid;
+            }
+            
+            Editor editor = new Editor(msid);
+            Session["pre-editedData"] = editor;
+
+
+
+            return View();
+        }
         public ActionResult HRAttributes()
         {
             return View();
         }
-
+        
+        public ActionResult editAddClasses()
+        {
+            return View();
+        }
         public ActionResult AccountantAttributes()
         {
             return View();
         }
 
+        public ActionResult successfullyCreated()
+        {
 
+            return View();
+        }
 
         public ActionResult adminFunctionlities()
         {
@@ -140,6 +174,8 @@ namespace Final_Project.Controllers
                         TempData.Keep();
 
                         ModelState.Clear();
+                        TempData["NoClassesCheck"] = 0;
+                        TempData["ClassExist"] = false;
                         return RedirectToAction("ManageClass", "Creator");
                     }
                 }
@@ -151,15 +187,16 @@ namespace Final_Project.Controllers
 
         // POST method for adding Class data + subjects + fee in database ( in 2 separate tables)
         [HttpPost]
-        public ActionResult ManageClass(string ClassName,Nullable<double> Fee, string subjects)
+        public ActionResult ManageClass(string ClassName, Nullable<double> Fee, string subjects)
         {
-            int mid = (int)TempData["MS_ID"]; ;
+            int mid = (int)TempData["MS_ID"];
             TempData.Keep();
-            
+            Session["MS_ID"] = mid;
             @class class_obj = new @class();
             class_obj.Class_Fee = Fee;
             class_obj.Class_Name = ClassName;
             //	int x= ;
+
             using (testdbEntiies objj = new testdbEntiies())
             {
                 try
@@ -168,13 +205,13 @@ namespace Final_Project.Controllers
                     var usr = objj.classes.Single(u => u.Class_Name == class_obj.Class_Name && u.MS_id == mid);
                     if (usr != null)
                     {
-                        ModelState.AddModelError("Class_Name", "Class Already Exists");
-                        return RedirectToAction("ManageClass", "Creator");
+                        ViewBag.doublesub = "Class Already Exists";
+                        return View();
                     }
                 }
                 catch (Exception ex)
                 {
-                   
+
                     if (ModelState.IsValid)
                     {
                         List<string> subs = subjects.Split(',').Reverse().ToList();
@@ -195,7 +232,6 @@ namespace Final_Project.Controllers
                         }
 
 
-
                         using (testdbEntiies obj = new testdbEntiies())
                         {
                             class_obj.MS_id = (int)TempData["MS_ID"];
@@ -208,21 +244,19 @@ namespace Final_Project.Controllers
 
                         TempData["Class_ID"] = ClassId;
 
-
-
                         ////////////////////////   inserting subjects in classes
-                        
+
 
                         subject Subb_model = new subject();
-                        
-                        
+
+
                         for (int i = 0; i < subs.Count; i++)
                         {
                             using (testdbEntiies obj_sub = new testdbEntiies())
                             {
                                 Subb_model = new subject();
                                 Subb_model.Cls_id = (int)ClassId;
-                                
+
                                 Subb_model.Subj_name = subs[i];
                                 obj_sub.subjects.Add(Subb_model);
                                 obj_sub.SaveChanges();
@@ -231,9 +265,8 @@ namespace Final_Project.Controllers
 
                         //////////////////////////////
 
-                        
-
                         ModelState.Clear();
+                        TempData["NoClassesCheck"] = 1;
                         return RedirectToAction("ManageClass", "Creator");
                     }
                     else
@@ -250,12 +283,12 @@ namespace Final_Project.Controllers
         }
 
         [HttpPost]
-        public ActionResult ManageRoles(bool AccountManager = false, bool HRmanager = false,bool Teacher = false)
+        public ActionResult ManageRoles(bool AccountManager = false, bool HRmanager = false, bool Teacher = false)
         {
             TempData["Teacher"] = Teacher;
             TempData["Acc_Manager"] = AccountManager;
             TempData["HR_Manager"] = HRmanager;
-           
+
             TempData["Hr_Portal"] = AccountManager;
             TempData["St_Portal"] = false;
             TempData["Teacher_Portal"] = Teacher;
@@ -269,8 +302,8 @@ namespace Final_Project.Controllers
         [HttpPost]
         public ActionResult StudentAttributes(roledata obj_R, bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false, bool pic = false, bool FatherCNIC = false, bool GuardianContact = false, bool email = false, bool StudPortal = false)
         {
-        //    TempData["MS_ID"] = 73;
-        
+            //    TempData["MS_ID"] = 73;
+
             obj_R.MS_iid = (int)TempData["MS_ID"];
             TempData.Keep();
             //	obj_R.MS_iid = 5;
@@ -314,7 +347,7 @@ namespace Final_Project.Controllers
                 TempData["Stud_Role_ID"] = (int)role_Id;
             }
 
-            
+
 
             if ((bool)TempData["Acc_Manager"] == true)
             {
@@ -329,7 +362,7 @@ namespace Final_Project.Controllers
                 return RedirectToAction("TeacherAttributes", "Creator");
             }
 
-            
+
             return RedirectToAction("adminFunctionlities", "Creator");
         }
 
@@ -339,7 +372,7 @@ namespace Final_Project.Controllers
         {
             roledata obj_R = new roledata();
             obj_R.MS_iid = (int)TempData["MS_ID"];
-           
+
             obj_R.Role_Name = "Accountant";
 
             obj_R.Role_Qualif = Qualification;
@@ -349,12 +382,12 @@ namespace Final_Project.Controllers
             obj_R.Role_Gender = false;
             obj_R.Role_CNIC = CNIC;
 
-            
+
             obj_R.Role_Fname = true;
             obj_R.Role_Lname = true;
             obj_R.Role_Phone = true;
             obj_R.Role_FthrName = true;
-            
+
             obj_R.Role_Portal = true;
 
             if (ModelState.IsValid)
@@ -374,7 +407,7 @@ namespace Final_Project.Controllers
                 ModelState.Clear();
             }
 
-            
+
             if ((bool)TempData["HR_Manager"] == true)
             {
                 HR_A = true;
@@ -384,13 +417,13 @@ namespace Final_Project.Controllers
             {
                 return RedirectToAction("TeacherAttributes", "Creator");
             }
-            
+
             return RedirectToAction("adminFunctionlities", "Creator");
         }
 
 
         [HttpPost]
-        public ActionResult HRAttributes(bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false,bool Email = false, bool pic = false, bool Qualification = false)
+        public ActionResult HRAttributes(bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false, bool Email = false, bool pic = false, bool Qualification = false)
         {
             roledata obj_R = new roledata();
             obj_R.MS_iid = (int)TempData["MS_ID"];
@@ -408,7 +441,7 @@ namespace Final_Project.Controllers
 
             obj_R.Role_Portal = true;
 
-            
+
             obj_R.Role_Fname = true;
             obj_R.Role_Lname = true;
             obj_R.Role_Phone = true;
@@ -447,10 +480,10 @@ namespace Final_Project.Controllers
         {
             roledata obj_R = new roledata();
             obj_R.MS_iid = (int)TempData["MS_ID"];
-         //   	obj_R.MS_iid = 5;
+            //   	obj_R.MS_iid = 5;
             obj_R.Role_Name = "Teacher";
 
-            
+
             obj_R.Role_Pic = pic;
             obj_R.Role_Dob = DOB;
             obj_R.Role_Address = Address;
@@ -491,7 +524,7 @@ namespace Final_Project.Controllers
             return RedirectToAction("adminFunctionlities", "Creator");
         }
 
-        
+
         [HttpPost]
         public ActionResult adminFunctionlities(bool Nofi = false, bool ManageFee = false)
         {
@@ -500,10 +533,10 @@ namespace Final_Project.Controllers
             obj_R.MS_iid = (int)TempData["MS_ID"];
 
             //	obj_R.MS_iid = 5;
-            
+
             obj_R.Role_Name = "Admin";
 
-            
+
             if (ModelState.IsValid)
             {
                 using (testdbEntiies obj = new testdbEntiies())
@@ -546,7 +579,7 @@ namespace Final_Project.Controllers
                 }
                 ModelState.Clear();
             }
-           
+
             TempData["adminNoti"] = Nofi;
             TempData["adminNoti2"] = Nofi;
 
@@ -568,7 +601,7 @@ namespace Final_Project.Controllers
             //}
 
 
-            return RedirectToAction("Continue", "Creator");
+            return RedirectToAction("ChooseTheme", "Creator");
         }
 
 
@@ -576,10 +609,10 @@ namespace Final_Project.Controllers
         public ActionResult StudFunctionlities(bool Nofi = false)
         {
             role_funcdata obj_RF = new role_funcdata();
-            
+
             obj_RF.ViewNotification = Nofi;
             obj_RF.Role_ID = (int)TempData["Stud_Role_ID"];
-            
+
             if (ModelState.IsValid)
             {
                 using (testdbEntiies obj = new testdbEntiies())
@@ -590,7 +623,7 @@ namespace Final_Project.Controllers
                 }
                 ModelState.Clear();
             }
-            
+
             if ((bool)TempData["Hr_Portal"] == true)
             {
                 return RedirectToAction("HrFunctionlities", "Creator");
@@ -605,15 +638,15 @@ namespace Final_Project.Controllers
 
 
         [HttpPost]
-        public ActionResult HrFunctionlities(bool addStudent=false, bool deleteStudent = false,bool addTeacher=false, bool deleteTeacher=false)
+        public ActionResult HrFunctionlities(bool addStudent = false, bool deleteStudent = false, bool addTeacher = false, bool deleteTeacher = false)
         {
             role_funcdata obj_RF = new role_funcdata();
 
             obj_RF.AddStudent = true;
             obj_RF.DeleteStudent = true;
 
-       
-            
+
+
             obj_RF.Role_ID = (int)TempData["Hr_Role_ID"];
 
 
@@ -636,15 +669,15 @@ namespace Final_Project.Controllers
             return RedirectToAction("Continue", "Creator");
         }
 
-        
+
         [HttpPost]
-        public ActionResult TeacherFucntionalities(bool M = false,bool A= false)
+        public ActionResult TeacherFucntionalities(bool M = false, bool A = false)
         {
             role_funcdata obj_RF = new role_funcdata();
 
             obj_RF.Marks = M;
             obj_RF.Attendance = A;
-            
+
             obj_RF.Role_ID = (int)TempData["Teacher_Role_ID"];
             TempData.Keep();
 
@@ -657,11 +690,159 @@ namespace Final_Project.Controllers
                 }
                 ModelState.Clear();
             }
-            
+
             return RedirectToAction("Continue", "Creator");
         }
 
+        [HttpPost]
+        public ActionResult ChooseTheme(theme themeVar)
+        {
+            int msid = (int)Session["MS_ID"];
+            themeVar.MS_primekeyid = msid;
+            string checktheme = themeVar.theme1;
 
+            if (checktheme != null)
+            {
+                using (testdbEntiies obj = new testdbEntiies())
+                {
+                    obj.themes.Add(themeVar);
+                    obj.SaveChanges();
+                }
+                ModelState.Clear();
+            }
+            else
+            {
+                ModelState.AddModelError("theme1", "Choose A Theme Please");
+                return View();
+            }
+
+            return RedirectToAction("successfullyCreated", "Creator");
+        }
+
+
+        [HttpPost]
+        public ActionResult EditMS(String name, String branch,string address,string number,string options1,string options2 )
+        {
+            int msid = (int)Session["MS_ID"];
+            Editor editor = new Editor(msid);
+            if (name != "")
+            {
+                editor.updateName(name);
+            }
+            if (branch != "")
+            {
+                editor.updateBranch(branch);
+            }
+            if (address != "")
+            {
+                editor.updateAddress(address);
+            }
+            if (editor.PhoneNumber != "")
+            {
+                editor.updateNumber(number);
+            }
+
+            int x = 0;
+            return RedirectToAction("editAddClasses", "Creator");
+        }
+
+        [HttpPost]
+        public ActionResult editAddClasses(string ClassName, Nullable<double> Fee, string subjects)
+        {
+            
+
+            int mid = (int)TempData["MS_ID"];
+            TempData.Keep();
+            Session["MS_ID"] = mid;
+            @class class_obj = new @class();
+            class_obj.Class_Fee = Fee;
+            class_obj.Class_Name = ClassName;
+            //	int x= ;
+
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                try
+                {
+                    // ek anagement system ki specific id k  class name k sath compare krna ha newly entered class name 
+                    var usr = objj.classes.Single(u => u.Class_Name == class_obj.Class_Name && u.MS_id == mid);
+                    if (usr != null)
+                    {
+                        ViewBag.doublesub = "Class Already Exists";
+                        return View();
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    if (ModelState.IsValid)
+                    {
+                        List<string> subs = subjects.Split(',').Reverse().ToList();
+
+                        for (int i = 0; i < subs.Count; i++)
+                        {
+                            for (int j = 0; j < subs.Count; j++)
+                            {
+                                if (subs[i] == subs[j])
+                                {
+                                    if (i != j)
+                                    {
+                                        ViewBag.doublesub = "Subjects Cannot be dublicated";
+                                        return View();
+                                    }
+                                }
+                            }
+                        }
+
+
+                        using (testdbEntiies obj = new testdbEntiies())
+                        {
+                            class_obj.MS_id = (int)TempData["MS_ID"];
+                            TempData.Keep();
+                            obj.classes.Add(class_obj);
+                            obj.SaveChanges();
+                        }
+
+                        var ClassId = objj.classes.Where(u => u.Class_Name == class_obj.Class_Name).Select(u => u.Class_ID).FirstOrDefault();   //// getting MS from database using MS_Name
+
+                        TempData["Class_ID"] = ClassId;
+
+                        ////////////////////////   inserting subjects in classes
+
+
+                        subject Subb_model = new subject();
+
+
+                        for (int i = 0; i < subs.Count; i++)
+                        {
+                            using (testdbEntiies obj_sub = new testdbEntiies())
+                            {
+                                Subb_model = new subject();
+                                Subb_model.Cls_id = (int)ClassId;
+
+                                Subb_model.Subj_name = subs[i];
+                                obj_sub.subjects.Add(Subb_model);
+                                obj_sub.SaveChanges();
+                            }
+                        }
+
+                        //////////////////////////////
+
+                        ModelState.Clear();
+                        TempData["NoClassesCheck"] = 1;
+                        return RedirectToAction("ManageClass", "Creator");
+                    }
+                    else
+                    {
+                        int x = class_obj.Class_ID;
+                        string y = class_obj.Class_Name;
+                        Nullable<double> fee = class_obj.Class_Fee;
+
+                    }
+                }
+            }
+
+            return View();
+        }
 
     }
 }

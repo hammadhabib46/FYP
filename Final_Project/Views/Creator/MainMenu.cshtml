@@ -1,6 +1,6 @@
-﻿
+﻿@model Final_Project.Models.marksHelper
 @{
-    Layout = null;
+    List<string> recents = (List<string>)Session["systemNames"];
 }
 
 <!DOCTYPE html>
@@ -35,7 +35,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
 <body class="bg-fixed-07">
-    <div >
+    <div>
         @Html.Partial("_headerCreator")
     </div>
     <!-- Begin Preloader -->
@@ -50,9 +50,10 @@
 
     <div class="container-fluid">
         <div class="row flex-row">
-            <div class="col-6">
+            <div class="col-12">
                 <!-- Form -->
-                @using (Html.BeginForm())
+                @using (Html.BeginForm("EditMS", "Creator", FormMethod.Get, new { enctype = "multipart/form-data" }))
+
                 {
                     @Html.AntiForgeryToken()
                     <div class="widget-header bordered no-actions d-flex align-items-center justify-content-md-center">
@@ -64,123 +65,39 @@
                             <div class="widget-body p-3">
                                 <ul class="pop-groups list-group w-100">
                                     <!-- 01 -->
-                                    <li class="list-group-item">
-                                        <div class="media">
-                                            <div class="media-left align-self-center mr-3">
-                                                <img class="rounded-circle" src="~/Content/assets/img/avatar/avatar-07.jpg" alt="..." style="width: 50px;">
-                                            </div>
-                                            <div class="media-body align-self-center">
-                                                <h5 class="m-0">Lisa Garett</h5>
-                                            </div>
-                                            <div class="media-right align-self-center">
-                                                <button class="btn btn-gradient-03">Add</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!-- End 01 -->
-                                    <!-- 02 -->
-                                    <li class="list-group-item">
-                                        <div class="media">
-                                            <div class="media-left align-self-center mr-3">
-                                                <img class="rounded-circle" src="~/Content/assets/img/avatar/avatar-08.jpg" alt="..." style="width: 50px;">
-                                            </div>
-                                            <div class="media-body align-self-center">
-                                                <h5 class="m-0">Peter Collins</h5>
-                                            </div>
-                                            <div class="media-right align-self-center">
-                                                <button class="btn btn-gradient-03">Add</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!-- End 02 -->
-                                    <!-- 03 -->
-                                    <li class="list-group-item">
-                                        <div class="media">
-                                            <div class="media-left align-self-center mr-3">
-                                                <img class="rounded-circle" src="~/Content/assets/img/avatar/avatar-09.jpg" alt="..." style="width: 50px;">
-                                            </div>
-                                            <div class="media-body align-self-center">
-                                                <h5 class="m-0">Michael Bradley</h5>
-                                            </div>
-                                            <div class="media-right align-self-center">
-                                                <button class="btn btn-gradient-03">Add</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!-- End 03 -->
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- End Suggestion -->
-                    </div>
-                }
-            </div>
-            <!-- End Form -->
 
-            <div class="col-6">
-                <!-- Form -->
+                                    @Html.DropDownListFor(model => model.Choose, new SelectList(recents), new { @class = "form-control", aria_describedby = "dropdownMenu2" })
 
-                <div class="widget-header bordered no-actions d-flex align-items-center justify-content-md-center">
-                    <h4>Templates</h4>
-                </div>
-                <div class="widget-body">
-                    <!-- Begin Suggestion -->
-                    <div class="widget has-shadow">
-
-                        <div class="widget-body p-3">
-                            <ul class="pop-groups list-group w-100">
-                                <!-- 01 -->
+                                    @*if (recents.Count == 0)
+                            {
                                 <li class="list-group-item">
                                     <div class="media">
                                         <div class="media-left align-self-center mr-3">
                                             <img class="rounded-circle" src="~/Content/assets/img/avatar/avatar-07.jpg" alt="..." style="width: 50px;">
                                         </div>
                                         <div class="media-body align-self-center">
-                                            <h5 class="m-0">Lisa Garett</h5>
+                                            <h5 class="m-0">No Recent Projects</h5>
                                         </div>
-                                        <div class="media-right align-self-center">
-                                            <button class="btn btn-gradient-01">Add</button>
-                                        </div>
+
                                     </div>
                                 </li>
-                                <!-- End 01 -->
-                                <!-- 02 -->
-                                <li class="list-group-item">
-                                    <div class="media">
-                                        <div class="media-left align-self-center mr-3">
-                                            <img class="rounded-circle" src="~/Content/assets/img/avatar/avatar-08.jpg" alt="..." style="width: 50px;">
-                                        </div>
-                                        <div class="media-body align-self-center">
-                                            <h5 class="m-0">Peter Collins</h5>
-                                        </div>
-                                        <div class="media-right align-self-center">
-                                            <button class="btn btn-gradient-01">Add</button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!-- End 02 -->
-                                <!-- 03 -->
-                                <li class="list-group-item">
-                                    <div class="media">
-                                        <div class="media-left align-self-center mr-3">
-                                            <img class="rounded-circle" src="~/Content/assets/img/avatar/avatar-09.jpg" alt="..." style="width: 50px;">
-                                        </div>
-                                        <div class="media-body align-self-center">
-                                            <h5 class="m-0">Michael Bradley</h5>
-                                        </div>
-                                        <div class="media-right align-self-center">
-                                            <button class="btn btn-gradient-01">Add</button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!-- End 03 -->
-                            </ul>
+                            }*@
+                                    <!-- End 01 -->
+
+                                </ul>
+                            </div>
                         </div>
+                        <!-- End Suggestion -->
                     </div>
-                    <!-- End Suggestion -->
-                </div>
+                    <div class="sign-btn text-center ">
+                        <input type="submit" value="Update" class="btn btn-lg btn-gradient-03" />
+                    </div>
+                }
+
             </div>
             <!-- End Form -->
+
+
 
         </div>
         <!-- End Row -->
@@ -193,8 +110,8 @@
 
 
             <div class="col-xl-7">
-               <p class="btn btn-primary btn-lg mr-1 mb-2 btn btn-light"> @Html.ActionLink("Create New Management System", "DefineMS", "Creator")</p>
-             </div>
+                <p class="btn btn-primary btn-lg mr-1 mb-2 btn btn-light"> @Html.ActionLink("Create New Management System", "DefineMS", "Creator")</p>
+            </div>
 
 
             <!-- End Block Buttons -->
@@ -202,8 +119,19 @@
     </div>
     <!-- End Container -->
     <!-- Begin Vendor Js -->
+    @{Html.EnableClientValidation(true);}
+    @{Html.EnableUnobtrusiveJavaScript(true);}
     <script src="~/Content/assets/vendors/js/base/jquery.min.js"></script>
     <script src="~/Content/assets/vendors/js/base/core.min.js"></script>
+
+    <script src="~/Content/assets/vendors/js/nicescroll/nicescroll.min.js"></script>
+    <script src="~/Content/assets/vendors/js/calendar/moment.min.js"></script>
+    <script src="~/Content/assets/vendors/js/calendar/fullcalendar.min.js"></script>
+    <script src="~/Content/assets/vendors/js/app/app.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <!-- End Vendor Js -->
     <!-- Begin Page Vendor Js -->
     <script src="~/Content/assets/vendors/js/app/app.min.js"></script>

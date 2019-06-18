@@ -12,7 +12,6 @@ using System.Data.SqlClient;
 using System.Net;
 using System.Net.Mail;
 
-
 namespace Final_Project.Controllers
 {
 	public class HomeController : Controller
@@ -30,10 +29,12 @@ namespace Final_Project.Controllers
 		{
 			return View();
 		}
+
 		public ActionResult UsersMode()
 		{
 			return View();
 		}
+
 		public ActionResult SignUp()
 		{
 			return View();
@@ -41,7 +42,7 @@ namespace Final_Project.Controllers
 
 		public ActionResult UserLogin()
 		{
-            int MS_id = (int)Session["M_id"];
+            int MS_id = (int)Session["Ms_id"];
 
             using (testdbEntiies objj = new testdbEntiies())
             {
@@ -92,8 +93,7 @@ namespace Final_Project.Controllers
                 ModelState.Clear();
                 Session["msg"] = signupuserdet.firstname + " " + signupuserdet.lastname + " successfully registered";
             }
-
-
+            
             return RedirectToAction("SignUp", "Home");
         }
 
@@ -151,7 +151,7 @@ namespace Final_Project.Controllers
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
-            smtp.Credentials = new System.Net.NetworkCredential("f158034@nu.edu.pk", "64>JyKS=");
+            smtp.Credentials = new System.Net.NetworkCredential("f158034@nu.edu.pk", "64<JyKS=");
             smtp.EnableSsl = true;
             MailMessage msg = new MailMessage();
             msg.Subject = "NEXUM - Creator Email Verification Code";
@@ -224,8 +224,10 @@ namespace Final_Project.Controllers
 						var userId = objj.creators.Where(u => u.email == user.Name).Select(u => u.id).FirstOrDefault();
 
 						TempData["log_user"] = userId;
-					   
-						return RedirectToAction("MainMenu","Creator");
+                        mainmenuCreator mmc = new mainmenuCreator();
+                        List<string> systemNames= mmc.getRecentProjects((int)userId);
+                        Session["systemNames"] = systemNames;
+                        return RedirectToAction("MainMenu","Creator");
 					}
 				}
 				catch (Exception ex)
@@ -242,9 +244,23 @@ namespace Final_Project.Controllers
         public ActionResult UserLogin(CreatorLogin user)
         {
             int ms_id = (int)Session["M_ID"];
-            
+           
+            //// theemseection
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                try
+                {
+                    var usr = objj.themes.Single(u => u.MS_primekeyid == ms_id);
+                    Session["Theme"] = usr.theme1;
 
-            if (user.role == "Admin")
+                }
+                catch (Exception ex)
+                {
+                }
+            }  ///
+
+
+                    if (user.role == "Admin")
             {
 
                 string passDecrypt = Encrypt(user.Password);

@@ -6,11 +6,7 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.ComponentModel.DataAnnotations;
+
 namespace Final_Project.Models
 {
     using System;
@@ -30,18 +26,10 @@ namespace Final_Project.Models
         public string TchrF_FName { get; set; }
         public string TchrF_LName { get; set; }
         public Nullable<System.DateTime> TchrF_DOB { get; set; }
-
-        [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{5})\)?[-. ]?([0-9]{7})?[-. ]?([0-9]{1})$", ErrorMessage = "Not a valid CNIC number")]
         public string TchrF_CNIC { get; set; }
-        [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{4})\)?[-. ]?([0-9]{7})$", ErrorMessage = "Not a valid phone number")]
         public string TchrF_Phone { get; set; }
         public string TchrF_Address { get; set; }
         public byte[] TchrF_Pic { get; set; }
-
-        [DataType(DataType.EmailAddress)]
-        [EmailAddress]
         public string TchrF_Email { get; set; }
         public string TchrF_Gender { get; set; }
         public string TchrF_Qualif { get; set; }

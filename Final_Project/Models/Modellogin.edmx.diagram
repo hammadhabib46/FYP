@@ -45,6 +45,8 @@
         <AssociationConnector Association="testdbModel.markstotal_ibfk_1" />
         <AssociationConnector Association="testdbModel.tchrfsubjects_ibfk_2" />
         <AssociationConnector Association="testdbModel.tchrfsubjects_ibfk_1" />
+        <EntityTypeShape EntityType="testdbModel.theme" Width="1.5" PointX="7.125" PointY="12.125" />
+        <AssociationConnector Association="testdbModel.theme_ibfk_1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

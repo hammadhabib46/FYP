@@ -253,6 +253,14 @@
     <Property Name="TchrF_RollID" Type="varchar" MaxLength="255" />
     <Property Name="TchrF_password" Type="varchar" MaxLength="255" />
   </EntityType>
+  <EntityType Name="theme">
+    <Key>
+      <PropertyRef Name="ThemeID" />
+    </Key>
+    <Property Name="ThemeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MS_primekeyid" Type="int" />
+    <Property Name="theme" Type="varchar" MaxLength="255" />
+  </EntityType>
   <Association Name="attendancep_ibfk_1">
     <End Role="tchrfunctional" Type="Self.tchrfunctional" Multiplicity="1" />
     <End Role="attendancep" Type="Self.attendancep" Multiplicity="*" />
@@ -517,6 +525,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="theme_ibfk_1">
+    <End Role="ms" Type="Self.ms" Multiplicity="0..1" />
+    <End Role="theme" Type="Self.theme" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ms">
+        <PropertyRef Name="MS_ID" />
+      </Principal>
+      <Dependent Role="theme">
+        <PropertyRef Name="MS_primekeyid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="testdbModelStoreContainer">
     <EntitySet Name="accfuctional" EntityType="Self.accfuctional" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="attendancep" EntityType="Self.attendancep" Schema="testdb" store:Type="Tables" />
@@ -536,6 +556,7 @@
     <EntitySet Name="subjects" EntityType="Self.subjects" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="tchrfsubjects" EntityType="Self.tchrfsubjects" Schema="testdb" store:Type="Tables" />
     <EntitySet Name="tchrfunctional" EntityType="Self.tchrfunctional" Schema="testdb" store:Type="Tables" />
+    <EntitySet Name="theme" EntityType="Self.theme" Schema="testdb" store:Type="Tables" />
     <AssociationSet Name="attendancep_ibfk_1" Association="Self.attendancep_ibfk_1">
       <End Role="tchrfunctional" EntitySet="tchrfunctional" />
       <End Role="attendancep" EntitySet="attendancep" />
@@ -623,6 +644,10 @@
     <AssociationSet Name="tchrfunctional_ibfk_1" Association="Self.tchrfunctional_ibfk_1">
       <End Role="ms" EntitySet="ms" />
       <End Role="tchrfunctional" EntitySet="tchrfunctional" />
+    </AssociationSet>
+    <AssociationSet Name="theme_ibfk_1" Association="Self.theme_ibfk_1">
+      <End Role="ms" EntitySet="ms" />
+      <End Role="theme" EntitySet="theme" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

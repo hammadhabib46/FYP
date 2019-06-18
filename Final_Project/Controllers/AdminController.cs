@@ -99,16 +99,12 @@ namespace Final_Project.Controllers
                         accfuctional ac = objj.accfuctionals.SqlQuery("Select * from accfuctional where AccF_id ='" + MS_id + "'").FirstOrDefault();
                         Session["All_Ac"] = ac;
                     }
-
                 }
-
-
             }
 
             // getting list of classes and teachers
             using (testdbEntiies objj = new testdbEntiies())
             {
-
                 try
                 {
                     var clz = objj.classes.SqlQuery("Select * from classes where MS_id ='" + MS_id + "'").ToList<@class>();
@@ -136,9 +132,7 @@ namespace Final_Project.Controllers
                 {
                     Session["fee"] = false;
                 }
-
             }
-            
             return View();
         }
 

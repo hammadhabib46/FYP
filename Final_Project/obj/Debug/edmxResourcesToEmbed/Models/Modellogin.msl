@@ -272,5 +272,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="themes">
+      <EntityTypeMapping TypeName="testdbModel.theme">
+        <MappingFragment StoreEntitySet="theme">
+          <ScalarProperty Name="theme1" ColumnName="theme" />
+          <ScalarProperty Name="MS_primekeyid" ColumnName="MS_primekeyid" />
+          <ScalarProperty Name="ThemeID" ColumnName="ThemeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

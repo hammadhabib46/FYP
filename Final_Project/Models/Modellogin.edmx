@@ -258,6 +258,14 @@
           <Property Name="TchrF_RollID" Type="varchar" MaxLength="255" />
           <Property Name="TchrF_password" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="theme">
+          <Key>
+            <PropertyRef Name="ThemeID" />
+          </Key>
+          <Property Name="ThemeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MS_primekeyid" Type="int" />
+          <Property Name="theme" Type="varchar" MaxLength="255" />
+        </EntityType>
         <Association Name="attendancep_ibfk_1">
           <End Role="tchrfunctional" Type="Self.tchrfunctional" Multiplicity="1" />
           <End Role="attendancep" Type="Self.attendancep" Multiplicity="*" />
@@ -522,6 +530,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="theme_ibfk_1">
+          <End Role="ms" Type="Self.ms" Multiplicity="0..1" />
+          <End Role="theme" Type="Self.theme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ms">
+              <PropertyRef Name="MS_ID" />
+            </Principal>
+            <Dependent Role="theme">
+              <PropertyRef Name="MS_primekeyid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="testdbModelStoreContainer">
           <EntitySet Name="accfuctional" EntityType="Self.accfuctional" Schema="testdb" store:Type="Tables" />
           <EntitySet Name="attendancep" EntityType="Self.attendancep" Schema="testdb" store:Type="Tables" />
@@ -541,6 +561,7 @@
           <EntitySet Name="subjects" EntityType="Self.subjects" Schema="testdb" store:Type="Tables" />
           <EntitySet Name="tchrfsubjects" EntityType="Self.tchrfsubjects" Schema="testdb" store:Type="Tables" />
           <EntitySet Name="tchrfunctional" EntityType="Self.tchrfunctional" Schema="testdb" store:Type="Tables" />
+          <EntitySet Name="theme" EntityType="Self.theme" Schema="testdb" store:Type="Tables" />
           <AssociationSet Name="attendancep_ibfk_1" Association="Self.attendancep_ibfk_1">
             <End Role="tchrfunctional" EntitySet="tchrfunctional" />
             <End Role="attendancep" EntitySet="attendancep" />
@@ -628,6 +649,10 @@
           <AssociationSet Name="tchrfunctional_ibfk_1" Association="Self.tchrfunctional_ibfk_1">
             <End Role="ms" EntitySet="ms" />
             <End Role="tchrfunctional" EntitySet="tchrfunctional" />
+          </AssociationSet>
+          <AssociationSet Name="theme_ibfk_1" Association="Self.theme_ibfk_1">
+            <End Role="ms" EntitySet="ms" />
+            <End Role="theme" EntitySet="theme" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -752,6 +777,11 @@
             <End Role="tchrfunctional" EntitySet="tchrfunctionals" />
             <End Role="tchrfsubject" EntitySet="tchrfsubjects" />
           </AssociationSet>
+          <EntitySet Name="themes" EntityType="testdbModel.theme" />
+          <AssociationSet Name="theme_ibfk_1" Association="testdbModel.theme_ibfk_1">
+            <End Role="m" EntitySet="ms" />
+            <End Role="theme" EntitySet="themes" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="accfuctional">
           <Key>
@@ -827,6 +857,7 @@
           <NavigationProperty Name="studfuctionals" Relationship="testdbModel.foMS" FromRole="m" ToRole="studfuctional" />
           <NavigationProperty Name="tchrfunctionals" Relationship="testdbModel.tchrfunctional_ibfk_1" FromRole="m" ToRole="tchrfunctional" />
           <NavigationProperty Name="studfees" Relationship="testdbModel.studfee_ibfk_1" FromRole="m" ToRole="studfee" />
+          <NavigationProperty Name="themes" Relationship="testdbModel.theme_ibfk_1" FromRole="m" ToRole="theme" />
         </EntityType>
         <EntityType Name="roledata">
           <Key>
@@ -1303,6 +1334,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="theme">
+          <Key>
+            <PropertyRef Name="ThemeID" />
+          </Key>
+          <Property Name="ThemeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MS_primekeyid" Type="Int32" />
+          <Property Name="theme1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="m" Relationship="testdbModel.theme_ibfk_1" FromRole="theme" ToRole="m" />
+        </EntityType>
+        <Association Name="theme_ibfk_1">
+          <End Type="testdbModel.m" Role="m" Multiplicity="0..1" />
+          <End Type="testdbModel.theme" Role="theme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m">
+              <PropertyRef Name="MS_ID" />
+            </Principal>
+            <Dependent Role="theme">
+              <PropertyRef Name="MS_primekeyid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1577,6 +1629,15 @@
                 <ScalarProperty Name="Subjj_ID" ColumnName="Subjj_ID" />
                 <ScalarProperty Name="Tchrr_ID" ColumnName="Tchrr_ID" />
                 <ScalarProperty Name="TS_PKey" ColumnName="TS_PKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="themes">
+            <EntityTypeMapping TypeName="testdbModel.theme">
+              <MappingFragment StoreEntitySet="theme">
+                <ScalarProperty Name="theme1" ColumnName="theme" />
+                <ScalarProperty Name="MS_primekeyid" ColumnName="MS_primekeyid" />
+                <ScalarProperty Name="ThemeID" ColumnName="ThemeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

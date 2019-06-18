@@ -118,6 +118,11 @@
       <End Role="tchrfunctional" EntitySet="tchrfunctionals" />
       <End Role="tchrfsubject" EntitySet="tchrfsubjects" />
     </AssociationSet>
+    <EntitySet Name="themes" EntityType="testdbModel.theme" />
+    <AssociationSet Name="theme_ibfk_1" Association="testdbModel.theme_ibfk_1">
+      <End Role="m" EntitySet="ms" />
+      <End Role="theme" EntitySet="themes" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="accfuctional">
     <Key>
@@ -193,6 +198,7 @@
     <NavigationProperty Name="studfuctionals" Relationship="testdbModel.foMS" FromRole="m" ToRole="studfuctional" />
     <NavigationProperty Name="tchrfunctionals" Relationship="testdbModel.tchrfunctional_ibfk_1" FromRole="m" ToRole="tchrfunctional" />
     <NavigationProperty Name="studfees" Relationship="testdbModel.studfee_ibfk_1" FromRole="m" ToRole="studfee" />
+    <NavigationProperty Name="themes" Relationship="testdbModel.theme_ibfk_1" FromRole="m" ToRole="theme" />
   </EntityType>
   <EntityType Name="roledata">
     <Key>
@@ -666,6 +672,27 @@
       </Principal>
       <Dependent Role="tchrfsubject">
         <PropertyRef Name="Tchrr_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="theme">
+    <Key>
+      <PropertyRef Name="ThemeID" />
+    </Key>
+    <Property Name="ThemeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MS_primekeyid" Type="Int32" />
+    <Property Name="theme1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="m" Relationship="testdbModel.theme_ibfk_1" FromRole="theme" ToRole="m" />
+  </EntityType>
+  <Association Name="theme_ibfk_1">
+    <End Type="testdbModel.m" Role="m" Multiplicity="0..1" />
+    <End Type="testdbModel.theme" Role="theme" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="m">
+        <PropertyRef Name="MS_ID" />
+      </Principal>
+      <Dependent Role="theme">
+        <PropertyRef Name="MS_primekeyid" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

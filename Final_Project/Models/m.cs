@@ -6,12 +6,6 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.ComponentModel.DataAnnotations;
-
 
 namespace Final_Project.Models
 {
@@ -29,26 +23,15 @@ namespace Final_Project.Models
             this.studfuctionals = new HashSet<studfuctional>();
             this.tchrfunctionals = new HashSet<tchrfunctional>();
             this.studfees = new HashSet<studfee>();
+            this.themes = new HashSet<theme>();
         }
     
         public int MS_ID { get; set; }
         public long C_ID { get; set; }
-
-
-        [Required(ErrorMessage = "You must provide a An Institute Name")]
         public string MS_InstName { get; set; }
-
-        [Required(ErrorMessage = "You must provide a An address")]
         public string MS_InstAddress { get; set; }
-
-        [Required(ErrorMessage = "You must provide a phone number")]
-        [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{4})\)?[-. ]?([0-9]{7})$", ErrorMessage = "Not a valid phone number")]
         public string MS_InstPhone { get; set; }
         public byte[] MS_logo { get; set; }
-
-
-        [Required(ErrorMessage = "You must provide a A Branch Name")]
         public string MS_InstBranch { get; set; }
     
         public virtual ICollection<accfuctional> accfuctionals { get; set; }
@@ -59,5 +42,6 @@ namespace Final_Project.Models
         public virtual ICollection<studfuctional> studfuctionals { get; set; }
         public virtual ICollection<tchrfunctional> tchrfunctionals { get; set; }
         public virtual ICollection<studfee> studfees { get; set; }
+        public virtual ICollection<theme> themes { get; set; }
     }
 }
