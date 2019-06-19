@@ -620,6 +620,8 @@
     <Content Include="Views\Creator\missingRoles.cshtml" />
     <Content Include="Views\HR\ClassDetails.cshtml" />
     <Content Include="Views\Admin\ViewAllTeachers.cshtml" />
+    <Content Include="Views\Creator\editAdminFucntionalities.cshtml" />
+    <Content Include="Views\Creator\successfullyUpdated.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

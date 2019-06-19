@@ -32,12 +32,33 @@ namespace Final_Project.Controllers
             // getting User name To view
             using (testdbEntiies objj = new testdbEntiies())
             {
+                /// notification starts
+                /// 
+                TempData["Noti"] = false;
+                var role_Id = objj.roledatas.Where((u => u.MS_iid == MS_id && u.Role_Name == "Admin")).Select(u => u.Role_ID).FirstOrDefault();
+                var noti_role = objj.role_funcdata.Where((u => u.Role_ID == role_Id)).Select(u => u.GiveNotification).FirstOrDefault();
+                TempData["Noti"] = noti_role;
+                /// 
 
-                //var Trole_Id = objj.roledatas.Where((u => u.MS_iid == MS_id && u.Role_Name == name)).Select(u => u.Role_ID).FirstOrDefault();
+                ////////////////// marks and attandance/////// stars
+                Session["Mark_ablity"] = false;
+                Session["Att_ablity"] = false;
+                var Trole_Id = objj.roledatas.Where((u => u.MS_iid == MS_id && u.Role_Name == "Teacher")).Select(u => u.Role_ID).FirstOrDefault();
+                var Trole_functdata = objj.role_funcdata.Where((u => u.Role_ID == Trole_Id)).FirstOrDefault();
 
+                if (Trole_functdata.Marks == true)
+                {
+                    Session["Mark_ablity"] = true;
+
+                }
+            
+                if (Trole_functdata.Attendance == true)
+                {
+                    Session["Att_ablity"] = true;
+                }
                 //int r_id = (int)Trole_Id;
                 //TempData["TRole_ID"] = r_id;
-
+                ///////////// marks and attendce endds
 
                 var Data = objj.tchrfunctionals.SqlQuery("Select * from tchrfunctional where TchrF_ID = '" + T_id + "' ").FirstOrDefault();
 

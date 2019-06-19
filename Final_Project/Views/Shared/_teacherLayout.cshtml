@@ -2,9 +2,10 @@
 @{
     Layout = null;
 
-    bool Notif = true;
-    bool Teachr_Marksfunc = true;
-    bool Teacher_Attendncefunc = true;
+    bool Notif = (bool)TempData["Noti"];
+    bool Teachr_Marksfunc = (bool)Session["Mark_ablity"];
+    bool Teacher_Attendncefunc = (bool)Session["Att_ablity"];
+
     var subDatanm = (List<String>)Session["tchrdata"];
     var clssidData = (List<int>)Session["tchrdataid"];
     var subidData = (List<int>)Session["tchrdatasubiid"];

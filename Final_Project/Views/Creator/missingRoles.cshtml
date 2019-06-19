@@ -73,7 +73,15 @@
                         </div>
                         <div class="widget-body ">
                             <form class="form-horizontal ">
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="AccountManager" value="true" id="remeberAccountantui" checked="checked" class="form-control" disabled>
+                                    <label for="remeberAccountanttt">Admin</label>
+                                </div>
                                 
+                                <div class="styled-checkbox">
+                                            <input type="checkbox" name="AccountManager" value="true" id="remeberAccountanttu" checked="checked" class="form-control"disabled>
+                                            <label for="remeberAccountantttttt">Student</label>
+                                </div>
                                 @{ if (acc == true)
                                     {
                                         <div class="styled-checkbox">
@@ -85,7 +93,7 @@
                                     {
                                         <div class="styled-checkbox">
                                             <input type="checkbox" name="AccountManager" value="true" id="remeberAccountant" class="form-control" checked="checked" disabled>
-                                            <label for="remeberAccountant">Account Manager</label>
+                                            <label for="remeberAccountantt">Account Manager</label>
                                         </div>
                                     }
                                     if (hr == true)
@@ -99,7 +107,7 @@
                                     {
                                         <div class="styled-checkbox">
                                             <input type="checkbox" name="HRmanager" value="true" id="managerHR" class="form-control" checked="checked" disabled>
-                                            <label for="managerHR">HR Manager</label>
+                                            <label for="managerHRR">HR Manager</label>
                                         </div>
                                     }
                                     if (teacher == true)

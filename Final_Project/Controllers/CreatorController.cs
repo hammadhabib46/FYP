@@ -24,6 +24,7 @@ namespace Final_Project.Controllers
         //GET: / Creator / Define MS 
         public ActionResult DefineMS()
         {
+            Session["editMode"] = false;
             return View();
         }
 
@@ -52,6 +53,46 @@ namespace Final_Project.Controllers
             return View();
         }
 
+        public ActionResult editAdminFucntionalities() {
+
+            int msid=(int)Session["MS_ID"];
+
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+
+                TempData["Noti"] = false;
+                TempData["Fee"] = false;
+                var role_Id = objj.roledatas.Where((u => u.MS_iid == msid && u.Role_Name == "Admin")).Select(u => u.Role_ID).FirstOrDefault();
+                var noti_role = objj.role_funcdata.Where((u => u.Role_ID == role_Id)).FirstOrDefault();
+                TempData["Fee"] = noti_role.TrackAccProgress;
+                TempData["Noti"] = noti_role.GiveNotification;
+
+                TempData["Marks"] = false;
+                TempData["Att"] = false;
+                if ((bool)Session["TeacherAlready"] == true)
+                {
+                    role_Id = objj.roledatas.Where((u => u.MS_iid == msid && u.Role_Name == "Teacher")).Select(u => u.Role_ID).FirstOrDefault();
+                    var tchrMarks = objj.role_funcdata.Where((u => u.Role_ID == role_Id)).FirstOrDefault();
+                    TempData["Marks"] = tchrMarks.Marks;
+                    TempData["Att"] = tchrMarks.Attendance;
+                }
+
+
+                TempData["S_Portal"] = false;
+                var studdata= objj.roledatas.Where((u => u.MS_iid == msid && u.Role_Name == "Student")).FirstOrDefault();
+                TempData["S_Portal"] = studdata.Role_Portal;
+                
+
+
+
+
+            }
+
+
+
+            return View();
+        }
+        
         public ActionResult EditMS(marksHelper chose)
         {
             int msid = 40; // not causing worry
@@ -60,7 +101,7 @@ namespace Final_Project.Controllers
             {
                 var msData = objj.ms.Where(u => u.MS_InstName == x).FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
                 msid = msData.MS_ID;
-                TempData["MS_ID"] = msid;
+                Session["MS_ID"] = msid;
                 Session["MS_ID"] = msid;
             }
 
@@ -85,7 +126,11 @@ namespace Final_Project.Controllers
             return View();
         }
 
-        public ActionResult successfullyCreated()
+        public ActionResult successfullyUpdated()
+        {
+            return View();
+        }
+            public ActionResult successfullyCreated()
         {
 
             return View();
@@ -98,11 +143,11 @@ namespace Final_Project.Controllers
 
         public ActionResult missingRoles()
         {
-            int msid = 111;
+            
+            int msid = (int)Session["MS_ID"];
             Editor editor = new Editor();
             Session["roles"] = editor.getRoles(msid);
-
-
+            
             return View();
         }
 
@@ -180,7 +225,7 @@ namespace Final_Project.Controllers
 
                         var userId = objj.ms.Where(u => u.MS_InstName == superTable_input.MS_InstName).Select(u => u.MS_ID).FirstOrDefault();   //// getting MS from database using MS_Name
 
-                        TempData["MS_ID"] = userId;
+                        Session["MS_ID"] = userId;
                         TempData.Keep();
 
                         ModelState.Clear();
@@ -199,7 +244,7 @@ namespace Final_Project.Controllers
         [HttpPost]
         public ActionResult ManageClass(string ClassName, Nullable<double> Fee, string subjects)
         {
-            int mid = (int)TempData["MS_ID"];
+            int mid = (int)Session["MS_ID"];
             TempData.Keep();
             Session["MS_ID"] = mid;
             @class class_obj = new @class();
@@ -244,7 +289,7 @@ namespace Final_Project.Controllers
 
                         using (testdbEntiies obj = new testdbEntiies())
                         {
-                            class_obj.MS_id = (int)TempData["MS_ID"];
+                            class_obj.MS_id = (int)Session["MS_ID"];
                             TempData.Keep();
                             obj.classes.Add(class_obj);
                             obj.SaveChanges();
@@ -295,13 +340,13 @@ namespace Final_Project.Controllers
         [HttpPost]
         public ActionResult ManageRoles(bool AccountManager = false, bool HRmanager = false, bool Teacher = false)
         {
-            TempData["Teacher"] = Teacher;
-            TempData["Acc_Manager"] = AccountManager;
-            TempData["HR_Manager"] = HRmanager;
+            Session["Teacher"] = Teacher;
+            Session["Acc_Manager"] = AccountManager;
+            Session["HR_Manager"] = HRmanager;
 
             TempData["Hr_Portal"] = AccountManager;
             TempData["St_Portal"] = false;
-            TempData["Teacher_Portal"] = Teacher;
+            
             TempData["Acc_Portal"] = AccountManager;
 
 
@@ -310,11 +355,11 @@ namespace Final_Project.Controllers
 
 
         [HttpPost]
-        public ActionResult StudentAttributes(roledata obj_R, bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false, bool pic = false, bool FatherCNIC = false, bool GuardianContact = false, bool email = false, bool StudPortal = false)
+        public ActionResult StudentAttributes(roledata obj_R, bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false, bool FatherCNIC = false, bool GuardianContact = false, bool email = false, bool StudPortal = false)
         {
-            //    TempData["MS_ID"] = 73;
+            //    Session["MS_ID"] = 73;
 
-            obj_R.MS_iid = (int)TempData["MS_ID"];
+            obj_R.MS_iid = (int)Session["MS_ID"];
             TempData.Keep();
             //	obj_R.MS_iid = 5;
             obj_R.Role_Name = "Student";
@@ -322,7 +367,7 @@ namespace Final_Project.Controllers
             obj_R.Role_Portal = StudPortal;
             TempData["St_Portal"] = StudPortal;
 
-            obj_R.Role_Pic = pic;
+            obj_R.Role_Pic = false;
             obj_R.Role_FthrPhone = GuardianContact;
             obj_R.Role_Dob = DOB;
             obj_R.Role_Address = Address;
@@ -359,15 +404,15 @@ namespace Final_Project.Controllers
 
 
 
-            if ((bool)TempData["Acc_Manager"] == true)
+            if ((bool)Session["Acc_Manager"] == true)
             {
                 return RedirectToAction("AccountantAttributes", "Creator");
             }
-            if ((bool)TempData["HR_Manager"] == true)
+            if ((bool)Session["HR_Manager"] == true)
             {
                 return RedirectToAction("HRAttributes", "Creator");
             }
-            if ((bool)TempData["Teacher"] == true)
+            if ((bool)Session["Teacher"] == true)
             {
                 return RedirectToAction("TeacherAttributes", "Creator");
             }
@@ -378,15 +423,15 @@ namespace Final_Project.Controllers
 
 
         [HttpPost]
-        public ActionResult AccountantAttributes(bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false, bool pic = false, bool Qualification = false)
+        public ActionResult AccountantAttributes(bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false, bool Qualification = false)
         {
             roledata obj_R = new roledata();
-            obj_R.MS_iid = (int)TempData["MS_ID"];
+            obj_R.MS_iid = (int)Session["MS_ID"];
 
             obj_R.Role_Name = "Accountant";
 
             obj_R.Role_Qualif = Qualification;
-            obj_R.Role_Pic = pic;
+            obj_R.Role_Pic = false;
             obj_R.Role_Dob = DOB;
             obj_R.Role_Address = Address;
             obj_R.Role_Gender = false;
@@ -418,30 +463,37 @@ namespace Final_Project.Controllers
             }
 
 
-            if ((bool)TempData["HR_Manager"] == true)
+
+
+
+            if ((bool)Session["HR_Manager"] == true)
             {
                 HR_A = true;
                 return RedirectToAction("HRAttributes", "Creator");
             }
-            if ((bool)TempData["Teacher"] == true)
+            if ((bool)Session["Teacher"] == true)
             {
                 return RedirectToAction("TeacherAttributes", "Creator");
             }
 
+            if ((bool)Session["editMode"] == true)
+            {
+                return RedirectToAction("editAdminFucntionalities", "Creator");
+            }
             return RedirectToAction("adminFunctionlities", "Creator");
         }
 
 
         [HttpPost]
-        public ActionResult HRAttributes(bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false, bool Email = false, bool pic = false, bool Qualification = false)
+        public ActionResult HRAttributes(bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false, bool Email = false,  bool Qualification = false)
         {
             roledata obj_R = new roledata();
-            obj_R.MS_iid = (int)TempData["MS_ID"];
+            obj_R.MS_iid = (int)Session["MS_ID"];
             //	obj_R.MS_iid = 5;
             obj_R.Role_Name = "HR";
 
             obj_R.Role_Qualif = Qualification;
-            obj_R.Role_Pic = pic;
+            obj_R.Role_Pic = false;
             obj_R.Role_Dob = DOB;
             obj_R.Role_Address = Address;
             obj_R.Role_Gender = false;
@@ -478,34 +530,39 @@ namespace Final_Project.Controllers
                 TempData["Hr_Role_ID"] = (int)role_Id;
             }
 
-            if ((bool)TempData["Teacher"] == true)
+            if ((bool)Session["Teacher"] == true)
             {
                 return RedirectToAction("TeacherAttributes", "Creator");
+            }
+
+            if ((bool)Session["editMode"] == true)
+            {
+                return RedirectToAction("editAdminFucntionalities", "Creator");
             }
             return RedirectToAction("adminFunctionlities", "Creator");
         }
 
         [HttpPost]
-        public ActionResult TeacherAttributes(bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false, bool pic = false, bool email = false)
+        public ActionResult TeacherAttributes(bool DOB = false, bool Address = false, bool CNIC = false, bool Gender = false, bool email = false)
         {
             roledata obj_R = new roledata();
-            obj_R.MS_iid = (int)TempData["MS_ID"];
+            obj_R.MS_iid = (int)Session["MS_ID"];
+            TempData.Keep();
             //   	obj_R.MS_iid = 5;
             obj_R.Role_Name = "Teacher";
 
 
-            obj_R.Role_Pic = pic;
+            obj_R.Role_Pic = false;
             obj_R.Role_Dob = DOB;
             obj_R.Role_Address = Address;
             obj_R.Role_Gender = Gender;
             obj_R.Role_CNIC = CNIC;
             obj_R.Role_Email = email;
 
-            obj_R.Role_Portal = true;
-            TempData["Teacher_Portal"] = true;
+            obj_R.Role_Portal = false;
+            
 
-
-
+            
             obj_R.Role_Fname = true;
             obj_R.Role_Lname = true;
             obj_R.Role_Phone = true;
@@ -530,17 +587,67 @@ namespace Final_Project.Controllers
                 var role_Id = objj.roledatas.Where((u => u.MS_iid == obj_R.MS_iid && u.Role_Name == obj_R.Role_Name)).Select(u => u.Role_ID).FirstOrDefault();   //// getting MS from database using MS_Name
                 TempData["Teacher_Role_ID"] = (int)role_Id;
             }
+            if ((bool)Session["editMode"] == true)
+            {
+                using (testdbEntiies objj = new testdbEntiies())
+                {
+                    role_funcdata tchrsfuncs = new role_funcdata();
+                    tchrsfuncs.Role_ID = (int)TempData["Teacher_Role_ID"];
+                    tchrsfuncs.Attendance = false;
+                    tchrsfuncs.Marks = false;
+                    objj.role_funcdata.Add(tchrsfuncs);
+                    objj.SaveChanges();
 
+                }
+                    return RedirectToAction("editAdminFucntionalities", "Creator");
+            }
             return RedirectToAction("adminFunctionlities", "Creator");
         }
 
 
         [HttpPost]
-        public ActionResult adminFunctionlities(bool Nofi = false, bool ManageFee = false)
+        public ActionResult adminFunctionlities(bool Nofi = false, bool ManageFee = false, bool Marks = false, bool Attendance = false)
         {
+            
+            if ((bool)Session["Teacher"] == true)
+            {
+                if (Marks == true || Attendance == true)
+                {
+                    int rid = 0;
+                    int msid= (int)Session["MS_ID"];
+                    TempData.Keep();
+                    using (testdbEntiies objj = new testdbEntiies())
+                    {
+                        roledata role_Id = objj.roledatas.Where((u => u.MS_iid == msid && u.Role_Name == "Teacher")).FirstOrDefault();   /// gettting teachers database variable to udate
+                        role_Id.Role_Portal = true;
+                        rid= role_Id.Role_ID;
+                        objj.SaveChanges();
+                    }
+
+                    using (testdbEntiies objj = new testdbEntiies())
+                    {
+                        role_funcdata tchrsfuncs = new role_funcdata();
+                        tchrsfuncs.Role_ID = rid;
+                        if (Marks == true)
+                        {
+                            tchrsfuncs.Marks = true;
+                        }
+                        if (Attendance == true)
+                        {
+                            tchrsfuncs.Attendance = true;
+                        }
+                        objj.role_funcdata.Add(tchrsfuncs);
+                        objj.SaveChanges();
+
+                    }
+
+                    
+                }
+            }
+
             /////////////// Saving Admin TO Role Data
             roledata obj_R = new roledata();
-            obj_R.MS_iid = (int)TempData["MS_ID"];
+            obj_R.MS_iid = (int)Session["MS_ID"];
 
             //	obj_R.MS_iid = 5;
 
@@ -614,7 +721,7 @@ namespace Final_Project.Controllers
             return RedirectToAction("ChooseTheme", "Creator");
         }
 
-
+      
         [HttpPost]
         public ActionResult StudFunctionlities(bool Nofi = false)
         {
@@ -763,7 +870,7 @@ namespace Final_Project.Controllers
         {
 
 
-            int mid = (int)TempData["MS_ID"];
+            int mid = (int)Session["MS_ID"];
             TempData.Keep();
             Session["MS_ID"] = mid;
             @class class_obj = new @class();
@@ -808,7 +915,7 @@ namespace Final_Project.Controllers
 
                         using (testdbEntiies obj = new testdbEntiies())
                         {
-                            class_obj.MS_id = (int)TempData["MS_ID"];
+                            class_obj.MS_id = (int)Session["MS_ID"];
                             TempData.Keep();
                             obj.classes.Add(class_obj);
                             obj.SaveChanges();
@@ -841,7 +948,7 @@ namespace Final_Project.Controllers
 
                         ModelState.Clear();
                         TempData["NoClassesCheck"] = 1;
-                        return RedirectToAction("ManageClass", "Creator");
+                        return RedirectToAction("missingRoles", "Creator");
                     }
                     else
                     {
@@ -859,24 +966,58 @@ namespace Final_Project.Controllers
         [HttpPost]
         public ActionResult missingRoles(bool AccountManager = false, bool HRmanager = false, bool Teacher = false)
         {
-            bool hr = false;
-            bool teacher = false;
-            bool acc = false;
-           
-            List<string> rols = (List<string>)Session["roles"];
+            Session["HR_Manager"] = false;
+            Session["Acc_Manager"] = false;
+            Session["Teacher"] = false;
+            List<string> rolsMissing = (List<string>)Session["roles"];
 
-            foreach (string st in rols)
+            Session["TeacherAlready"] = true;
+            foreach (string st in rolsMissing)
             {
-                if (st == "HR")
-                { hr = true; }
-
-                if (st == "Accountant")
-                { acc = true; }
-
                 if (st == "Teacher")
-                { teacher = true; }
+                {
+                    Session["TeacherAlready"] = false;
+
+                }
+
+                if (st == "HR" && HRmanager == true)
+                { Session["HR_Manager"] = true;
+                    
+                }
+
+                if (st == "Accountant" && AccountManager == true)
+                { Session["Acc_Manager"] = true; }
+
+                if (st == "Teacher" && Teacher == true)
+                {
+                    Session["Teacher"] = true;
+                    Session["TeacherAlready"] = false;
+                }
 
             }
+
+
+            Session["editMode"] = true;
+
+            if ((bool)Session["Acc_Manager"] == true)
+            {
+                return RedirectToAction("AccountantAttributes", "Creator");
+            }
+            if ((bool)Session["HR_Manager"] == true)
+            {
+                return RedirectToAction("HRAttributes", "Creator");
+            }
+            if ((bool)Session["Teacher"] == true)
+            {
+                return RedirectToAction("TeacherAttributes", "Creator");
+            }
+            
+            return RedirectToAction("editAdminFucntionalities", "Creator");
+
+
+
+            ////////////////
+
 
             //Editor editor = new Editor();
             //if (hr == true && HRmanager == true)
@@ -884,9 +1025,33 @@ namespace Final_Project.Controllers
             //    int msid = (int)Session["MS_ID"];
             //    editor.updaterole("HR",msid);
             //}
-
-            return View();
+            
         }
 
+
+        [HttpPost]
+        public ActionResult editAdminFucntionalities(bool Student_P = false, bool Marks = false, bool Attendance = false, bool nofi =false, bool ManageFee= false)
+        {
+            int mid = (int)Session["MS_ID"];
+            Editor editor = new Editor();
+
+                 if (Student_P == true)
+                    editor.addStudentPortal(mid);
+
+            if (Marks == true)
+                editor.addMarks(mid);
+
+            if (Attendance == true)
+                editor.addAtt(mid);
+
+
+            if (nofi == true)
+                editor.activateNotifications(mid);
+
+            if (ManageFee == true)
+                editor.ManageFee(mid);
+
+            return RedirectToAction("successfullyUpdated", "Creator");
         }
+    }
 }

@@ -59,6 +59,13 @@ namespace Final_Project.Controllers
                         }
                     }
                     else
+                    if (x.Role_Name == "Teacher")
+                    {
+                        if (x.Role_Portal == true)
+                        {
+                            roleList.Add(x.Role_Name);
+                        }
+                    }else
                     {
                         roleList.Add(x.Role_Name);
                     }

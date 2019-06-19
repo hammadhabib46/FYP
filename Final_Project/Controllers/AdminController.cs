@@ -611,10 +611,10 @@ namespace Final_Project.Controllers
                 ///////////////////////////random generation of student id
                 tch_add.TchrF_MSID = MS_d;
                 tch_add.TchrF_RollID = rol;
-                tch_add.TchrF_MSID = MS_d;
+               
                 tch_add.TchrF_password = rol;
             }
-
+            tch_add.TchrF_MSID = MS_d;
             if (ModelState.IsValid)
             {
                 using (testdbEntiies obj = new testdbEntiies())
@@ -623,7 +623,8 @@ namespace Final_Project.Controllers
                     obj.SaveChanges();
                 }
                 ModelState.Clear();
-                ViewBag.msg1 = "Successfully Added " + " User Number = " + tch_add.TchrF_RollID + "  " + " User Password = " + tch_add.TchrF_password + "  ";
+                if ((bool)TempData["Tportal"] == true) ////////////////  if it will be true Teacher Portal will be created
+                    ViewBag.msg1 = "Successfully Added " + " User Number = " + tch_add.TchrF_RollID + "  " + " User Password = " + tch_add.TchrF_password + "  ";
 
             }
             return View();

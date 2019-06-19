@@ -147,5 +147,87 @@ namespace Final_Project.Models
 
             return roles;
         }
+
+
+        public void addStudentPortal(int msid)
+        {
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                var msData = objj.roledatas.Where(u => u.MS_iid == msid && u.Role_Name == "Student").FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
+                msData.Role_Portal = true;
+                objj.SaveChanges();
+            }
+        }
+        
+            public void ManageFee(int msid)
+        {
+            int roleid = 0;
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                var msData = objj.roledatas.Where(u => u.MS_iid == msid && u.Role_Name == "Admin").FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
+                roleid = msData.Role_ID;
+            }
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                var msData = objj.role_funcdata.Where(u => u.Role_ID == roleid).FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
+                msData.TrackAccProgress = true;
+                objj.SaveChanges();
+            }
+        }
+        public void activateNotifications(int msid)
+        {
+            int roleid = 0;
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                
+                var msData = objj.roledatas.Where(u => u.MS_iid == msid && u.Role_Name == "Admin").FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
+                roleid = msData.Role_ID ;
+
+            }
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                var msData = objj.role_funcdata.Where(u => u.Role_ID == roleid).FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
+                msData.GiveNotification = true;
+                objj.SaveChanges();
+            }
+
+        }
+        public void addMarks(int msid)
+        {
+            int roleid = 0;
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                var msData = objj.roledatas.Where(u => u.MS_iid == msid && u.Role_Name == "Teacher").FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
+                msData.Role_Portal = true;
+                roleid=msData.Role_ID;
+                objj.SaveChanges();
+            }
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                var msData = objj.role_funcdata.Where(u => u.Role_ID == roleid).FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
+                msData.Marks = true;
+                objj.SaveChanges();
+            }
+
+        }
+
+        public void addAtt(int msid)
+        {
+            int roleid = 0;
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                var msData = objj.roledatas.Where(u => u.MS_iid == msid && u.Role_Name == "Teacher").FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
+                msData.Role_Portal = true;
+                roleid = msData.Role_ID;
+                objj.SaveChanges();
+            }
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                var msData = objj.role_funcdata.Where(u => u.Role_ID == roleid).FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
+                msData.Attendance = true;
+                objj.SaveChanges();
+            }
+
+        }
     }
 }
