@@ -42,7 +42,7 @@ namespace Final_Project.Controllers
 
 		public ActionResult UserLogin()
 		{
-            int MS_id = (int)Session["Ms_id"];
+            int MS_id = (int)Session["M_ID"];
 
             using (testdbEntiies objj = new testdbEntiies())
             {
@@ -51,7 +51,17 @@ namespace Final_Project.Controllers
                 List<string> roleList = new List<string>();
                 foreach (var x in clz)
                 {
-                    roleList.Add(x.Role_Name);
+                    if (x.Role_Name == "Student")
+                    {
+                        if (x.Role_Portal == true)
+                        {
+                            roleList.Add(x.Role_Name);
+                        }
+                    }
+                    else
+                    {
+                        roleList.Add(x.Role_Name);
+                    }
                 }
                 TempData["roles"] = roleList;
             }
@@ -383,8 +393,6 @@ namespace Final_Project.Controllers
                 }
 
             }
-
-
             return View();
 		   
 		}

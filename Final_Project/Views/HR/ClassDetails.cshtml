@@ -1,0 +1,125 @@
+﻿@using Final_Project.Models;
+@{
+    ViewBag.Title = "ClassDetails";
+    Layout = "~/Views/Shared/_hrLayout.cshtml";
+    roledata studAtri = (roledata)Session["coldata"];
+    var stuData = (List<studfuctional>)Session["studdata"];
+}
+
+<h2>@Session["Class_Name"]</h2>
+
+<!-- Border -->
+<div class="widget has-shadow">
+    @{
+        <div class="widget-header bordered no-actions d-flex align-items-center">
+            <h4>Student Data</h4>
+        </div>
+
+        if (stuData == null)
+        {
+            <div class="widget-header bordered no-actions d-flex align-items-center">
+
+                <h4>Class is Empty</h4>
+            </div>
+        }
+        else
+        {
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                        <thead>
+                            <tr>
+                                <th>Roll Number </th>
+                                <th>Student Name</th>
+                                <th>Father's Name</th>
+
+                                @{
+                                    if ((bool)studAtri.Role_Phone == true)
+                                    {
+                                        <th>Phone Number</th>
+                                    }
+                                    if ((bool)studAtri.Role_Dob == true)
+                                    {
+                                        <th>Date Of Birth</th>
+                                    }
+                                    if ((bool)studAtri.Role_Address == true)
+                                    {
+                                        <th>Address</th>
+                                    }
+                                    if ((bool)studAtri.Role_CNIC == true)
+                                    {
+                                        <th>Cnic / B-Form</th>
+                                    }
+                                    if ((bool)studAtri.Role_Gender == true)
+                                    {
+                                        <th>Gender</th>
+                                    }
+                                    if ((bool)studAtri.Role_FthrCNIC == true)
+                                    {
+                                        <th>Guardian CNIC</th>
+                                    }
+                                    if ((bool)studAtri.Role_FthrPhone == true)
+                                    {
+                                        <th>Father Contact</th>
+                                    }
+                                    if ((bool)studAtri.Role_Email == true)
+                                    {
+                                        <th>Email</th>
+                                    }
+                                }
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (studfuctional studentData in stuData)
+                                {
+                                    <tr>
+                                        <td>@studentData.studF_RollNO</td>
+                                        <td>@studentData.studF_FName  @studentData.studF_LName</td>
+                                        <td>@studentData.studF_GuardName</td>
+                                        @{
+                                            if ((bool)studAtri.Role_Phone == true)
+                                            {
+                                                <td>@studentData.studF_Phone</td>
+                                            }
+                                            if ((bool)studAtri.Role_Dob == true)
+                                            {
+                                                <td>@studentData.studF_DOB</td>
+                                            }
+                                            if ((bool)studAtri.Role_Address == true)
+                                            {
+                                                <td>@studentData.studF_Address</td>
+                                            }
+                                            if ((bool)studAtri.Role_CNIC == true)
+                                            {
+                                                <td>@studentData.studF_CNIC</td>
+                                            }
+                                            if ((bool)studAtri.Role_Gender == true)
+                                            {
+                                                <td>@studentData.studF_Gender</td>
+                                            }
+                                            if ((bool)studAtri.Role_FthrCNIC == true)
+                                            {
+                                                <td>@studentData.studF_GuardCNIC</td>
+                                            }
+                                            if ((bool)studAtri.Role_FthrPhone == true)
+                                            {
+                                                <td>@studentData.studF_GuardName</td>
+                                            }
+                                            if ((bool)studAtri.Role_Email == true)
+                                            {
+                                                <td>@studentData.studF_Email</td>
+                                            }
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    }
+</div>
+<!-- End Border -->

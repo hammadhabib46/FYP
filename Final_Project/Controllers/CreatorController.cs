@@ -55,7 +55,7 @@ namespace Final_Project.Controllers
         public ActionResult EditMS(marksHelper chose)
         {
             int msid = 40; // not causing worry
-            string x=chose.Choose;
+            string x = chose.Choose;
             using (testdbEntiies objj = new testdbEntiies())
             {
                 var msData = objj.ms.Where(u => u.MS_InstName == x).FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
@@ -63,7 +63,7 @@ namespace Final_Project.Controllers
                 TempData["MS_ID"] = msid;
                 Session["MS_ID"] = msid;
             }
-            
+
             Editor editor = new Editor(msid);
             Session["pre-editedData"] = editor;
 
@@ -75,7 +75,7 @@ namespace Final_Project.Controllers
         {
             return View();
         }
-        
+
         public ActionResult editAddClasses()
         {
             return View();
@@ -93,6 +93,16 @@ namespace Final_Project.Controllers
 
         public ActionResult adminFunctionlities()
         {
+            return View();
+        }
+
+        public ActionResult missingRoles()
+        {
+            int msid = 111;
+            Editor editor = new Editor();
+            Session["roles"] = editor.getRoles(msid);
+
+
             return View();
         }
 
@@ -440,6 +450,7 @@ namespace Final_Project.Controllers
 
 
             obj_R.Role_Portal = true;
+            obj_R.Role_Portal = true;
 
 
             obj_R.Role_Fname = true;
@@ -471,7 +482,6 @@ namespace Final_Project.Controllers
             {
                 return RedirectToAction("TeacherAttributes", "Creator");
             }
-
             return RedirectToAction("adminFunctionlities", "Creator");
         }
 
@@ -721,7 +731,7 @@ namespace Final_Project.Controllers
 
 
         [HttpPost]
-        public ActionResult EditMS(String name, String branch,string address,string number,string options1,string options2 )
+        public ActionResult EditMS(String name, String branch, string address, string number, marksHelper theme)
         {
             int msid = (int)Session["MS_ID"];
             Editor editor = new Editor(msid);
@@ -737,10 +747,12 @@ namespace Final_Project.Controllers
             {
                 editor.updateAddress(address);
             }
-            if (editor.PhoneNumber != "")
+            if (number != "")
             {
                 editor.updateNumber(number);
             }
+            string my = theme.Choose;
+            editor.updateTheme(theme.Choose);
 
             int x = 0;
             return RedirectToAction("editAddClasses", "Creator");
@@ -749,7 +761,7 @@ namespace Final_Project.Controllers
         [HttpPost]
         public ActionResult editAddClasses(string ClassName, Nullable<double> Fee, string subjects)
         {
-            
+
 
             int mid = (int)TempData["MS_ID"];
             TempData.Keep();
@@ -844,5 +856,37 @@ namespace Final_Project.Controllers
             return View();
         }
 
-    }
+        [HttpPost]
+        public ActionResult missingRoles(bool AccountManager = false, bool HRmanager = false, bool Teacher = false)
+        {
+            bool hr = false;
+            bool teacher = false;
+            bool acc = false;
+           
+            List<string> rols = (List<string>)Session["roles"];
+
+            foreach (string st in rols)
+            {
+                if (st == "HR")
+                { hr = true; }
+
+                if (st == "Accountant")
+                { acc = true; }
+
+                if (st == "Teacher")
+                { teacher = true; }
+
+            }
+
+            //Editor editor = new Editor();
+            //if (hr == true && HRmanager == true)
+            //{
+            //    int msid = (int)Session["MS_ID"];
+            //    editor.updaterole("HR",msid);
+            //}
+
+            return View();
+        }
+
+        }
 }

@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "ViewAllTeachers";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+    List<string> TNames = (List<string>)Session["T_NameList"];
+}
+
+<h2>Teachers</h2>
+
+<!-- Border -->
+<div class="widget has-shadow">
+    @{
+        <div class="widget-header bordered no-actions d-flex align-items-center">
+            <h4>Student Data</h4>
+        </div>
+
+        if (TNames.Count == 0)
+        {
+            <div class="widget-header bordered no-actions d-flex align-items-center">
+
+                <h4>No Teachers Here</h4>
+            </div>
+        }
+        else
+        {
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                        <thead>
+                            <tr>
+                                <th>Names </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (string name in TNames)
+                                {
+                                    <tr>
+                                        <td>@name</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    }
+</div>
+<!-- End Border -->

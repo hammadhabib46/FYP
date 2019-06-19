@@ -21,6 +21,11 @@ namespace Final_Project.Models
         public List<string> ClassesNames { set; get; }
         public List<string> RolesMissing { set; get; }
 
+        public Editor()
+        {
+
+        }
+
         public Editor(int msid)
         {
             MsId = msid;
@@ -95,6 +100,52 @@ namespace Final_Project.Models
                 msData.theme1 = Theme;
                 objj.SaveChanges();
             }
+        }
+
+        public List<string> getRoles(int msid)
+        {
+            bool accountantCheck = true;
+            bool teacherCheck = true;
+            bool hrCheck = true;
+
+            List<string> roles = new List<string>();
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                List<roledata>  msData = objj.roledatas.Where((u => u.MS_iid == msid)).ToList<roledata>();   //// getting RoleID from database(ms) using Role name + ms id
+                foreach (roledata rd in msData)
+                {
+                   
+                    if (rd.Role_Name == "Accountant")
+                    {
+                        accountantCheck = false;
+                    }
+                    if (rd.Role_Name == "HR")
+                    {
+                        hrCheck = false;
+                    }
+                    if (rd.Role_Name == "Teacher")
+                    {
+                        teacherCheck = false;
+                    }
+                }
+
+                if (accountantCheck == true)
+                {
+                    roles.Add("Accountant");
+                }
+                if (hrCheck == true)
+                {
+                    roles.Add("HR");
+                }
+                if (teacherCheck == true)
+                {
+                    roles.Add("Teacher");
+                }
+
+            }
+
+
+            return roles;
         }
     }
 }

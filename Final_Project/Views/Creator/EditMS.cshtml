@@ -1,8 +1,11 @@
 ﻿@using Final_Project.Models;
+@model Final_Project.Models.marksHelper
 @{
-   Editor preEditData=(Editor)Session["pre-editedData"];
-   
-   
+    Editor preEditData = (Editor)Session["pre-editedData"];
+
+    List<string> themes = new List<string>();
+    themes.Add("dark");
+    themes.Add("light");
 }
 <!DOCTYPE html>
 <!--
@@ -116,31 +119,19 @@ Author: SAEROX
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="form-group row mb-5">
-                                            <label class="col-lg-4 form-control-label d-flex justify-content-lg-end">Choose Theme *</label>
-                                            <div class="col-lg-1">
-                                                <div class="custom-control custom-radio styled-radio mb-3">
-                                                    <input class="custom-control-input" type="radio" name="options1" id="opt-01" required>
-                                                    <label class="custom-control-descfeedback" for="opt-01">Dark</label>
-
-                                                    <div class="invalid-feedback">
-                                                        Toggle this custom radio
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-1">  
-                                                <div class="custom-control custom-radio styled-radio mb-3">
-                                                    <input class="custom-control-input" type="radio" name="options2" id="opt-02" required>
-                                                    <label class="custom-control-descfeedback" for="opt-02">Light</label>
-                                                    <div class="invalid-feedback">
-                                                        Or toggle this other custom radio
-                                                    </div>
-                                                </div>
+                                        <div class="form-group row d-flex align-items-center mb-5">
+                                            <label class="col-lg-4 form-control-label d-flex justify-content-lg-end">Choose Theme</label>
+                                            <div class="col-lg-5">
+                                                <ul class="pop-groups list-group w-100">
+                                                   
+                                                    @Html.DropDownListFor(model => model.Choose, new SelectList(themes), new { @class = "form-control", aria_describedby = "dropdownMenu2" })
+                                                </ul>
                                             </div>
                                         </div>
+                                       
+
                                         <div class="text-right">
-                                           
+
                                             <button class="btn btn-gradient-01" type="submit">Next</button>
                                             <button class="btn btn-shadow" type="reset">Reset</button>
                                         </div>
@@ -174,7 +165,7 @@ Author: SAEROX
                 </footer>
                 <!-- End Page Footer -->
                 <a href="#" class="go-top"><i class="la la-arrow-up"></i></a>
-                
+
             </div>
         </div>
         <!-- End Page Content -->

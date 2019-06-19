@@ -617,6 +617,9 @@
     <Content Include="Views\Creator\ChooseTheme.cshtml" />
     <Content Include="Views\Creator\EditMS.cshtml" />
     <Content Include="Views\Creator\editAddClasses.cshtml" />
+    <Content Include="Views\Creator\missingRoles.cshtml" />
+    <Content Include="Views\HR\ClassDetails.cshtml" />
+    <Content Include="Views\Admin\ViewAllTeachers.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

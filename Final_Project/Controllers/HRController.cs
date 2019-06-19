@@ -73,7 +73,22 @@ namespace Final_Project.Controllers
 
 
             }
+            // getting list of classes and teachers
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                try
+                {
+                    var clz = objj.classes.SqlQuery("Select * from classes where MS_id ='" + MS_id + "'").ToList<@class>();
 
+                    Session["clz"] = clz;
+
+                }
+                catch (Exception ex)
+                {
+                    TempData["ClassBool"] = false;
+                }
+
+            }
 
             // gather all notifications
             using (testdbEntiies objj = new testdbEntiies())
@@ -84,7 +99,30 @@ namespace Final_Project.Controllers
 
             return View();
         }
-        
+
+        public ActionResult ClassDetails(int data)
+        {
+            Session["Class_Name"] = data;
+            // find the attributes of the students in  current maangement system to show in the coloumn name
+
+
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                var StudData = objj.studfuctionals.SqlQuery("Select * from studfuctional where studf_Classname = '" + data + "' ").ToList<studfuctional>();
+                Session["studdata"] = StudData;
+
+                string st = "Student";
+                var ColData = objj.roledatas.SqlQuery("Select * from roledata where MS_iid = '" + (int)Session["M_ID"] + "' AND Role_Name = '" + st + "' ").FirstOrDefault<roledata>();
+
+                Session["coldata"] = ColData;
+
+                TempData.Keep();
+            }
+
+            return View();
+        }
+
+
         public ActionResult AddStudent()
         {
             //int MS_d = 72;
@@ -217,8 +255,8 @@ namespace Final_Project.Controllers
 
 
             //   int MS_d = 72;
-            string rol;
-            //      if ((bool)TempData["Sportal"] == true) ////////////////  if it will be true Student Portal will be created
+            string rol="";
+            if ((bool)TempData["Sportal"] == true) ////////////////  if it will be true Student Portal will be created
             {
                 int random;
                 
@@ -245,11 +283,11 @@ namespace Final_Project.Controllers
                 } while (num == false);
 
                 ///////////////////////////random generation of student id
-                stu_add.studF_MSID = MS_d;
+                
                 stu_add.studF_RollNO = rol;
                 stu_add.studF_password = rol;
             }
-
+            stu_add.studF_MSID = MS_d;
             stu_add.studF_PendingFee = 0;
             /////////////sending Class ID to Table instead of Class Name
 
@@ -259,9 +297,7 @@ namespace Final_Project.Controllers
                 stu_add.studF_ClassName = (string)Data.Class_ID.ToString();
 
             }
-
-
-
+            
             ///
 
 
@@ -273,7 +309,8 @@ namespace Final_Project.Controllers
                     obj.SaveChanges();
                 }
                 ModelState.Clear();
-                ViewBag.msg1 = "Successfully Added! User Name :" + rol +"  "+ "Password is " + rol;
+                if ((bool)TempData["Sportal"] == true)
+                    ViewBag.msg1 = "Successfully Added! User Name :" + rol +"  "+ "Password is " + rol;
             }
             return View();
         }

@@ -35,7 +35,8 @@ namespace Final_Project.Controllers
             TempData.Keep("Cr_ID");
             Session["Cr_IDD"] = creatorid;
 
-            Session["nofi"] = true;
+
+          
 
             // getting User name To view
             using (testdbEntiies objj = new testdbEntiies())
@@ -46,12 +47,30 @@ namespace Final_Project.Controllers
                 int r_id = (int)role_Id;
                 TempData["Role_ID"] = r_id;
 
+                
+                //////////////// checking system have notification or not
+                var  noti_role = objj.role_funcdata.Where((u => u.Role_ID == r_id)).Select(u => u.GiveNotification).FirstOrDefault();
+                if (noti_role == true)
+                {
+                    Session["nofi"] = true;
+                }
+                else
+                {
+                    Session["nofi"] = false;
+                }
+                /////////////////////////
 
+                var ManageFee_role = objj.role_funcdata.Where((u => u.Role_ID == r_id)).Select(u => u.TrackAccProgress).FirstOrDefault();
+                if (ManageFee_role == true)
+                {
+                    Session["ManageFee"] = true;
+                }
+                else
+                {
+                    Session["ManageFee"] = false;
+                }
 
-
-                //		var  noti_role = objj.role_funcdata.Where((u => u.Role_ID == r_id)).Select(u => u.GiveNotification).FirstOrDefault();
-                //       TempData["NotiRole"] = false;
-
+               
 
 
                 var Data = objj.creators.SqlQuery("Select * from creator where id = '" + creatorid + "' ").FirstOrDefault<creator>();
@@ -72,7 +91,7 @@ namespace Final_Project.Controllers
 
                 TempData["Teach_Present"] = false;
                 TempData["HR_Present"] = false;
-                TempData["Acc_Present"] = true;   // testing
+                TempData["Acc_Present"] = false;   // testing
 
                 foreach (var x in clz)
                 {
@@ -93,7 +112,7 @@ namespace Final_Project.Controllers
                         Session["All_Hr"] = hr;
                     }
 
-                    if (x.Role_Name == "Acc")
+                    if (x.Role_Name == "Accountant")
                     {
                         TempData["Acc_Present"] = true;
                         accfuctional ac = objj.accfuctionals.SqlQuery("Select * from accfuctional where AccF_id ='" + MS_id + "'").FirstOrDefault();
@@ -108,7 +127,6 @@ namespace Final_Project.Controllers
                 try
                 {
                     var clz = objj.classes.SqlQuery("Select * from classes where MS_id ='" + MS_id + "'").ToList<@class>();
-
                     Session["clz"] = clz;
                     
                 }
@@ -120,23 +138,32 @@ namespace Final_Project.Controllers
             }
 
             // getting either the system has fee fucntionality or not
-            using (testdbEntiies objj = new testdbEntiies())
-            {
-
-                try
-                {
-                    var role_Id = objj.role_funcdata.Where(u => u.Role_ID == creatorid).Select(u => u.TrackAccProgress).FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
-                    Session["fee"] = true;
-                }
-                catch (Exception ex)
-                {
-                    Session["fee"] = false;
-                }
-            }
+            
             return View();
         }
 
-        public ActionResult AddStudent()
+        
+        public ActionResult ViewAllTeachers()
+        {
+            int MS_id = (int)Session["M_ID"];
+
+            using (testdbEntiies objj = new testdbEntiies())
+            {
+                List<tchrfunctional> t_data = objj.tchrfunctionals.Where((u => u.TchrF_MSID == MS_id)).ToList<tchrfunctional>();
+                List<string> T_NameList = new List<string>();
+
+                foreach (tchrfunctional tch in t_data)
+                {
+                    T_NameList.Add(tch.TchrF_FName+" " + tch.TchrF_LName);
+
+                }
+                Session["T_NameList"]= T_NameList;
+            }
+
+
+                return View();
+        }
+            public ActionResult AddStudent()
         {
             //int MS_d = 72;
             //int creatorid = 21;
@@ -452,8 +479,8 @@ namespace Final_Project.Controllers
             TempData.Keep();
 
             //     int MS_d = 72;
-            string rol;
-            //         if ((bool)TempData["Sportal"] == true) ////////////////  if it will be true Student Portal will be created
+            string rol="";
+            if ((bool)TempData["Sportal"] == true) ////////////////  if it will be true Student Portal will be created
             {
                 int random;
 
@@ -480,11 +507,11 @@ namespace Final_Project.Controllers
                 } while (num == false);
 
                 ///////////////////////////random generation of student id
-                stu_add.studF_MSID = MS_d;
+              
                 stu_add.studF_RollNO = rol;
                 stu_add.studF_password = rol;
             }
-
+            stu_add.studF_MSID = MS_d;
             /////////////sending Class ID to Table instead of Class Name
 
             using (testdbEntiies objj = new testdbEntiies())
@@ -496,7 +523,7 @@ namespace Final_Project.Controllers
             stu_add.studF_PendingFee = 0;
             ///
 
-           if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 using (testdbEntiies obj = new testdbEntiies())
                 {
@@ -504,7 +531,11 @@ namespace Final_Project.Controllers
                     obj.SaveChanges();
                 }
                 ModelState.Clear();
-                ViewBag.msg1 = "Successfully Added! User Name :" + rol + "Password is " + rol;
+
+                if ((bool)TempData["Sportal"] == true)
+                {
+                    ViewBag.msg1 = "Successfully Added! User Name :" + rol + "Password is " + rol;
+                }
             }
             return View();
         }

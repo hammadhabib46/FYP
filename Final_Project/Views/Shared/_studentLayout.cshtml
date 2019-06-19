@@ -1,8 +1,8 @@
 ﻿@using Final_Project.Models;
 @{
     string sh;
-    int Noti = 1;
-    int Chal = 0;
+    bool Noti = (bool)TempData["Noti"];
+    int Chal = 1;
 
     bool teacherP = (bool)TempData["Teach_Present"];
     TempData.Keep();
@@ -181,7 +181,7 @@ Author: SAEROX
                     <ul class="list-unstyled">
                              <li>@Html.ActionLink("Home", "Index", "Student")</li>
                           @{
-                              if (Noti == 1)
+                              if (Noti == true)
                               {
                                 <li>@Html.ActionLink("Notifications", "Notifications", "Student")</li>
                               }

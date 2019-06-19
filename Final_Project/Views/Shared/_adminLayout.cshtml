@@ -16,6 +16,7 @@
     bool addteacher = true;
 
     bool Nofi = (bool)Session["nofi"];
+    bool managafee = (bool)Session["ManageFee"];
     string theme = (string)Session["Theme"];
 
 }
@@ -134,7 +135,7 @@
                                 <li>@Html.ActionLink("Add Teacher", "AddTeacher", "Admin")</li>
                                 <li>@Html.ActionLink("Delete Teacher", "DeleteTeacher", "Admin")</li>
                                 <li>@Html.ActionLink("Assign Subjects", "AssignSubjects", "Admin")</li>
-
+                                <li>@Html.ActionLink("View All Teachers", "ViewAllTeachers", "Admin")</li>
                             }
                             if (HRP == true)
                             {
@@ -145,7 +146,7 @@
                                 <li>@Html.ActionLink("Add Accountant", "AddAccountant", "Admin")</li>
                             }
 
-                            if ((bool)Session["fee"] == true)
+                            if (managafee == true)
                             {
                                 <li> @Html.ActionLink("Submit Fee", "AddFee", "Admin") </li>
                                 <li> @Html.ActionLink("Fee Records", "ViewFeeRecords", "Admin") </li>

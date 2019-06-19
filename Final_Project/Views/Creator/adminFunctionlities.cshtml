@@ -46,7 +46,7 @@
 
                     <div class="widget has-shadow mx-auto" style="width: 900px;">
                         <div class="widget-header bordered no-actions d-flex align-items-center justify-content-md-center">
-                            <h4>Verify the Functionalities of Admin</h4>
+                            <h4>Choose Functionlitites of the System</h4>
                         </div>
                         <div class="widget-body ">
                             <form class="form-horizontal ">
@@ -95,26 +95,27 @@
                                 }
 
 
-
                                 <div class="styled-checkbox">
                                     <input type="checkbox" name="Nofi" value="true" id="Nofi_ID" class="form-control">
                                     <label for="Nofi_ID">Activate Notifications</label>
                                 </div>
-                                @if ((bool)TempData["Acc_Manager"] == true)
-                                {
+                                @{ if ((bool)TempData["Acc_Manager"] == true)
+                                    {
+
                                     <div class="styled-checkbox">
-                                        <input type="checkbox" name="ManageFee" value="true" id="ManageFeeID" class="form-control">
+                                        <input type="checkbox" name="ManageFee" value="true" id="ManageFeeID" class="form-control"  checked="checked" readonly>
+                                        <label for="ManageFeeIDD">ManageFee</label>
+                                    </div>
+                                    }
+                                    else
+                                    {
+
+                                    <div class="styled-checkbox">
+                                        <input type="checkbox" name="ManageFee" value="true" id="ManageFeeID" class="form-control" >
                                         <label for="ManageFeeID">ManageFee</label>
                                     </div>
-                                }
-                                else
-                                {
-                                    <div class="styled-checkbox">
-                                        <input type="checkbox" name="ManageFee" value="true" id="ManageFeeID" checked="checked" class="form-control" readonly>
-                                        <label for="ManageFee">ManageFee</label>
-                                    </div>
-                                }
-
+                                        }
+                                    }
                                 <div class="sign-btn text-center">
                                     <br>
                                     <br>

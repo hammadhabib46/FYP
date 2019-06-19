@@ -28,13 +28,13 @@ namespace Final_Project.Controllers
             using (testdbEntiies objj = new testdbEntiies())
             {
 
-                //var role_Id = objj.roledatas.Where((u => u.MS_iid == MS_id && u.Role_Name == name)).Select(u => u.Role_ID).FirstOrDefault();
+                var role_Id = objj.roledatas.Where((u => u.MS_iid == MS_id && u.Role_Name == "Admin")).Select(u => u.Role_ID).FirstOrDefault();
 
                 //int r_id = (int)role_Id;
                 //TempData["Role_ID"] = r_id;
                 
-                //		var  noti_role = objj.role_funcdata.Where((u => u.Role_ID == r_id)).Select(u => u.GiveNotification).FirstOrDefault();
-                //       TempData["NotiRole"] = false;
+                var  noti_role = objj.role_funcdata.Where((u => u.Role_ID == role_Id)).Select(u => u.GiveNotification).FirstOrDefault();
+                TempData["Noti"] = noti_role;
 
                 string S_classid_S = objj.studfuctionals.Where(u => u.studF_ID == st_id).Select(u => u.studF_ClassName).FirstOrDefault();
 

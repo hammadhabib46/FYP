@@ -5,6 +5,8 @@
     bool teacherP = (bool)TempData["Teach_Present"];
     TempData.Keep();
 
+    var classData = (List<@class>)Session["clz"];
+
     List<notification> notis = (List<notification>)Session["NotiList"];
     List<notification> nayi = new List<notification>();
 
@@ -187,7 +189,18 @@ Author: SAEROX
                             }
 
                         }
-
+                        <li class="active">
+                            <a href="#dropdown-tabless" aria-expanded="true" data-toggle="collapse"><i class="la la-th-large"></i><span>Student Details</span></a>
+                            <ul id="dropdown-tabless" class="collapse list-unstyled show pt-0">
+                                @{
+                                    foreach (var item in classData)
+                                    {
+                                        Nullable<int> x = item.Class_ID;
+                                        <li><a href="@Url.Action("ClassDetails", "HR", new { data = x})">@item.Class_Name </a></li>
+                                    }
+                                }
+                            </ul>
+                        </li>
 
                     </ul>
 
