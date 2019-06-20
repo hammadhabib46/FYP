@@ -69,29 +69,30 @@
                                     @Html.DropDownListFor(model => model.Choose, new SelectList(recents), new { @class = "form-control", aria_describedby = "dropdownMenu2" })
 
                                     @*if (recents.Count == 0)
-                            {
-                                <li class="list-group-item">
-                                    <div class="media">
-                                        <div class="media-left align-self-center mr-3">
-                                            <img class="rounded-circle" src="~/Content/assets/img/avatar/avatar-07.jpg" alt="..." style="width: 50px;">
-                                        </div>
-                                        <div class="media-body align-self-center">
-                                            <h5 class="m-0">No Recent Projects</h5>
-                                        </div>
+                {
+                    <li class="list-group-item">
+                        <div class="media">
+                            <div class="media-left align-self-center mr-3">
+                                <img class="rounded-circle" src="~/Content/assets/img/avatar/avatar-07.jpg" alt="..." style="width: 50px;">
+                            </div>
+                            <div class="media-body align-self-center">
+                                <h5 class="m-0">No Recent Projects</h5>
+                            </div>
 
-                                    </div>
-                                </li>
-                            }*@
+                        </div>
+                    </li>
+                }*@
                                     <!-- End 01 -->
 
                                 </ul>
                             </div>
+                            <div class="sign-btn text-center ">
+                                <input type="submit" value="Update" class="btn btn-lg btn-gradient-03" />
+                            </div>
                         </div>
                         <!-- End Suggestion -->
                     </div>
-                    <div class="sign-btn text-center ">
-                        <input type="submit" value="Update" class="btn btn-lg btn-gradient-03" />
-                    </div>
+                    
                 }
 
             </div>
@@ -105,11 +106,11 @@
 
     <!-- End Container -->
     <div class="row justify-content-md-center">
-        <div class="col-xl-3">
+        <div class="col-xl-2">
             <!-- Block Buttons -->
 
 
-            <div class="col-xl-7">
+            <div class="col-xl-6">
                 <p class="btn btn-primary btn-lg mr-1 mb-2 btn btn-light"> @Html.ActionLink("Create New Management System", "DefineMS", "Creator")</p>
             </div>
 

@@ -1,6 +1,10 @@
 ﻿@model Final_Project.Models.CreatorLogin
 @{
     Layout = null;
+    if (TempData["log_user"] != null)
+    {
+        TempData["log_user"] = null;
+    }
 }
 
 

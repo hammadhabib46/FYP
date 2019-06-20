@@ -159,7 +159,7 @@ namespace Final_Project.Models
             }
         }
         
-            public void ManageFee(int msid)
+        public void ManageFee(int msid)
         {
             int roleid = 0;
             using (testdbEntiies objj = new testdbEntiies())

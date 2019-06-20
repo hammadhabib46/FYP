@@ -6,7 +6,7 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+using System.ComponentModel.DataAnnotations;
 namespace Final_Project.Models
 {
     using System;
@@ -28,8 +28,13 @@ namespace Final_Project.Models
     
         public int MS_ID { get; set; }
         public long C_ID { get; set; }
+
+        
         public string MS_InstName { get; set; }
         public string MS_InstAddress { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{4})\)?[-. ]?([0-9]{7})$", ErrorMessage = "Not a valid phone number")]
         public string MS_InstPhone { get; set; }
         public byte[] MS_logo { get; set; }
         public string MS_InstBranch { get; set; }

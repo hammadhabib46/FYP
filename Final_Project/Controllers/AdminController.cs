@@ -377,11 +377,8 @@ namespace Final_Project.Controllers
 
             using (testdbEntiies objj = new testdbEntiies())
             {
-                
                     var clz = objj.classes.SqlQuery("Select * from classes where MS_id ='" + MS_id + "'").ToList<@class>();
-
                     Session["clz"] = clz;
-
              }
 
 
@@ -396,7 +393,8 @@ namespace Final_Project.Controllers
                 List<subject> subs = objj.subjects.Where(u=> u.Cls_id == c_id).ToList<subject>();
                 Session["subss"] = subs;
             }
-                return View();
+            ViewBag.subA = "Subject Assigned Successfully";
+            return View();
         }
 
         public ActionResult ClassDetails(int data)
@@ -480,7 +478,7 @@ namespace Final_Project.Controllers
 
             //     int MS_d = 72;
             string rol="";
-            if ((bool)TempData["Sportal"] == true) ////////////////  if it will be true Student Portal will be created
+          //  if ((bool)TempData["Sportal"] == true) ////////////////  if it will be true Student Portal will be created
             {
                 int random;
 
@@ -534,7 +532,11 @@ namespace Final_Project.Controllers
 
                 if ((bool)TempData["Sportal"] == true)
                 {
-                    ViewBag.msg1 = "Successfully Added! User Name :" + rol + "Password is " + rol;
+                    ViewBag.msg1 = "Successfully Added! Role Number :" + rol + "Password is " + rol;
+                }
+                else
+                {
+                    ViewBag.msg1 = "Successfully Added! Role Number :" + rol;
                 }
             }
             return View();
@@ -583,7 +585,7 @@ namespace Final_Project.Controllers
 
             //   int MS_d = 72;
 
-            if ((bool)TempData["Tportal"] == true) ////////////////  if it will be true Teacher Portal will be created
+     //       if ((bool)TempData["Tportal"] == true) ////////////////  if it will be true Teacher Portal will be created
             {
                 int random;
                 string rol;
@@ -625,7 +627,8 @@ namespace Final_Project.Controllers
                 ModelState.Clear();
                 if ((bool)TempData["Tportal"] == true) ////////////////  if it will be true Teacher Portal will be created
                     ViewBag.msg1 = "Successfully Added " + " User Number = " + tch_add.TchrF_RollID + "  " + " User Password = " + tch_add.TchrF_password + "  ";
-
+                else
+                    ViewBag.msg1 = "Successfully Teacher Added";
             }
             return View();
         }

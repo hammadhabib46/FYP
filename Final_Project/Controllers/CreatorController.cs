@@ -76,16 +76,11 @@ namespace Final_Project.Controllers
                     TempData["Marks"] = tchrMarks.Marks;
                     TempData["Att"] = tchrMarks.Attendance;
                 }
-
-
+                
                 TempData["S_Portal"] = false;
                 var studdata= objj.roledatas.Where((u => u.MS_iid == msid && u.Role_Name == "Student")).FirstOrDefault();
                 TempData["S_Portal"] = studdata.Role_Portal;
                 
-
-
-
-
             }
 
 
@@ -102,7 +97,7 @@ namespace Final_Project.Controllers
                 var msData = objj.ms.Where(u => u.MS_InstName == x).FirstOrDefault();   //// getting RoleID from database(ms) using Role name + ms id
                 msid = msData.MS_ID;
                 Session["MS_ID"] = msid;
-                Session["MS_ID"] = msid;
+                
             }
 
             Editor editor = new Editor(msid);
@@ -218,7 +213,7 @@ namespace Final_Project.Controllers
                         using (testdbEntiies obj = new testdbEntiies())
                         {
                             HttpPostedFileBase file = Request.Files["img"];
-                            superTable_input.MS_logo = ConvertToByte(file);
+                          //  superTable_input.MS_logo = ConvertToByte(file);
                             obj.ms.Add(superTable_input);
                             obj.SaveChanges();
                         }
@@ -294,8 +289,8 @@ namespace Final_Project.Controllers
                             obj.classes.Add(class_obj);
                             obj.SaveChanges();
                         }
-
-                        var ClassId = objj.classes.Where(u => u.Class_Name == class_obj.Class_Name).Select(u => u.Class_ID).FirstOrDefault();   //// getting MS from database using MS_Name
+                        int ms= (int)Session["MS_ID"];
+                        var ClassId = objj.classes.Where(u => u.Class_Name == class_obj.Class_Name && u.MS_id == ms).Select(u => u.Class_ID).FirstOrDefault();   //// getting MS from database using MS_Name
 
                         TempData["Class_ID"] = ClassId;
 
@@ -577,16 +572,15 @@ namespace Final_Project.Controllers
                     obj.roledatas.Add(obj_R);
                     obj.SaveChanges();
                 }
-
                 ModelState.Clear();
             }
-
-
+            
             using (testdbEntiies objj = new testdbEntiies())
             {
                 var role_Id = objj.roledatas.Where((u => u.MS_iid == obj_R.MS_iid && u.Role_Name == obj_R.Role_Name)).Select(u => u.Role_ID).FirstOrDefault();   //// getting MS from database using MS_Name
                 TempData["Teacher_Role_ID"] = (int)role_Id;
             }
+
             if ((bool)Session["editMode"] == true)
             {
                 using (testdbEntiies objj = new testdbEntiies())
@@ -597,9 +591,8 @@ namespace Final_Project.Controllers
                     tchrsfuncs.Marks = false;
                     objj.role_funcdata.Add(tchrsfuncs);
                     objj.SaveChanges();
-
                 }
-                    return RedirectToAction("editAdminFucntionalities", "Creator");
+                return RedirectToAction("editAdminFucntionalities", "Creator");
             }
             return RedirectToAction("adminFunctionlities", "Creator");
         }
@@ -611,16 +604,19 @@ namespace Final_Project.Controllers
             
             if ((bool)Session["Teacher"] == true)
             {
-                if (Marks == true || Attendance == true)
+              //  if (Marks == true || Attendance == true)
                 {
                     int rid = 0;
-                    int msid= (int)Session["MS_ID"];
+                    int msid = (int)Session["MS_ID"];
                     TempData.Keep();
                     using (testdbEntiies objj = new testdbEntiies())
                     {
                         roledata role_Id = objj.roledatas.Where((u => u.MS_iid == msid && u.Role_Name == "Teacher")).FirstOrDefault();   /// gettting teachers database variable to udate
-                        role_Id.Role_Portal = true;
-                        rid= role_Id.Role_ID;
+                        if (Marks == true || Attendance == true)
+                        {
+                            role_Id.Role_Portal = true;
+                        }
+                        rid = role_Id.Role_ID;
                         objj.SaveChanges();
                     }
 
@@ -628,21 +624,33 @@ namespace Final_Project.Controllers
                     {
                         role_funcdata tchrsfuncs = new role_funcdata();
                         tchrsfuncs.Role_ID = rid;
+
                         if (Marks == true)
                         {
                             tchrsfuncs.Marks = true;
+
+                        }
+                        else
+                        {
+                            tchrsfuncs.Marks = false;
                         }
                         if (Attendance == true)
                         {
                             tchrsfuncs.Attendance = true;
                         }
+                        else
+                        {
+                            tchrsfuncs.Attendance = false;
+                        }
+
                         objj.role_funcdata.Add(tchrsfuncs);
                         objj.SaveChanges();
 
                     }
 
-                    
                 }
+               
+                
             }
 
             /////////////// Saving Admin TO Role Data
@@ -920,9 +928,9 @@ namespace Final_Project.Controllers
                             obj.classes.Add(class_obj);
                             obj.SaveChanges();
                         }
-
-                        var ClassId = objj.classes.Where(u => u.Class_Name == class_obj.Class_Name).Select(u => u.Class_ID).FirstOrDefault();   //// getting MS from database using MS_Name
-
+                        int ms = (int)Session["MS_ID"];
+                        var ClassId = objj.classes.Where(u => u.Class_Name == class_obj.Class_Name && u.MS_id == ms).Select(u => u.Class_ID).FirstOrDefault();   //// getting MS from database using MS_Name
+                        
                         TempData["Class_ID"] = ClassId;
 
                         ////////////////////////   inserting subjects in classes
@@ -971,6 +979,7 @@ namespace Final_Project.Controllers
             Session["Teacher"] = false;
             List<string> rolsMissing = (List<string>)Session["roles"];
 
+            Session["AccAlready"] = true;
             Session["TeacherAlready"] = true;
             foreach (string st in rolsMissing)
             {
@@ -979,7 +988,11 @@ namespace Final_Project.Controllers
                     Session["TeacherAlready"] = false;
 
                 }
+                if (st == "Accountant" || AccountManager == true)
+                {
+                    Session["AccAlready"] = false;
 
+                }
                 if (st == "HR" && HRmanager == true)
                 { Session["HR_Manager"] = true;
                     
@@ -1028,7 +1041,7 @@ namespace Final_Project.Controllers
             
         }
 
-
+        
         [HttpPost]
         public ActionResult editAdminFucntionalities(bool Student_P = false, bool Marks = false, bool Attendance = false, bool nofi =false, bool ManageFee= false)
         {
@@ -1048,7 +1061,7 @@ namespace Final_Project.Controllers
             if (nofi == true)
                 editor.activateNotifications(mid);
 
-            if (ManageFee == true)
+            if (ManageFee == true || (bool)Session["AccAlready"]== true)
                 editor.ManageFee(mid);
 
             return RedirectToAction("successfullyUpdated", "Creator");

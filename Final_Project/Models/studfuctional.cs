@@ -6,7 +6,7 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+using System.ComponentModel.DataAnnotations;
 namespace Final_Project.Models
 {
     using System;
@@ -27,7 +27,11 @@ namespace Final_Project.Models
         public string studF_FName { get; set; }
         public string studF_LName { get; set; }
         public Nullable<System.DateTime> studF_DOB { get; set; }
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{5})\)?[-. ]?([0-9]{7})?[-. ]?([0-9]{1})$", ErrorMessage = "Not a valid Cnic number")]
         public string studF_CNIC { get; set; }
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{4})\)?[-. ]?([0-9]{7})$", ErrorMessage = "Not a valid phone number")]
         public string studF_Phone { get; set; }
         public string studF_Address { get; set; }
         public byte[] studF_Pic { get; set; }

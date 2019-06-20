@@ -39,6 +39,10 @@
                                     {
                                         <th>Phone Number</th>
                                     }
+                                    if ((bool)studAtri.Role_Portal == true)
+                                    {
+                                        <th>Password</th>
+                                    }
                                     if ((bool)studAtri.Role_Dob == true)
                                     {
                                         <th>Date Of Birth</th>
@@ -77,6 +81,11 @@
                                 {
                             <tr>
                                 <td>@studentData.studF_RollNO</td>
+                                @{ if ((bool)studAtri.Role_Portal == true)
+                                    {
+                                <td>@studentData.studF_password</td>
+                                        }
+                                    }
                                 <td>@studentData.studF_FName  @studentData.studF_LName</td>
                                 <td>@studentData.studF_GuardName</td>
                                 @{

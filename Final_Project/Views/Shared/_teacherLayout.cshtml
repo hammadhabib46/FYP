@@ -2,7 +2,8 @@
 @{
     Layout = null;
 
-    bool Notif = (bool)TempData["Noti"];
+    bool Notif = (bool)Session["Noti"];
+   
     bool Teachr_Marksfunc = (bool)Session["Mark_ablity"];
     bool Teacher_Attendncefunc = (bool)Session["Att_ablity"];
 

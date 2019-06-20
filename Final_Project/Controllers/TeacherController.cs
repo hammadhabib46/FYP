@@ -34,10 +34,10 @@ namespace Final_Project.Controllers
             {
                 /// notification starts
                 /// 
-                TempData["Noti"] = false;
+                Session["Noti"] = false;
                 var role_Id = objj.roledatas.Where((u => u.MS_iid == MS_id && u.Role_Name == "Admin")).Select(u => u.Role_ID).FirstOrDefault();
                 var noti_role = objj.role_funcdata.Where((u => u.Role_ID == role_Id)).Select(u => u.GiveNotification).FirstOrDefault();
-                TempData["Noti"] = noti_role;
+                Session["Noti"] = noti_role;
                 /// 
 
                 ////////////////// marks and attandance/////// stars
@@ -216,15 +216,28 @@ namespace Final_Project.Controllers
                         atobj.C_IID = (int)Session["classIDT"];
                         atobj.Att_date = dateofAtt;
 
-                        if (ModelState.IsValid)
+                        DateTime subDate = (DateTime)dateofAtt;
+                        int subDateint = subDate.Year;
+                        int now = DateTime.Now.Year;
+                        if (now == subDateint)
                         {
-                            using (testdbEntiies objjw = new testdbEntiies())
+                            if (ModelState.IsValid)
                             {
-                                objjw.attendanceps.Add(atobj);
-                                objjw.SaveChanges();
-                            }
-                            ModelState.Clear();
+                                using (testdbEntiies objjw = new testdbEntiies())
+                                {
+                                    objjw.attendanceps.Add(atobj);
+                                    objjw.SaveChanges();
+                                }
+                                ModelState.Clear();
 
+                            }
+                        }
+                        else
+                        {
+                            ViewBag.yearlimit = "Attendance date must be within current academic year";
+                            return View();
+                           
+                            // acces this view bag as  ViewBag.yearlimit   in html 
                         }
                         //------------------------------------attndcne primary --> data jara ha new record ka ------------
                     }
@@ -274,6 +287,11 @@ namespace Final_Project.Controllers
 
                 //----------recieved data from 1 below
                 todblst = (List<attendance>)Session["studdataa"];
+                if (todblst.Count == 0)
+                {
+
+                    return View();
+                }
                 for (int a = 0, b = 0; a < ll.Count && b < todblst.Count; a++, b++)
                 {
                     todblst[b].A_status = ll[a].checkvalue;
@@ -290,7 +308,7 @@ namespace Final_Project.Controllers
                         for (int i = 0; i < updatetable.Count; i++)
                         {
                             updatetable[i].A_status = todblst[i].A_status;
-
+                            ViewBag.yearlimit = "Marks Updated";
                             //    intodb.attendances.Add(itemm);   //// should replace
                             intodb.SaveChanges();
 
@@ -305,7 +323,7 @@ namespace Final_Project.Controllers
 
                             intodb.attendances.Add(atc);   //// should add
                             intodb.SaveChanges();
-
+                            ViewBag.yearlimit = "Marks Updated";
                         }
 
                     }
@@ -370,6 +388,10 @@ namespace Final_Project.Controllers
                         // add Stud data got from StudData above to attendncsecondry obj. named atobjj by using list etc
 
                         Session["studMarksdataa"] = Mstlist;
+                        if (Mstlist.Count == 0)
+                        {
+                            return View();
+                        }
 
                         marksp Mrkobj = new marksp();
                         Mrkobj.Mtchr_ID = (int)Session["mrkf"];
@@ -390,7 +412,6 @@ namespace Final_Project.Controllers
                             ModelState.Clear();
 
                         }
-
                     }
                     else
                     {
@@ -433,6 +454,10 @@ namespace Final_Project.Controllers
                 List<Mobtained> llm = objMhelpr.mrksList;
 
                 mtodblst = (List<markss>)Session["studMarksdataa"];
+                if (mtodblst.Count == 0)
+                {
+                    return View();
+                }
                 for (int a = 0, b = 0; a < llm.Count && b < mtodblst.Count; a++, b++)
                 {
                     mtodblst[b].Mstd_marks = llm[a].obtainedMarks;
